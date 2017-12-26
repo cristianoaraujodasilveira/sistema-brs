@@ -1,0 +1,331 @@
+<div id="div_step_1_financial" class="tab-pane <%= 'active' if @active == 1 %>">
+	<%= f.fields_for :contract, defaults: { input_html: { class: 'form-control' } } do |contract| %>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#">Nome fantasia: </label>
+				<%=f.object.client.fantasy_name%>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#">Razão social: </label>
+				<%=f.object.client.social_name%>
+			</div>
+		</div>
+	</div>
+
+	<br>
+
+	<!-- Valores -->
+	<div class="row">
+		<div class="col-xs-2">
+			<h2 class="pre">Pré-estabelecido</h2>
+			<label for="#">Investimento mensal</label>
+		</div>
+		<div class="col-xs-2 col-xs-offset-1 marg-fix">
+			<div class="form-group">
+				<label class="label-fix">Valor da mensalidade fixa (R$)*</label>
+				<% if @current_user.is_admin? %>
+				<%= contract.input :monthly_fixed_payment, label: false, as: :string, input_html: {class: 'form-control optional money'} %>
+				<% else %>
+				<%= contract.object.monthly_fixed_payment%>
+				<% end %>
+			</div>
+		</div>
+		<div class="col-xs-2 col-xs-offset-1 marg-fix-2">
+			<label class="label-discount">Desconto</label>
+			<div class="form-group" style="margin-top: -1px;">
+				<label class="label-fix">Desconto (R$)</label>
+				<% if @current_user.is_admin? %>
+				<%= contract.input :monthly_discount, label: false, as: :string, input_html: {class: 'form-control optional money'} %>
+				<% else %>
+				<%= contract.object.monthly_discount %>
+				<% end %>
+			</div>
+		</div>
+		<div class="col-xs-3" style="margin-top: 16px;">
+			<div class="form-group">
+				<label class="label-fix">Valor da mensalidade (R$)</label>
+				<% if @current_user.is_admin? %>
+				<%= contract.input :monthly_payment, label: false, as: :string, input_html: {class: 'form-control optional money'} %>
+				<% else %>
+				<%= contract.object.monthly_payment%>
+				<% end %>
+			</div>
+			<div class="form-group">
+				<label class="label-fix">Início e término do desconto</label>
+				<% if @current_user.is_admin? %>
+				<%= contract.text_field :monthly_initial_date, label: false, class: "form-control datepicker", :value => contract.object.monthly_initial_date != nil ? I18n.l(contract.object.monthly_initial_date, format: :default) : nil%>
+				-
+				<%= contract.text_field :monthly_final_date, label: false, class: "form-control datepicker", :value => contract.object.monthly_final_date != nil ? I18n.l(contract.object.monthly_final_date, format: :default) : nil%>
+				<% else %>
+				<% if contract.object.monthly_initial_date %>
+				<%= I18n.l(contract.object.monthly_initial_date, format: :default) %>
+				<% else %>
+				[Não informado]
+				<% end %>
+				-
+				<% if contract.object.monthly_final_date %>
+				<%= I18n.l(contract.object.monthly_final_date, format: :default) %>
+				<% else %>
+				[Não informado]
+				<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="row">
+		<div class="col-xs-2" style="margin-top: 38px;">
+			<label for="#">Comissão</label>
+		</div>
+		<div class="col-xs-2 col-xs-offset-1 marg-fix">
+			<div class="form-group">
+				<label class="label-fix">Percentual de comissão (%)*</label>
+				<% if @current_user.is_admin? %>
+				<%= contract.input :comission_fixed_payment, label: false, as: :string, input_html: {class: 'form-control optional percent'} %>
+				<% else %>
+				<%= contract.object.comission_fixed_payment%>
+				<% end %>
+			</div>
+		</div>
+		<div class="col-xs-2 col-xs-offset-1 marg-fix-2">
+			<label class="label-discount">Desconto</label>
+			<div class="form-group" style="margin-top: -1px;">
+				<label class="label-fix">Desconto (%)</label>
+				<% if @current_user.is_admin? %>
+				<%= contract.input :comission_discount, label: false, as: :string, input_html: {class: 'form-control optional percent'} %>
+				<% else %>
+				<%= contract.object.comission_discount%>
+				<% end %>
+			</div>
+		</div>
+		<div class="col-xs-3" style="margin-top: 16px;">
+			<div class="form-group">
+				<label class="label-fix">Percentual de Comissão (%)</label>
+				<% if @current_user.is_admin? %>
+				<%= contract.input :comission_payment, label: false, as: :string, input_html: {class: 'form-control optional percent'} %>
+				<% else %>
+				<%= contract.object.comission_payment%>
+				<% end %>
+			</div>
+			<div class="form-group">
+				<label class="label-fix">Início e término do desconto</label>
+				<% if @current_user.is_admin? %>
+				<%= contract.text_field :comission_initial_date, label: false, class: "form-control datepicker", :value => contract.object.comission_initial_date != nil ? I18n.l(contract.object.comission_initial_date, format: :default) : nil%>
+				-
+				<%= contract.text_field :comission_final_date, label: false, class: "form-control datepicker", :value => contract.object.comission_final_date != nil ? I18n.l(contract.object.comission_final_date, format: :default) : nil%>
+				<% else %>
+				<% if contract.object.comission_initial_date %>
+				<%= I18n.l(contract.object.comission_initial_date, format: :default) %>
+				<% else %>
+				[Não informado]
+				<% end %>
+				-
+				<% if contract.object.comission_final_date %>
+				<%= I18n.l(contract.object.comission_final_date, format: :default) %>
+				<% else %>
+				[Não informado]
+				<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<label class="margin-initial">Agente comercial</label>
+		</div>
+		<div class="col-xs-2 margin-chosen">
+			<div class="form-group">
+				<label for="#">Agente comercial</label>
+				<% if @current_user.is_admin? %>
+				<%= contract.association :comercial_agent, collection: User.unblocked.comercial_agent.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+				<% else %>
+				<% if contract.object.comercial_agent %>
+				<%= contract.object.comercial_agent.name %>
+				<% else %>
+				[Não informado]
+				<% end %>
+				<% end %>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label class="label-fix">Valor fixo agente comercial (R$)</label>
+				<% if @current_user.is_admin? %>
+				<%= contract.input :fixed_value, label: false, as: :string, input_html: {class: 'form-control optional money'} %>
+				<% else %>
+				<%= contract.object.fixed_value%>
+				<% end %>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label class="label-fix">Percentual de comissão agente comercial (%)</label>
+				<% if @current_user.is_admin? %>
+				<%= contract.input :discount_value, label: false, as: :string, input_html: {class: 'form-control optional percent'} %>
+				<% else %>
+				<%= contract.object.discount_value%>
+				<% end %>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label class="label-fix">Valor da comissão agente comercial (R$)</label>
+				<% if @current_user.is_admin? %>
+				<%= contract.input :comission_value, label: false, as: :string, input_html: {class: 'form-control optional money'} %>
+				<% else %>
+				<%= contract.object.comission_value%>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<label class="margin-initial">Intermediador</label>
+		</div>
+		<div class="col-xs-2 margin-chosen">
+			<div class="form-group">
+				<label for="#">Intermediador</label>
+				<% if @current_user.is_admin? %>
+				<%= contract.association :intermediary, collection: User.unblocked.intermediary.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+				<% else %>
+				<% if contract.object.intermediary %>
+				<%= contract.object.intermediary.name %>
+				<% else %>
+				[Não informado]
+				<% end %>
+				<% end %>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label class="label-fix">Valor fixo agente comercial (R$)</label>
+				<% if @current_user.is_admin? %>
+				<%= contract.input :fixed_value_intermediary, label: false, as: :string, input_html: {class: 'form-control optional money'} %>
+				<% else %>
+				<%= contract.object.fixed_value%>
+				<% end %>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label class="label-fix">Percentual de comissão agente comercial (%)</label>
+				<% if @current_user.is_admin? %>
+				<%= contract.input :discount_value_intermediary, label: false, as: :string, input_html: {class: 'form-control optional percent'} %>
+				<% else %>
+				<%= contract.object.discount_value%>
+				<% end %>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label class="label-fix">Valor da comissão agente comercial (R$)</label>
+				<% if @current_user.is_admin? %>
+				<%= contract.input :comission_value_intermediary, label: false, as: :string, input_html: {class: 'form-control optional money'} %>
+				<% else %>
+				<%= contract.object.comission_value%>
+				<% end %>
+			</div>
+		</div>
+
+		<div class="col-xs-12" style="margin-top: 33px;">
+			<div class="row">
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#">Valor da indicação</label>
+						<%= f.input :indication_value, label: false, as: :string, input_html: {class: 'form-control optional money'} %>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<br><br>
+
+		<div class="content step1-obs">
+			<div class="col-xs-12">
+				<div class="title slide_historic_observations show_content">
+					<span>Visualizar Histórico de observações (<%=(f.object.observations.select{|item| item[:observation_type] == 1}.length-1)%>) <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Histórico de Observações -->
+		<%= f.fields_for :observations, f.object.observations.select{|item| item[:observation_type] == 1}, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+		<% if observation.object.persisted? %>
+		<br>
+		<% if observation.object.id == f.object.get_id_last_observation %>
+		<div>
+			<label for="#">Última resposta:</label>
+			<br>
+			<% else %>
+			<div class="row_with_observation">
+				<% end %>
+				<div class="chat-div">
+					<span><b><%= observation.object.user.name %></b></span>
+					<span>disse em</span>
+					<span><%= I18n.l(observation.object.created_at.to_datetime, format: :full) %></span>
+					<% if observation.object.user_id == @current_user.id %>
+					<p><%= observation.input :observation, label: false %></p>
+					<%= observation.input :observation_type, :as => :hidden, input_html: { value: 1} %>
+					<div class="col-xs-2 delete-obs">
+						<a title="Excluir" data-confirm="Tem certeza que deseja excluir essa observação?" rel="nofollow" data-method="delete" href="<%= delete_observation_financial_path(observation.object) %>">Excluir
+						</a>
+					</div>
+					<% else %>
+					<p><%= observation.object.observation %></p>
+					<% end %>
+				</div>
+				<hr>
+			</div>
+			<% end %>
+			<% end %>
+			<!-- Fim histórico de observações -->
+
+			<br>
+
+			<!-- Nova observação -->
+			<%= f.fields_for :observations, f.object.observations.select{|item| item[:observation_type] == 1 && item[:id] == nil }, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+			<% if !observation.object.persisted?%>
+			<div>
+				<div class="col-xs-12">
+					<label for="#"><%= Observation.human_attribute_name(:new_answer)%>:</label>
+					<%= observation.association :user, :as => :hidden, input_html: { value: @current_user.id} %>
+					<%= observation.input :observation, label: false %>
+					<%= observation.input :observation_type, :as => :hidden, input_html: { value: 1} %>
+				</div>
+			</div>
+			<% end %>
+			<% end %>
+			<!-- Fim nova observação -->
+
+			<div class="col-xs-12" style="margin-top: 19px;">
+				<% if f.object.contract %>
+				<% f.object.contract.attachments.each do |attach| %>
+				<div class="form-group img-div">
+					<%= link_to attach.attachment_file_name, attach.attachment.url(:original, false), target: "_blank" %>
+				</div>
+				<% end %>
+				<% end %>
+			</div>
+
+			<br>
+			
+			<div class="col-xs-12">
+				<button type="submit" name="save_1" class="save-btn">Salvar</button>
+			</div>
+
+		</div>
+
+		<% end %>
+	</div>

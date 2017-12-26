@@ -1,0 +1,106 @@
+#portals {
+
+	.margin-head {
+		margin-bottom: 43px;
+	}
+
+	.datagrid-actions {
+		position: relative;
+    	top: 27px;
+	}
+
+	#portals_grid_name, #portals_grid_site {
+		display: block;
+	    width: 100%;
+	    height: 30px;
+	    box-shadow: none !important;
+	    padding: 6px 12px;
+	    font-size: 14px;
+	    line-height: 1.42857143;
+	    color: #555555;
+	    background-color: #fff;
+	    background-image: none;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	    -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	}
+}
+
+#portals-new {
+
+	.margin-form {
+		margin-top: 91px;
+		margin-bottom: 34px;
+	}
+
+	.portal_responsibles_phones_phone, .portal_responsibles_emails_email, .portal_responsibles_skypes_skype,
+	.official_diary_responsibles_phones_phone, .official_diary_responsibles_emails_email, .official_diary_responsibles_skypes_skype,
+	.bid_newspaper_responsibles_phones_phone, .bid_newspaper_responsibles_emails_email, .bid_newspaper_responsibles_skypes_skype {
+		display: inline;
+	}
+
+	.add-new {
+
+    	input {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		    font-weight: 700;
+		    font-size: 13px;
+		    color: #4595D1;
+		    text-decoration: underline;
+		    background-color: transparent;
+		    border: 0;
+		    padding: 0;
+		    margin: 0;
+		    &:focus {outline: 0;}    		
+    	}
+	}
+
+	.content {
+
+		margin-bottom: 27px;
+
+		.col-xs-12 {
+			margin-top: 20px;
+		}
+		
+		span {
+		    font-size: 14px;
+		    font-weight: 600;
+		    color: #3E3E3E;
+		}
+	}
+
+	.delete_email_dynamic, .delete_phone_dynamic, .delete_skype_dynamic {
+	    position: absolute;
+	    margin-left: 13px;
+	    margin-top: 15px;
+	    cursor: pointer;
+	}
+
+	.new-margin {
+		margin-top: 10px;
+	}
+
+	.portal_observations_observation, .break-line, .bid_newspaper_observations_observation textarea {
+		margin-bottom: 16px;
+	}
+	
+	/* Edit area */
+	.edit_portal, .edit_official_diary, .edit_bid_newspaper {
+
+		.edit-fix {
+		    position: absolute;
+    		right: 2px;
+    		margin-top: -27px;
+		    cursor: pointer;			
+		}
+
+		.edit-position {
+			margin-top: 10px;
+		}
+	}
+}

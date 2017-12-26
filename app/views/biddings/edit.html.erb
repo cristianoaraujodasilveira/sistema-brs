@@ -1,0 +1,15 @@
+<div class="container" id="bidding_new">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-form final-margin-biddings">
+			<h1><a href="<%= biddings_path %>">Licitação</a> > <a href="<%= edit_bidding_path @bidding %>">Alterar</a> > <%= @bidding.id %> - <%= @bidding.get_fantasy_name %></h1>
+		</div>
+	</div>
+	
+	<!-- Form -->
+	<div class="row">
+		<%= render 'form' %>
+	</div>
+
+</div>

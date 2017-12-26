@@ -1,0 +1,7 @@
+<div class="edit-delete-">
+	<% if object.calendar_event_id == nil %>
+	<a title="Editar" href="<%= edit_calendar_event_path(object) %>"><%=object.name%></a>
+	<% else %>
+	<a title="Editar" href="<%= edit_calendar_event_path(object.calendar_event_id) %>"><%=object.name%></a>
+	<% end %>
+</div>

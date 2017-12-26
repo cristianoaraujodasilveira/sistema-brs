@@ -1,0 +1,269 @@
+<div id="div_step_2_financial" class="tab-pane <%= 'active' if @active == 4 %>">
+	<%= f.fields_for :contract, defaults: { input_html: { class: 'form-control' } } do |contract| %>
+	
+	<h3>Recebimentos</h3>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Mensalidade</label>
+				<% if @current_user.is_admin? %>
+				<%= contract.input :monthly_payment, label: false, as: :string, input_html: {class: 'form-control optional money'} %>
+				<% else %>
+				<%= contract.object.monthly_payment%>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Comissão BRS</label>
+				<span id="comission_brs_by_period"><%= f.object.get_comission_brs_by_period%></span>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Período das comissões (De)</label>
+				<input type="text" class="form-control datepicker">
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Período das comissões (Até)</label>
+				<input type="text" class="form-control datepicker">
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Terceiros</label>
+				<span id="thirds_by_period"><%= f.object.get_third_by_period%></span>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Período (De)</label>
+				<input type="text" class="form-control datepicker">
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Período (Até)</label>
+				<input type="text" class="form-control datepicker">
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Valor residual</label>
+				<span id="residual_by_period"><%= f.object.get_residual_by_period%></span>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Período (De)</label>
+				<input type="text" class="form-control datepicker">
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Período (Até)</label>
+				<input type="text" class="form-control datepicker">
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Multa contratual</label>
+				<%= f.input :contractual_mulct, label: false, input_html: {class: 'form-control optional money'} %>
+			</div>
+		</div>
+		<div class="col-xs-9">
+			<div class="form-group">
+				<label for="#">Motivo</label>
+				<%= f.input :reason_contractual_mulct, label: false %>
+			</div>			
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Total do fechamento</label>
+				<span id="total_by_period"><%= f.object.get_total_by_period%></span>
+			</div>
+		</div>		
+	</div>
+
+	<h2 class="boletos-title">Boletos</h2>
+
+	<%= f.fields_for :financial_tickets, f.object.financial_tickets.select{|item| item[:id] == nil}, defaults: { input_html: { class: 'form-control' } } do |cs| %>
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label><br></label>
+				<%= cs.input :ticket, as: :file, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Data de emissão</label>
+				<%= cs.text_field :emission_date, label: false, class: "form-control datepicker", :value => cs.object.emission_date != nil ? I18n.l(cs.object.emission_date, format: :default) : nil%>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Data de vencimento</label>
+				<%= cs.text_field :due_date, label: false, class: "form-control datepicker", :value => cs.object.due_date != nil ? I18n.l(cs.object.due_date, format: :default) : nil%>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Data de pagamento</label>
+				<%= cs.text_field :payment_date, label: false, class: "form-control datepicker", :value => cs.object.payment_date != nil ? I18n.l(cs.object.payment_date, format: :default) : nil%>
+			</div>
+		</div>
+		<% if f.object.persisted? %>
+		<div class="col-xs-2 view-div" style="margin-top: 26px;">
+			<a class="popup-modal" href="#modal_show_tickets_<%=f.object.id%>">Visualizar todos</a>
+			<%= render 'financials/modal/show_tickets', object: f.object %>
+		</div>
+		<% end %>
+	</div>
+	<% end %>
+	<!-- Fim comprovante de pagamento -->
+
+	<hr class="line-margin">
+
+	<h3>Pagamentos</h3>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#">Agente comercial</label>
+				<span id="commercial_agent_name"><%= f.object.get_commercial_agent_name%></span>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Comissão</label>
+				<span id="commercial_agent_comission"><%= f.object.get_commercial_agent_comission%></span>
+			</div>				
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Período de datas (De)</label>
+				<input type="text" class="form-control datepicker">
+			</div>				
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Período de datas (Até)</label>
+				<input type="text" class="form-control datepicker">
+			</div>				
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#">Intermediador</label>
+				<span id="intermediary_comission"><%= f.object.get_intermediary_name%></span>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Comissão</label>
+				<span id="intermediary_comission"><%= f.object.get_intermediary_comission%></span>
+			</div>				
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Período de datas (De)</label>
+				<input type="text" class="form-control datepicker">
+			</div>				
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Período de datas (Até)</label>
+				<input type="text" class="form-control datepicker">
+			</div>				
+		</div>
+	</div>
+
+	<div class="content step4-obs">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="title slide_historic_observations show_content">
+					<span>Visualizar Histórico de observações (<%=(f.object.observations.select{|item| item[:observation_type] == 3}.length-1)%>) <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Histórico de Observações -->
+	<%= f.fields_for :observations, f.object.observations.select{|item| item[:observation_type] == 3}, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+	<% if observation.object.persisted? %>
+	<% if observation.object.id == f.object.get_id_last_observation %>
+	<div>
+		<label for="#" style="margin-bottom: 9px;">Última resposta:</label>
+		<% else %>
+		<div class="row_with_observation">
+			<% end %>
+			<div class="chat-div">
+				<span><b><%= observation.object.user.name %></b></span>
+				<span>disse em</span>
+				<span><%= I18n.l(observation.object.created_at.to_datetime, format: :full) %></span>
+				<% if observation.object.user_id == @current_user.id %>
+				<div class="row">
+					<div class="col-xs-11">
+						<%= observation.input :observation, label: false %>
+						<%= observation.input :observation_type, :as => :hidden, input_html: { value: 3} %>
+					</div>
+					<div class="col-xs-1 delete-obs">
+						<a title="Excluir" data-confirm="Tem certeza que deseja excluir essa observação?" rel="nofollow" data-method="delete" href="<%= delete_observation_financial_path(observation.object) %>">Excluir
+						</a>
+					</div>
+				</div>
+				<% else %>
+				<p><%= observation.object.observation %></p>
+				<% end %>
+			</div>
+			<hr class="hr-obs">
+		</div>
+		<% end %>
+		<% end %>
+		<!-- Fim histórico de observações -->
+
+		<!-- Nova observação -->
+		<%= f.fields_for :observations, f.object.observations.select{|item| item[:observation_type] == 3 && item[:id] == nil }, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+		<% if !observation.object.persisted?%>
+		<div class="row" style="margin-bottom: 17px;">
+			<div class="col-xs-12">
+				<label for="#"><%= Observation.human_attribute_name(:new_observation)%>:</label>
+				<%= observation.association :user, :as => :hidden, input_html: { value: @current_user.id} %>
+				<%= observation.input :observation, label: false %>
+				<%= observation.input :observation_type, :as => :hidden, input_html: { value: 3} %>
+			</div>
+		</div>
+		<% end %>
+		<% end %>
+		<!-- Fim nova observação -->
+		<% end %>
+		
+		<div class="row">
+			<div class="col-xs-12">
+				<button type="submit" name="save_4" class="save-btn">Salvar</button>
+			</div>
+		</div>
+	</div>
+
+

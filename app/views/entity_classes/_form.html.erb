@@ -1,0 +1,206 @@
+<%= simple_form_for @entity_class, defaults: { input_html: {class: 'form-control'}} do |f| %>
+
+<div>
+	<!-- Form -->
+	<div class="row">
+
+		<div class="col-xs-12">
+
+			<div class="row">
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label>Entidade*</label>
+						<%= f.input :name, label: false %>
+					</div>
+				</div>
+				<div class="col-xs-9">
+					<div class="form-group">
+						<label>Descritivo</label>
+						<%= f.input :description, label: false %>
+					</div>
+				</div>
+			</div>
+
+			<h2>Endereço</h2>
+
+			<div class="row">
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label>CEP*</label>
+						<%= f.input :zipcode, label: false, input_html: { class: 'string optional form-control cep' } %>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label>Logradouro*</label>
+						<%= f.input :address, label: false %>
+					</div>
+				</div>
+				<div class="col-xs-1">
+					<div class="form-group">
+						<label>Numero*</label>
+						<%= f.input :number, label: false %>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label>Complemento*</label>
+						<%= f.input :complement, label: false %>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label>Bairro*</label>
+						<%= f.input :district, label: false %>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label>Estado*</label>
+						<%= f.association :state, collection: State.all.order(:name), label_method: :acronym, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+					</div>					
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label>Cidade*</label>
+						<%= f.association :city, collection: City.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+					</div>					
+				</div>
+			</div>
+
+			<h2 style="margin: 24px 0px 39px 0px;">Responsável</h2>
+			<% entity_class_responsibles_counter = 0 %>
+
+			<%= f.fields_for :entity_class_responsibles, defaults: { input_html: { class: 'form-control' } } do |cr| %>
+			<div class="row">
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#">Nome completo do responsável*</label>
+						<%= cr.input :name, label: false %>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#">Cargo / Funçāo</label>
+						<%= cr.input :office, label: false %>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#">Departamento</label>
+						<%= cr.input :department, label: false %>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#">WhatsApp</label>
+						<%= cr.input :whatsapp, label: false, input_html: { class: 'string optional form-control tel' } %>
+					</div>
+				</div>		
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#">Skype</label>
+						<%= cr.input :skype, label: false %>
+					</div>
+				</div>
+				<div class="col-xs-2 tel-div">
+					<div class="form-group">
+						<label class="label-fix">Telefone</label>
+						<% phones_counter_entity_class_responsibles = 0 %>
+						<% first_phone = false %>
+						<div id="group_phones_entity_class_responsibles_<%=entity_class_responsibles_counter%>" class="inline">
+							<%= cr.fields_for :phone_users, defaults: { input_html: { class: 'form-control width-input' } } do |phone| %>
+							<%= phone.input :phone, label: false, input_html: {class: 'string form-control custom-tel width-input'} %>
+							<% if phone.object != nil && phone.object.persisted? %>
+							<td class="text text-center">
+								<span data-toggle="tooltip" title="Remover">
+									<%= phone.check_box :_destroy %>
+									<% phone.label :_destroy, "Remover" %>
+								</span>
+							</td>
+							<% else %>
+							<% if !first_phone %>
+							<% first_phone = true %>
+							<% else %>
+							<a data-toggle="tooltip" title="Remover" id="delete_phone_dynamic_<%=entity_class_responsibles_counter%>_<%=phones_counter_entity_class_responsibles%>" class="delete_phone_dynamic_specific">x</a>
+							<% end %>
+							<% end %>
+							<% phones_counter_entity_class_responsibles += 1 %>
+							<% end %>
+						</div>
+						<a class="add-anchor add_new_phone_dynamic_entity_class_responsible" id="add_new_phone_dynamic_<%=entity_class_responsibles_counter%>">
+							<div class="add-input">
+								+
+							</div>
+						</a>
+						<%= hidden_field_tag "phones_counter_entity_class_responsibles_#{entity_class_responsibles_counter}", phones_counter_entity_class_responsibles %>
+					</div>
+				</div>		
+				<div class="col-xs-3 email-div">
+					<div class="form-group">
+						<label class="label-fix">Email</label>
+						<% emails_counter_entity_class_responsibles = 0 %>
+						<% first_email = false %>
+						<div id="group_emails_entity_class_responsibles_<%=entity_class_responsibles_counter%>" class="inline">
+							<%= cr.fields_for :email_users, defaults: { input_html: { class: 'form-control width-input-2' } } do |email| %>
+							<%= email.input :email, label: false %>
+							<% if email.object != nil && email.object.persisted? %>
+							<td class="text text-center">
+								<span data-toggle="tooltip" title="Remover">
+									<%= email.check_box :_destroy %>
+									<% email.label :_destroy, "Remover" %>
+								</span>
+							</td>
+							<% else %>
+							<% if !first_email %>
+							<% first_email = true %>
+							<% else %>
+							<a data-toggle="tooltip" title="Remover" id="delete_email_dynamic_<%=entity_class_responsibles_counter%>_<%=emails_counter_entity_class_responsibles%>" class="delete_email_dynamic_specific">x</a>
+							<% end %>
+							<% end %>
+							<% emails_counter_entity_class_responsibles += 1 %>
+							<% end %>
+						</div>
+						<a class="add-anchor add_new_email_dynamic_entity_class_responsible" id="add_new_email_dynamic_<%=entity_class_responsibles_counter%>">
+							<div class="add-input">
+								+
+							</div>
+						</a>
+						<%= hidden_field_tag "emails_counter_entity_class_responsibles_#{entity_class_responsibles_counter}", emails_counter_entity_class_responsibles %>
+					</div>
+				</div>	
+
+				<div class="col-xs-12">
+					<div class="remove-div-responsible_entity_class_responsible">
+						<%= cr.check_box :_destroy %>
+						<%= cr.label :_destroy, 'Remover' %>
+					</div>
+				</div>
+
+			</div>
+			<% entity_class_responsibles_counter += 1 %>
+			<br><br>
+			<% end %>
+
+			<div class="add-resp">
+				<%= f.submit 'Adicionar responsável', :name => "add_responsible" %>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<button class="save-btn" type="submit">Salvar</button>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+<% end %>

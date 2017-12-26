@@ -1,0 +1,28 @@
+pt-BR:
+ activerecord:
+  attributes:
+   library:
+    library_category: Categoria
+    library_category_id: Categoria
+    title: Título
+    author_name: Nome do autor
+    edition: Edição
+    year_publication: Ano de publicação
+    publishing_company: Editora
+    isbn: ISBN
+    link: Link
+    sanctioned_date: Data sancionada
+    court: Tribunal
+    state: Estado
+    state_id: Estado
+    city: Município
+    city_id: Município
+    document_name: Nome do documento
+    process_number: Número do processo
+    process_date: Data do processo
+    legislative_reference: Referência legislativa
+    description: Descrição
+    words_keys: "Palavra chave"
+    created_at: Data de inclusão
+    files: Arquivos
+    actions: Ações

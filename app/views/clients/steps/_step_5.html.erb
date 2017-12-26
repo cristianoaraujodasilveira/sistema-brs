@@ -1,0 +1,105 @@
+<!-- Dados bancários -->
+<div class="tab-pane <%= 'active' if @active == 5 %>">
+
+	<% first_bank = false %>
+	<%= f.fields_for :client_banks, defaults: { input_html: { class: 'form-control' } } do |cb| %>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Titular da conta*</label>
+				<%= cb.input :owner_account, label: false %>
+			</div>
+		</div>			
+
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Nome do banco*</label>
+				<%= cb.input :bank_name, label: false %>
+			</div>
+		</div>			
+
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Código do banco*</label>
+				<%= cb.input :bank_code, label: false %>
+			</div>
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Número da agência*</label>
+				<%= cb.input :agency_number, label: false %>
+			</div>
+		</div>
+
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Número da conta*</label>
+				<%= cb.input :account_number, label: false %>
+			</div>
+		</div>				
+
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Nome da agência</label>
+				<%= cb.input :agency_name, label: false %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Tipo de conta*</label>
+				<%= cb.association :account_bank_type, collection: AccountBankType.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+			</div>					
+		</div>
+
+		<div class="col-xs-1">
+			<div class="form-group">
+				<label>Operação</label>
+				<%= cb.input :operation, label: false %>
+			</div>
+		</div>	
+	</div>
+
+	<div class="row position-fix">
+		<% if !first_bank %>
+		<% first_bank = true %>
+		<% else %>
+		<br><br>
+		<div class="col-xs-12">
+			<div class="remove-div-responsible_client_contact">
+				<%= cb.check_box :_destroy %>
+				<%= cb.label :_destroy, 'Remover' %>
+			</div>
+		</div>
+		<% end %>
+	</div>
+	<hr class="client_bank">
+	<% end %>
+	<br>
+	<div class="row position-fix">
+		<div class="col-xs-12">
+			<div class="add-filial">
+				<%= f.submit 'Adicionar nova conta', :name => "add_account_bank" %>
+			</div>
+		</div>
+	</div>
+
+	<!-- Salvar + Remover dados -->
+	<div class="row position-fix-btn">
+		<div class="col-xs-12">
+			<%= f.submit 'Salvar', :name => "save_5", class: "save-btn" %>
+			<% if !f.object.persisted? %>
+			<div class="remove-data">
+				<%= f.submit 'Remover marcados', :name => "remove_data_5" %>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+<!-- end -->

@@ -1,0 +1,31 @@
+<div class="container" id="lawyers">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Cadastros > Terceiros > <a href="<%= lawyers_path %>">Advogados</a></h1>
+			<a class="pull-right new-btn" href="<%= new_lawyer_path %>">Novo</a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_form_for @grid, :method => :get, :url => lawyers_path %>
+		</div>
+	</div>
+
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_table @grid, html: {class: 'table datagrid'} %>
+		</div>
+	</div>
+	
+	<!-- Pagination -->
+	<div class="row">
+		<div class="col-xs-12 center">
+			<%= paginate(@grid.assets) %>
+		</div>
+	</div>
+
+</div>

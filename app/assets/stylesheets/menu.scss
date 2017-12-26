@@ -1,0 +1,138 @@
+#menu {
+
+    background: #3E3E3E;
+    height: 81px;
+    margin-bottom: 10px;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    top: 0;
+
+    .icon-fix {
+    	margin-right: 11px !important;
+    }
+
+    .notification-circle {
+
+	    border-radius: 50%;
+	    width: 30px;
+	    height: 20px;
+	    background: #FF0000;
+	    position: absolute;
+		left: 7px;
+    	top: -10px;
+
+    	span {
+			font-size: 12px;
+		    font-weight: 400;
+		    position: relative;
+    		top: -4px;
+    		right: 0px;
+    	}
+    }
+
+    .chat-icon {
+    	margin-left: 25px;
+    }
+
+    .chat-icon, .noti-icon {
+
+		&:hover {text-decoration: none;}
+		&:focus {text-decoration: none; outline: 0;}
+
+    	img {
+			display: inline;
+			margin-right: 8px;
+			width: 14px;
+		}
+    }
+
+    .margin-fix {
+    	margin-right: 0px !important;
+    }
+
+    .log-user {
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-style: normal;
+		font-variant: normal;
+		font-weight: 400;
+		line-height: 26.4px;
+		font-size: 13px;   
+		color: #FFFFFF;
+	    display: inline;
+	    float: right;
+	    margin-right: 44px;
+    }
+
+	.logo {
+		float: left;
+		margin-top: 12px;
+	}
+
+	.menu-links {
+
+    	margin-top: 26px;
+
+    	.active {
+    		font-weight: 900;
+    		transition: all 0.4s ease;
+    	}
+
+    	.menu-item, .dropdown-toggle {
+    		margin-right: 18px;
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-style: normal;
+			font-variant: normal;
+			font-weight: 400;
+			line-height: 26.4px;
+			font-size: 14px;
+			color: #FFFFFF;
+    		&:hover {text-decoration: none;}
+    		&:focus {text-decoration: none;}
+    	}
+
+    	.menu-item:first-child {
+    		margin-left: 51px;
+    	}
+
+	    .dropdown-menu {
+	    	background: #3E3E3E;
+	    }
+
+		.dropdown-menu li {
+	    	padding: 6px 0;
+		}
+
+		.submenu-style {
+		    left: 158px;
+		    top: 42px;
+		    border-top-left-radius: 0;
+		    border-left: 0;
+		    box-shadow: none;
+		}
+
+		.border-fix {
+    		border-bottom-right-radius: 0;
+		}
+
+		.dropdown-menu > li > a {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-style: normal;
+			font-variant: normal;
+			font-weight: 400;
+			line-height: 26.4px;
+			font-size: 13px;
+			color: #FFFFFF;
+			&:hover {background-color: transparent; color: white;}
+			&:focus {background-color: transparent; color: white;}
+		}
+
+    	.icon {
+			color: #646464;
+			font-size: 16px;
+			float: right;
+			margin-top: -23px;
+			margin-right: 0px;
+    	}
+	}
+}

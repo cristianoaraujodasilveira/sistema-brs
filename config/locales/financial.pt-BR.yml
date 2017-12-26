@@ -1,0 +1,7 @@
+pt-BR:
+  activerecord:
+    attributes:
+      financial:
+        actions: "Ações"
+        indication_value: "Valor indicação"
+        indication_pessoal: "Indicação pessoal"

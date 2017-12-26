@@ -1,0 +1,5 @@
+<% if type == 1 %>
+<a title="Editar" href="<%= edit_entity_class_path(object) %>"><%=object.name%></a>
+<% else %>
+<a title="Editar" href="<%= edit_entity_class_path(object) %>"><%=object.description%></a>
+<% end %>

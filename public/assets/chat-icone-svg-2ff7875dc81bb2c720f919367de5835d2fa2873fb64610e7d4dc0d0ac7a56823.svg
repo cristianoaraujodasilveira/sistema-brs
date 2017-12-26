@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>chat-color</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-876.000000, -26.000000)" fill="#9BA9BF">
+            <path d="M882,26 C878.686286,26 876,28.4872963 876,31.5555556 C876,33.3038889 876.872497,34.8633704 878.236025,35.8817407 L878.236025,38 L880.278969,36.8787778 C880.824186,37.0296667 881.401789,37.1111111 882,37.1111111 C885.313714,37.1111111 888,34.6238148 888,31.5555556 C888,28.4872963 885.313714,26 882,26 L882,26 Z" id="chat"></path>
+        </g>
+    </g>
+</svg>

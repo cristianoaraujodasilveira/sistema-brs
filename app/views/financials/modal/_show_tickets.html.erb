@@ -1,0 +1,41 @@
+<div id="modal_show_tickets_<%=object.id%>" class="mfp-hide white-popup-block parts-modal">
+	<h1>Boletos</h1>
+	<% object.financial_tickets.select{|item| item[:id] != nil}.each do |attach| %>
+	<% if attach.persisted? %>
+	<div class="row" id="div_with_attachment_financial_<%=attach.id%>">
+		<div class="col-xs-10">
+			<div class="form-group">
+				<%= link_to attach.ticket_file_name, attach.ticket.url(:original, false), target: "_blank" %>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<a class="delete_attachment_financial cursor_pointer" id="#delete_attachment_financial_<%=attach.id%>">Excluir</a>
+			</div>
+		</div>
+	</div>
+	<div class="row" id="div_with_attachment_financial_<%=attach.id%>">
+		<div class="col-xs-4">
+			<div class="form-group">
+				<label>Data de emissão</label>
+				<%= attach.emission_date != nil ? I18n.l(attach.emission_date, format: :default) : "Não selecionado" %>
+			</div>
+		</div>
+		<div class="col-xs-4">
+			<div class="form-group">
+				<label>Data de vencimento</label>
+				<%= attach.due_date != nil ? I18n.l(attach.due_date, format: :default) : "Não selecionado" %>
+			</div>
+		</div>
+		<div class="col-xs-4">
+			<div class="form-group">
+				<label>Data de pagamento</label>
+				<%= attach.payment_date != nil ? I18n.l(attach.payment_date, format: :default) : "Não selecionado" %>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<% end %>
+	<% end %>
+	<p class="close-modal"><a class="popup-modal-dismiss" href="#">x</a></p>
+</div>

@@ -1,0 +1,106 @@
+<div class="container" id="libraries">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Jurídico > Biblioteca</h1>
+			<a class="pull-right new-btn" href="<%= new_library_path %>">Novo</a>
+		</div>
+	</div>
+
+	<!-- Filter -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#">Nome</label>
+						<select class="form-control chosen">
+							<option>Selecione</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#">Palavra-chave</label>
+						<input type="text" class="form-control">
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#">Categoria</label>
+						<select class="form-control chosen">
+							<option>Selecione</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<button class="filter-btn" type="submit">Filtrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12 table-actions">
+			<table class="table datagrid">
+				<thead>
+					<tr>
+						<th>
+							Título
+						</th>
+						<th>
+							Palavras-chave
+						</th>
+						<th>
+							Categoria
+						</th>
+						<th>
+							Data de inclusão
+						</th>
+						<th>
+							Ações
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							Lorem Ipsum
+						</td>
+						<td>
+							Lorem Ipsum
+						</td>
+						<td>
+							Lorem Ipsum
+						</td>
+						<td>
+							28/03/2016
+						</td>
+						<td class="actions">
+							<div class="edit-delete-">
+								<a href="#">Alterar</a>
+								<a href="#">Excluir</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<!-- Pagination -->
+	<div class="row">
+		<div class="col-xs-12 center">
+			<ul class="pagination">
+			  <li><a href="#">1</a></li>
+			  <li class="active"><a href="#">2</a></li>
+			  <li><a href="#">3</a></li>
+			  <li><a href="#">4</a></li>
+			  <li><a href="#">5</a></li>
+			</ul>
+		</div>
+	</div>
+
+</div>

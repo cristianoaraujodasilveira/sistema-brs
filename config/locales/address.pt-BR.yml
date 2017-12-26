@@ -1,0 +1,20 @@
+pt-BR:
+  activerecord:
+    models:
+      address:
+        one: Endereço
+        other: Endereços
+    attributes:
+      address:
+        zipcode: "CEP"
+        address: "Logradouro"
+        district: "Bairro"
+        number: "Número"
+        complement: "Complemento"
+        state_id: "Estado"
+        state: "Estado"
+        city_id: "Cidade"
+        city: "Cidade"
+  addresses:
+    new: Novo Endereço
+    edit: Alterar Endereço

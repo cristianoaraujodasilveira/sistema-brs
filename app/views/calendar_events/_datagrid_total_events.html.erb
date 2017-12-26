@@ -1,0 +1,52 @@
+<table class="table datatable-active" id="grid_total_events">
+	<thead>
+		<th>
+			Tipo
+		</th>
+		<th>
+			Título
+		</th>
+		<th>
+			Usuário
+		</th>
+		<th>
+			Data
+		</th>
+	</thead>
+	<tbody id="body_total_events_grid">
+		<% @total_values.each do |event| %>
+		<tr class="line_with_prospect">
+			<td>
+				<% if event.class == CalendarEvent %>
+				Evento
+				<% else %>
+				Visita
+				<% end %>
+			</td>
+			<td>
+				<% if event.class == CalendarEvent %>
+				<% if event.calendar_event_id == nil %>
+				<a title="Editar" href="<%= edit_calendar_event_path(event) %>"><%= event.name %></a>
+				<% else %>
+				<a title="Editar" href="<%= edit_calendar_event_path(event.calendar_event_id) %>"><%= event.name %></a>
+				<% end %>
+				<% else %>
+				<a title="Editar" href="<%= edit_visits_report_path(event) %>"><%= event.proposal_text %></a>
+				<% end %>
+			</td>
+
+			<td>
+				<%= event.user.name %>
+			</td>
+
+			<td>
+				<% if event.class == CalendarEvent %>
+				<%= I18n.l event.initial_date.to_datetime, format: :default %>
+				<% else %>
+				<%= I18n.l event.date_and_time.to_datetime, format: :full %>
+				<% end %>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

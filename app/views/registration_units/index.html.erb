@@ -1,0 +1,47 @@
+<div class="container" id="organizations">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Cadastros > <a href="<%= registration_units_path %>">Documents CRCs - Unidades de cadastramento</a></h1>
+			<a class="pull-right new-btn" href="<%= new_registration_unit_path %>">Novo</a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_form_for @grid_registration_units, :method => :get, :url => registration_units_path %>
+		</div>
+	</div>
+	
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_table @grid_registration_units, html: {class: 'table datagrid'} %>
+		</div>
+	</div>
+	
+	<!-- Pagination -->
+	<div class="row">
+		<div class="col-xs-12 center">
+			<%= paginate(@grid_registration_units.assets) %>
+		</div>
+	</div>
+	
+	<% if @show_grid_responsible %>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="sector-name">
+				<span>Responsáveis da unidade <%= @registration_unit.name %></span>
+			</div>
+			<div>
+				<%= datagrid_table @grid_responsible_registration_units, html: {class: 'table datagrid'} %>
+			</div>
+			<div class="center">
+				<%= paginate(@grid_responsible_registration_units.assets) %>
+			</div>
+		</div>
+	</div>
+	<% end %>
+
+</div>

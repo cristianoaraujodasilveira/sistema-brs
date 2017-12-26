@@ -1,0 +1,402 @@
+.cursor_pointer {
+    cursor: pointer;
+}
+
+.circle-green {
+	display: inline-block;
+    border-radius: 50%;
+    width: 13px;
+    height: 13px;
+    background: #3C763D;
+}
+
+.circle-red {
+	display: inline-block;
+    border-radius: 50%;
+    width: 13px;
+    height: 13px;
+    background: #A94442;	
+}
+
+.circle-yellow {
+	display: inline-block;
+    border-radius: 50%;
+    width: 13px;
+    height: 13px;
+    background: #F1DF34;		
+}
+
+.delete_attachment_financial {
+	text-decoration: none !important;
+    font-weight: 400 !important;
+    color: #4595D1 !important;
+    font-style: unset !important;
+}
+
+#finances {
+	
+	.margin-head {
+	    margin-bottom: 50px;
+	}
+
+    .bidding_proposals_grid {
+
+		.date_filter, .separator.date {
+		    display: inline !important;
+	    	width: 92px !important;
+	    	font-size: 12px !important;
+		}
+    }
+
+	.datagrid-filter .date_filter {
+		display: block;
+	    width: 100%;
+	    height: 30px;
+	    box-shadow: none !important;
+	    padding: 6px 12px;
+	    font-size: 14px;
+	    line-height: 1.42857143;
+	    color: #555555;
+	    background-color: #fff;
+	    background-image: none;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	    -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	}
+
+	.datagrid-actions {
+	    position: relative;
+	    top: 27px;
+	}
+
+	.circle-green {
+		display: inline-block;
+	    border-radius: 50%;
+	    width: 13px;
+	    height: 13px;
+	    background: #3C763D;
+	}
+
+	.circle-red {
+		display: inline-block;
+	    border-radius: 50%;
+	    width: 13px;
+	    height: 13px;
+	    background: #A94442;	
+	}
+
+	.circle-yellow {
+		display: inline-block;
+	    border-radius: 50%;
+	    width: 13px;
+	    height: 13px;
+	    background: #F1DF34;		
+	}
+
+	.width-fix {
+		
+		label {
+			display: block;
+			margin-bottom: 7px;
+		}
+
+		input {
+			width: 124px;
+			display: inline;
+		}
+	}
+}
+
+#finances_new {
+
+	.margin-head {
+	    margin-top: 90px;
+	    margin-bottom: 29px;
+	}
+
+	.tab-pane.active {
+		display: block;
+	}
+
+	.tab-pane {
+		display: none;
+	}
+
+	h2 {
+	    margin-top: 16px;
+	    margin-bottom: 28px;
+	}
+
+	.save-btn {
+ 		margin-top: 20px;
+    	margin-bottom: 15px;
+	}
+
+	#financial_contract_attributes_monthly_initial_date, #financial_contract_attributes_monthly_final_date,
+	#financial_contract_attributes_comission_initial_date, #financial_contract_attributes_comission_final_date {
+    	width: 99px;
+    	display: inline;
+	}
+
+	.nav-tabs > li > a {
+	    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	    font-weight: 400;
+	    font-size: 14px;
+	    line-height: 21px;
+	    background-color: transparent;
+	    color: #6E777E;
+	}
+
+	.panel {
+		margin-bottom: 0;
+	}
+
+	.content {
+		
+		span {
+		    font-size: 14px;
+		    font-weight: 600;
+		    color: #3E3E3E;
+		}
+
+		.title {
+			cursor: pointer;
+		}
+	}
+
+	.hr-obs {
+    	margin-top: 26px !important;
+    	margin-bottom: 23px !important;
+	}
+
+	.thirds-title {
+		margin-top: 5px;
+		margin-bottom: 25px;
+	}
+
+	.pregao {
+		margin-top: 5px;
+		margin-bottom: 25px;		
+	}
+
+	.fix-line {
+		margin-top: -6px !important;
+	}
+
+	.step3-obs {
+    	margin-top: -25px;
+    	margin-bottom: 24px;
+	}
+
+	.step4-obs {
+    	margin-top: 13px;
+    	margin-bottom: 24px;		
+	}
+
+	.chat-div {
+
+		font-size: 13px;
+
+		input, textarea {
+			margin-top: 5px;
+		}
+
+		p {
+			margin-top: 6px;
+		}
+	}
+
+	.boletos-title {
+	    margin-bottom: 1px !important;
+	    margin-top: 10px !important;
+	    font-size: 16px !important;
+	}
+
+	.tab-pane {
+
+		.checkbox, input[type="checkbox"] {
+			cursor: pointer;
+		}
+
+		.pre {
+			margin-bottom: 16px;
+    		margin-top: 0px;
+    		font-size: 16px;
+		}
+
+		.remove-div-responsible_client_contact, .remove-div-responsible_client_contact {
+
+			margin-top: 26px;
+    		cursor: pointer;
+
+			label {
+				display: inline;
+				margin-left: 3px;
+			}
+		}
+
+		.img-div a {
+    		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    		font-weight: 400;
+    		font-size: 13px;
+    		color: #4595D1;
+		}
+
+		.margin-initial {
+			margin-top: 50px;
+		}
+
+		.step1-obs {
+			margin-top: 172px;
+    		margin-bottom: 200px;
+		}
+
+		.step2-obs {
+			margin-top: -43px;
+			margin-bottom: 25px;
+		}
+
+		.position-title {
+			margin-top: 6px;
+		}
+
+		.margin-chosen {
+			margin-top: 33px;
+		}
+
+		input[type="file"] {
+			background: transparent;
+    		border: 0;
+    		padding: 5px 0px;
+		}
+
+		h2 {
+    		margin-bottom: 7px;
+    		margin-top: 29px;
+    		font-size: 15px;
+		}
+
+		h3 {
+			font-weight: 700;
+			font-size: 16px;
+			color: #3E3E3E;
+			margin-top: 0;
+			margin-bottom: 28px;
+		}
+
+		.margin-title {
+			margin-top: 10px;
+    		margin-bottom: 23px;
+		}
+
+		.h2-margin {
+			margin-top: 18px;
+		}
+
+		hr {
+			border-color: #979797;
+			margin-top: 19px;
+    		margin-bottom: 30px;
+		}
+
+		label {
+			display: block;
+		}
+
+		.label-weight {
+			font-weight: 300;
+		}
+
+		.label-margin {
+    		margin-top: 27px;
+		}
+
+		.label-fix {
+
+			margin-top: 16px;
+
+			label {
+				margin-bottom: 0;
+			}
+
+			span {
+				font-weight: 300;
+				font-size: 12px;
+				color: #3E3E3E;
+			}
+		}
+
+		.close-fix {
+			margin-top: 2px;
+		}
+
+		.col-fix {
+    		margin-top: -23px;
+		}
+
+		.line-margin {
+    		margin-top: 8px;
+    		margin-bottom: 25px;
+		}
+	}
+
+	.panel-heading {
+		padding: 0;
+	}
+
+	.panel {
+		background-color: transparent;
+    	box-shadow: none;
+	}
+
+	.panel-body {
+		padding-left: 0;
+    	padding-right: 0;
+    	margin-top: 7px;
+	}
+
+	ul.nav.nav-tabs a {
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 21px;
+		background-color: transparent;
+		color: #6E777E;
+	}
+
+	.nav.nav-tabs .active a {
+		color: #4595D1;
+		font-weight: 700;
+	}
+
+	.add-div, .view-div {
+
+		a {
+			text-decoration: underline;
+			font-size: 12px;
+			color: #4595D1;
+			font-weight: 700;
+			display: block;
+		}
+	}
+
+	.new-margin {
+
+		margin-top: 24px;
+
+		a {
+			text-decoration: underline;
+			font-size: 12px;
+			color: #4595D1;
+			font-weight: 700;	
+		}
+	}
+
+	.view-div {
+		margin-top: 4px;
+	}
+}

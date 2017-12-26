@@ -1,0 +1,79 @@
+<!-- Segmentos -->
+<div class="tab-pane <%= 'active' if @active == 2 %>">
+	<%= f.fields_for :client_segment, defaults: { input_html: { class: 'form-control' } } do |cs| %>
+	<div class="row">
+	</div>
+
+	<div class="row">
+		<div class="col-xs-6">
+
+			<div class="row">
+
+				<!-- Nome do segmento -->
+				<div class="col-xs-6">
+					<div class="form-group">
+						<label for="#">Nome do segmento</label>
+						<%= cs.input :name, label: false %>
+					</div>
+				</div>
+
+				<!-- produtos / serviços -->
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label for="#">Produtos / Serviços</label>
+						<%= cs.input :products_services, label: false, :input_html => {rows: '8'} %>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Palavras chave -->
+		<div class="col-xs-6">
+			<div class="row">
+
+				<!-- Contador primário -->
+				<div class="col-xs-8">
+					<% @words_keys_counter = 1 %>
+					<%= cs.fields_for :words_keys, defaults: { input_html: { class: 'form-control' } } do |wk| %>
+					<div class="row">
+						<div class="col-xs-10 add-fix">
+							<div class="form-group">
+								<label class="label-fix">Palavra chave</label>
+								<%= wk.input :word, label: false %>
+							</div>
+						</div>	
+
+						<% if @words_keys_counter == cs.object.words_keys.length %>
+						<div class="col-xs-1 add-div">
+							<%= f.submit '+', :name => "add_word_key" %>
+						</div>
+						<% end %>
+
+						<div class="col-xs-1" style="margin-top: 25px;">
+							<span data-toggle="tooltip" title="Remover">
+								<%= wk.check_box :_destroy %>
+								<% wk.label :_destroy, "Remover" %> 
+							</span>
+						</div>
+					</div>
+					<% @words_keys_counter += 1 %>
+					<% end %>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<%= f.submit 'Salvar', :name => "save_2", class: "save-btn" %>
+	<% if !f.object.persisted? %>
+	<div class="remove-data">
+		<%= f.submit 'Remover marcados', :name => "remove_data_2" %>
+	</div>
+	<% end %>
+
+	<% end %>
+</div>
+<!-- end -->

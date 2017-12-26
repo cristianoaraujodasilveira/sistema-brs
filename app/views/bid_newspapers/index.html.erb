@@ -1,0 +1,31 @@
+<div class="container" id="organizations">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Cadastros > <a href="<%= bid_newspapers_path %>">Jornais de Licitação</a></h1>
+			<a class="pull-right new-btn" href="<%= new_bid_newspaper_path %>">Novo</a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_form_for @grid_bid_newspapers, :method => :get, :url => bid_newspapers_path %>
+		</div>
+	</div>
+
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_table @grid_bid_newspapers, html: {class: 'table datagrid'} %>
+		</div>
+	</div>
+	
+	<!-- Pagination -->
+	<div class="row">
+		<div class="col-xs-12 center">
+			<%= paginate(@grid_bid_newspapers.assets) %>
+		</div>
+	</div>
+
+</div>

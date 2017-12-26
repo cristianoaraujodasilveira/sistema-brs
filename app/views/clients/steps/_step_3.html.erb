@@ -1,0 +1,223 @@
+<!-- Contabilidade -->
+<div class="tab-pane tab-value <%= 'active' if @active == 3 %>">
+	<%= f.fields_for :client_contability, defaults: { input_html: { class: 'form-control' } } do |cc| %>
+
+	<div class="row checkbox-div">
+		<div class="col-xs-2">
+			<div class="checkbox">
+				<%= cc.input :intern_contability, label: "Contabilidade interna" %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="checkbox">
+				<%= cc.input :extern_contability, label: "Contabilidade externa" %>
+			</div>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#">Nome da empresa</label>
+				<%= cc.input :name, label: false %>
+			</div>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="row">
+
+		<!-- Contador primário -->
+		<div class="col-xs-4">
+			<% @contability_contacts_counter = 1 %>
+			<%= cc.fields_for :contability_contacts, defaults: { input_html: { class: 'form-control' } } do |con| %>
+			<div class="row">
+				<div class="col-xs-10 add-fix">
+					<div class="form-group">
+						<label class="label-fix">Nome do contador</label>
+						<%= con.input :name, label: false %>
+					</div>
+				</div>	
+
+				<% if @contability_contacts_counter == cc.object.contability_contacts.length %>
+				<div class="col-xs-1 add-div">
+					<%= f.submit '+', :name => "add_contact_name" %>
+				</div>
+				<% end %>
+
+				<div class="col-xs-1" style="margin-top: 25px;">
+					<span data-toggle="tooltip" title="Remover">
+						<%= con.check_box :_destroy %>
+						<% con.label :_destroy, "Remover" %> 
+					</span>
+				</div>
+			</div>
+			<% @contability_contacts_counter += 1 %>
+			<% end %>
+		</div>
+
+		<!-- Contador secundário -->
+		<div class="col-xs-4 col-xs-offset-1">
+			<% @contability_secondary_contacts_counter = 1 %>
+			<%= cc.fields_for :contability_secondary_contacts, defaults: { input_html: { class: 'form-control' } } do |con| %>
+			<div class="row">
+
+				<div class="col-xs-10 add-fix">
+					<div class="form-group">
+						<label class="label-fix">Contador secundário</label>
+						<%= con.input :name, label: false %>
+					</div>
+				</div>
+
+				<% if @contability_secondary_contacts_counter == cc.object.contability_secondary_contacts.length %>
+				<div class="col-xs-1 add-div">
+					<%= f.submit '+', :name => "add_contact_secondary" %>
+				</div>
+				<% end %>
+
+				<div class="col-xs-1" style="margin-top: 25px;">
+					<span data-toggle="tooltip" title="Remover">
+						<%= con.check_box :_destroy %>
+						<% con.label :_destroy, "Remover" %> 
+					</span>
+				</div>
+			</div>
+			<% @contability_secondary_contacts_counter += 1 %>
+			<% end %>	
+		</div>
+
+	</div>
+
+	<br>
+
+	<div class="row">
+
+		<!-- Email -->
+		<div class="col-xs-4">
+			<% @email_users_counter = 1 %>
+			<%= cc.fields_for :email_users, defaults: { input_html: { class: 'form-control' } } do |email| %>
+			<div class="row">
+
+				<!-- Email -->
+				<div class="col-xs-10 add-fix">
+					<div class="form-group">
+						<label class="label-fix">Email</label>
+						<%= email.input :email, label: false %>
+					</div>
+				</div>
+
+				<% if @email_users_counter == cc.object.email_users.length %>
+				<div class="col-xs-1 add-div">
+					<%= f.submit '+', :name => "add_email" %>
+				</div>
+				<% end %>
+
+
+				<!-- Remover -->
+				<div class="col-xs-1" style="margin-top: 25px;">
+					<span data-toggle="tooltip" title="Remover">
+						<%= email.check_box :_destroy %>
+						<% email.label :_destroy, "Remover" %> 
+					</span>
+				</div>
+			</div>
+			<% @email_users_counter += 1 %>
+			<% end %>
+
+		</div>
+
+		<!-- Telefone -->
+		<div class="col-xs-4 col-xs-offset-1">
+			<% @phone_users_counter = 1 %>
+			<%= cc.fields_for :phone_users, defaults: { input_html: { class: 'form-control' } } do |phone| %>
+			<div class="row">
+				<div class="col-xs-10 add-fix">
+					<div class="form-group">
+						<label class="label-fix">Telefone</label>
+						<%= phone.input :phone, label: false, input_html: {class: 'string form-control custom-tel'} %>
+					</div>
+				</div>
+
+				<% if @phone_users_counter == cc.object.phone_users.length %>
+				<div class="col-xs-1 add-div">
+					<%= f.submit '+', :name => "add_phone" %>
+				</div>
+				<% end %>
+				
+				<div class="col-xs-1" style="margin-top: 25px;">
+					<span data-toggle="tooltip" title="Remover">
+						<%= phone.check_box :_destroy %>
+						<% phone.label :_destroy, "Remover" %> 
+					</span>
+				</div>
+			</div>
+			<% @phone_users_counter += 1 %>
+			<% end %>
+
+		</div>
+
+	</div>
+
+	<h2>Endereço</h2>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>CEP*</label>
+				<%= cc.input :zipcode, label: false, input_html: { class: 'string optional form-control cep' } %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Logradouro*</label>
+				<%= cc.input :address, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-1">
+			<div class="form-group">
+				<label>Numero*</label>
+				<%= cc.input :number, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Complemento*</label>
+				<%= cc.input :complement, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Bairro*</label>
+				<%= cc.input :district, label: false %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Estado*</label>
+				<%= cc.association :state, collection: State.all.order(:name), label_method: :acronym, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen'} %>
+			</div>					
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Cidade*</label>
+				<%= cc.association :city, collection: City.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen'} %>
+			</div>					
+		</div>
+	</div>
+
+	<%= f.submit 'Salvar', :name => "save_3", class: "save-btn" %>
+	<% if !f.object.persisted? %>
+	<div class="remove-data">
+		<%= f.submit 'Remover marcados', :name => "remove_data_3" %>
+	</div>
+	<% end %>
+
+	<% end %>
+</div>
+<!-- end -->

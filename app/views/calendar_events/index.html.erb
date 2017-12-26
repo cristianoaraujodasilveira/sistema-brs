@@ -1,0 +1,48 @@
+<div class="container" id="calendar_events">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Comercial > <a href="<%= calendar_events_path %>">Calendário</a></h1>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12 new-div">
+			<div>
+				<a class="pull-right new-btn" href="<%= new_calendar_event_path %>">Novo</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-4">
+			<div class="form-group">
+				<label for="#">Usuário</label>
+				<%= select_tag "user_id_calendar", options_from_collection_for_select(User.where.not(:id => 1).order(:name), "id", "name"), class: 'form-control chosen', :prompt => "Selecione um usuário" %>
+			</div>
+			<form>
+				<div class="datagrid-filter filter">
+					<label for="calendar_events_grid_name">Filtro geral (Título, usuário, observação)</label>
+					<input class="name string_filter" type="text" name="calendar_events_grid[name]" id="calendar_events_grid_name">
+				</div>
+				<div class="datagrid-filter filter">
+					<label for="calendar_events_grid_initial_date" style="display: block;">Data</label>
+					<input class="initial_date date_filter from datepicker" multiple="multiple" type="text" name="calendar_events_grid[initial_date][]" id="initial_date_form_calendar">
+					<span class="separator date"> - </span>
+					<input class="initial_date date_filter to datepicker" multiple="multiple" type="text" name="calendar_events_grid[initial_date][]" id="final_date_form_calendar">
+				</div>
+				<div class="datagrid-actions">
+					<input type="submit" value="Filtrar" class="datagrid-submit">
+					<a class="datagrid-reset" href="/calendar_events?">Limpar</a>
+				</div>
+			</form>
+			<br>
+			<%= render 'datagrid_total_events' %>
+		</div>
+		<div class="col-xs-8">
+			<div id="calendar"></div>
+		</div>
+	</div>
+
+</div>

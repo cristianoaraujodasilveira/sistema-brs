@@ -1,0 +1,150 @@
+<div id="div_step_3_financial" class="tab-pane <%= 'active' if @active == 3 %>">
+
+	<% thirds_counter = 0 %>
+	<%= f.fields_for :financial_thirds, defaults: { input_html: { class: 'form-control' } } do |ft| %>
+
+	<div class="row show_group_third cursor_pointer" id="show_group_third_<%= thirds_counter %>">
+		<div class="col-xs-12">
+			<div>
+				<h1 class="thirds-title">Terceiro: <%= thirds_counter+1 %> ->  <%= ft.object.name %> / <%=ft.object.fantasy_name%> </h1>
+			</div>
+		</div>
+	</div>
+	<div class="group_thirds_geral_<%= thirds_counter %> group_thirds" id="group_thirds_geral_<%= thirds_counter %>">
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#"><%= FinancialThird.human_attribute_name(:third_type)%>:</label>
+					<%= ft.association :third_type, collection: ThirdType.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen change_third_type' } %>
+				</div>
+			</div>
+			<div class="col-xs-8" <%= 'hidden' if f.object.hidden_thirds(ft.object.third_type) %> id="group_thirds_<%=thirds_counter%>">
+				<div class="form-group">
+					<label for="#"><%= FinancialThird.human_attribute_name(:third)%>:</label>
+					<%= ft.association :third, collection: Third.where(:third_type => ft.object.third_type_id).order(:register_number), label_method: lambda { |object| "#{object.register_number} / #{object.name} / #{object.fantasy_name} / #{object.social_name}"}, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen change_third' } %>
+				</div>
+			</div>
+			<div class="col-xs-8" <%= 'hidden' if f.object.hidden_lawyers(ft.object.third_type) %> id="group_lawyers_<%=thirds_counter%>">
+				<div class="form-group">
+					<label for="#"><%= FinancialThird.human_attribute_name(:lawyer)%>:</label>
+					<%= ft.association :lawyer, collection: Lawyer.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen change_third' } %>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#"><%= FinancialThird.human_attribute_name(:name) %></label>
+					<%= ft.input :name, label: false %>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#"><%= FinancialThird.human_attribute_name(:fantasy_name) %></label>
+					<%= ft.input :fantasy_name, label: false %>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#"><%= FinancialThird.human_attribute_name(:social_name) %></label>
+					<%= ft.input :social_name, label: false %>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#"><%= FinancialThird.human_attribute_name(:financial_third_service)%>:</label>
+					<%= ft.association :financial_third_service, collection: FinancialThirdService.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#"><%= FinancialThird.human_attribute_name(:quantity) %></label>
+					<%= ft.input :quantity, label: false %>
+				</div>
+			</div>	
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#"><%= FinancialThird.human_attribute_name(:value) %> R$</label>
+					<%= ft.input :value, label: false, input_html: {class: 'form-control optional money'} %>
+				</div>
+			</div>	
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= FinancialThird.human_attribute_name(:date) %></label>
+					<%= ft.text_field :date, label: false, class: "form-control datepicker", :value => ft.object.date != nil ? I18n.l(ft.object.date, format: :default) : nil%>
+				</div>			
+			</div>
+		</div>
+
+		<br><br>
+
+		<div class="content step3-obs">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="title slide_historic_observations show_content_third " id="show_content_third_<%=thirds_counter%>">
+						<span>Visualizar Histórico de observações (<%=(ft.object.observations.length-1)%>) <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Histórico de Observações -->
+		<%= ft.fields_for :observations, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+		<% if observation.object.persisted? %>
+		<div class="<%= 'row_with_observation row_with_observation_'+thirds_counter.to_s if observation.object.id != ft.object.get_id_last_observation %>">
+			<% if observation.object.id == ft.object.get_id_last_observation %>
+			<label for="#" style="margin-bottom: 9px;">Última resposta:</label>
+			<% end %>
+			<div class="chat-div">
+				<span><b><%= observation.object.user.name %></b></span>
+				<span>disse em</span>
+				<span><%= I18n.l(observation.object.created_at.to_datetime, format: :full) %></span>
+				<% if observation.object.user_id == @current_user.id %>
+				<div class="row">
+					<div class="col-xs-11">
+						<%= observation.input :observation, label: false %>
+					</div>
+					<div class="col-xs-1 delete-obs">
+						<a title="Excluir" data-confirm="Tem certeza que deseja excluir essa observação?" rel="nofollow" data-method="delete" href="<%= delete_observation_financial_path(observation.object) %>">Excluir
+						</a>
+					</div>
+				</div>
+				<% else %>
+				<p><%= observation.object.observation %></p>
+				<% end %>
+			</div>
+			<hr>
+		</div>
+		<% end %>
+		<% end %>
+		<!-- Fim histórico de observações -->
+
+		<!-- Nova observação -->
+		<%= ft.fields_for :observations, ft.object.observations.select{|item| item[:id] == nil }, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+		<% if !observation.object.persisted?%>
+		<div class="row" style="margin-bottom: 17px;">
+			<div class="col-xs-12">
+				<label for="#"><%= Observation.human_attribute_name(:new_observation)%>:</label>
+				<%= observation.association :user, :as => :hidden, input_html: { value: @current_user.id} %>
+				<%= observation.input :observation, label: false %>
+			</div>
+		</div>
+		<% end %>
+		<% end %>
+		<!-- Fim nova observação -->
+	</div>
+	<% thirds_counter = thirds_counter + 1 %>
+	<% end %>
+	
+	<div class="row">
+		<div class="col-xs-12">
+			<button type="submit" name="save_3" class="save-btn">Salvar</button>
+		</div>
+	</div>
+
+</div>
+</div>

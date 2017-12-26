@@ -1,0 +1,250 @@
+#proposals {
+
+	#open_organ_chart, .open-graph {
+		float: right;
+		margin-bottom: 6px;
+	}
+
+	.client_cnpj {
+		width: 139px;
+	}
+
+	.checkbox {
+    	margin: 0;
+    	text-align: center;
+	}
+
+	input[type="checkbox"] {
+		cursor: pointer;
+	}
+
+    .margin-head {
+        margin-bottom: 23px;
+    }
+
+	.glyphicon-calendar {
+		float: right;
+	    top: -22px;
+	    right: 8px;
+	}
+
+	#proposals_grid_fantasy_name, #proposals_grid_social_name {
+		display: block;
+	    width: 100%;
+	    height: 30px;
+	    box-shadow: none !important;
+	    padding: 6px 12px;
+	    font-size: 14px;
+	    line-height: 1.42857143;
+	    color: #555555;
+	    background-color: #fff;
+	    background-image: none;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	    -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	}
+
+	#open_proposal_chart img {
+		display: inline;
+	}
+
+	.chart-div {
+		display: inline;
+		margin-right: 16px;
+	    position: relative;
+	    top: 25px;
+
+	    a {
+		    &:hover {text-decoration: none;}
+		    &:focus {text-decoration: none; outline: 0;}	    	
+	    }
+	}
+
+	.proposals_grid {
+
+		display: inline;
+		
+		.datagrid-actions {
+    		position: relative;
+    		top: 27px;
+		}
+
+		@media screen and (min-width: 1440px) {
+		  	.datagrid-filter.filter {
+				margin-right: 6px;
+			}
+		}
+
+		.datagrid-reset {
+			margin-left: 13px;
+		}
+
+		.date_filter, .separator.date {
+		    display: inline;
+	    	width: 88px;
+	    	font-size: 12px;
+		}
+	}
+
+	.datagrid-submit {
+		background: #3E3E3E;
+		border-radius: 4px;
+	    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	    font-weight: 400;
+		font-size: 12px;
+		color: #FFFFFF;
+		line-height: 21px;
+	    border: 0;
+	    padding: 4px 30px;
+	    margin: 24px 0;
+	    &:hover {background: #313131; transition: all 0.4s ease; text-decoration: none;}
+	    &:focus {background: #313131; outline: 0; text-decoration: none;}
+	}
+}
+
+#proposals_new {
+
+	margin-top: 121px;
+
+	.proposals-upload {
+		width: auto;
+		margin-right: 13px;
+	}
+
+	.proposals-upload .show-upload {
+		margin-top: 6px;
+    	margin-bottom: 10px;
+	}
+
+	.proposals-upload a {
+    	font-size: 14px;
+    	color: #4595D1;
+    	font-weight: 400;
+    	color: black;
+	}
+	
+	.remove-div-sector {
+
+    	display: inline;
+    	cursor: pointer;
+    	margin-left: 3px;
+
+    	label {
+    		cursor: pointer;
+    	}
+	}
+
+	h2 {		
+    	margin: 17px 0;
+	}
+
+	.add-responsible {
+
+	    margin-bottom: 27px;
+	    margin-top: -6px;
+
+		a {
+			text-decoration: underline;
+    		color: #4595D1;
+		}
+	}	
+
+	.save-btn {
+    	margin-top: 15px;
+	}
+
+	.remove-row {
+		margin-top: 38px;
+	}
+
+	input[type="file"] {
+		background: transparent;
+    	border: 0;
+    	padding: 0;
+    	margin-top: 10px;
+	}
+
+	.add-mv input, .add-pro input {
+	    background: transparent;
+	    border: 0;
+	    padding: 0;
+		font-size: 13px;
+		color: #4595D1;
+		font-weight: 700;
+		text-decoration: underline;
+		margin: 15px 0px 20px 0px;
+		&:focus {outline: 0;}
+	}
+
+	.remove-div-responsible_client_contact {
+
+	    margin-top: 7px;
+	    margin-left: 6px;
+
+	    input[type="checkbox"] {
+	    	cursor: pointer;
+	    }
+
+	    label {
+	    	margin-left: 4px;
+	    	cursor: pointer;
+	    }
+	}
+
+	.remove-data {
+
+		display: inline;
+
+		input {
+		    background: transparent;
+		    border: 0;
+		    padding: 0;
+		    margin-left: 18px;
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			text-decoration: underline;
+			&:focus {outline: 0;}
+		}
+	}
+}
+
+#proposals_historic {
+
+	margin-top: 121px;
+
+	h2 {		
+    	margin: 17px 0;
+	}
+
+	.hist-date, .hist-time {
+		font-weight: 700;
+		font-size: 14px;
+		color: #373A3C;
+	}
+
+	.hist-time {
+		margin-left: 15px;
+	}
+
+	label {
+		font-weight: 700;
+		font-size: 13px;
+		color: #373A3C;
+		letter-spacing: 0;
+	}
+
+	span {
+		font-weight: 300;
+		font-size: 14px;
+		color: #3E3E3E;
+	}
+
+	.save-btn {
+    	margin-top: 5px;
+	}
+}

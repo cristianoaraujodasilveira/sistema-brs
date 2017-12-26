@@ -1,0 +1,26 @@
+pt-BR:
+  activerecord:
+    models:
+      bid_newspaper:
+        one: Jornal de Licitação
+        other: Jornal de Licitações
+    attributes:
+      bid_newspaper:
+        name: Nome do Jornal
+        initial_date: Data de Início
+        final_date: Data de Término
+        phone_brs: Telefone Cadastrado
+        email_brs: Email Cadastrado
+        site: Endereço Eletrônico
+        responsible: Responsável pelo Cadastro
+        social_name: Razão Social
+        cnpj: CNPJ
+        client_id: 'Parceiro'
+        client: 'Parceiro'
+        responsible_name: Nome do Responsável
+        responsible_phone: Telefone do Responsável
+        responsible_email: Email do Responsável
+        actions: Ações
+  bid_newspapers:
+    new: Novo Jornal de Licitação
+    edit: Alterar Jornal de Licitação

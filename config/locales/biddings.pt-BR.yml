@@ -1,0 +1,111 @@
+pt-BR:
+  activerecord:
+    models:
+      bidding:
+        one: Licitação
+        other: Licitações
+    attributes:
+      bidding:
+        id: 'ID'
+        catch_attachments_edital: 'Upload de edital'
+        catch_user: 'Responsável pela Captura'
+        catch_user_id: 'Responsável pela Captura'
+        catch_date_catch: 'Data da Captura'
+        catch_date: 'Data'
+        catch_client: 'Cliente'
+        catch_client_fantasy_name: 'Nome Fantasia'
+        catch_client_social_name: 'Razão Social'
+        catch_client_id: 'Cliente'
+        catch_organ: 'Orgão'
+        catch_organ_id: 'Orgão'
+        catch_capture_form: 'Forma de Captura'
+        catch_capture_form_id: 'Forma de Captura'
+        catch_other_capture_form: 'Outra Forma de Captura'
+        catch_cost: 'Custo'
+        catch_bid_newspaper: 'Jornal de Licitação'
+        catch_bid_newspaper_id: 'Jornal de Licitação'
+        catch_capture_form_presencial: 'Tipo de Presencial'
+        catch_capture_form_presencial_id: 'Tipo de Presencial'
+        catch_solicitation_date_organ: 'Data da Solicitação'
+        catch_limit_date_organ: 'Data Limite'
+        catch_organ_notification: 'O orgão foi notificado para envio do edital?'
+        catch_organ_notification_observation: 'Observação'
+        catch_modalidate: 'Modalidade'
+        catch_modalidate_id: 'Modalidade'
+        catch_other_modalidate: 'Outra Modalidade'
+        catch_number: 'Número'
+        catch_process: 'Processo'
+        catch_portal: 'Portal'
+        catch_portal_id: 'Portal'
+        catch_limit_date: 'Data e hora limite da Proposta'
+        catch_competition_date: 'Data e hora limite do Certame'
+        catch_suspension_communication_date: 'Data comunicação de suspensão'
+        catch_reopened_date: 'Data reabertura'
+        read_user: 'Responsável pela Leitura'
+        read_user_id: 'Responsável pela Leitura'
+        read_displacement_km: 'Deslocamento KM (Ida e volta)'
+        read_displacement: 'Deslocamento R$'
+        read_agreed_amount: 'Valor Acordado'
+        read_date_read: 'Data da Leitura'
+        read_sample: 'Amostra'
+        read_delivery_time: 'Prazo de Entrega'
+        read_survey: 'Vistoria/Visita'
+        read_deadline: 'Data Limite'
+        read_judgment_form: 'Forma de Julgamento'
+        read_judgment_form_id: 'Forma de Julgamento'
+        read_other_judgment_form: 'Outra Forma de Julgamento'
+        read_exclusive_me_epp: 'Excluiso ME / EPP'
+        read_srp: 'SRP'
+        read_installation: 'Instalação / Montagem'
+        read_catalog: 'Catálogo / Manual / Folder'
+        read_product_guarantee: 'Garantia dos produtos'
+        read_proposal_guarantee: 'Garantia da proposta'
+        read_proposal_guarantee_value: 'Valor'
+        read_proposal_guarantee_percent: 'Percentual'
+        read_proposal_guarantee_documents: 'Documentos Garantia de Proposta'
+        read_guarantee_contractual: 'Garantia Contratual'
+        read_guarantee_contractual_value: 'Valor'
+        read_guarantee_contractual_percent: 'Percentual'
+        read_guarantee_contractual_documents: 'Documentos Garantia Contratual'
+        read_claritication: 'Esclarecimento'
+        read_claritication_deadline: 'Prazo máximo'
+        read_claritication_motivation: 'Motivação'
+        read_claritication_documents: 'Documentos Esclarecimento'
+        read_impugnment: 'Impugnação'
+        read_impugnment_deadline: 'Prazo máximo'
+        read_impugnment_motivation: 'Motivação'
+        read_impugnment_documents: 'Documentos Impugnação'
+        read_bidding_read_delivery: 'Entrega'
+        read_bidding_read_delivery_id: 'Entrega'
+        read_bidding_read_delivery_deadline: 'Prazo de entrega (dias)'
+        participation_return_date: 'Data e hora limite de retorno'
+        participation_users: 'Responsáveis pela análise'
+        participation_partner_participation: 'Participação do parceiro'
+        participation_partner_participation_justification: 'Justificativa'
+        participation_process_status: 'Status do processo'
+        participation_resource: 'Recurso'
+        participation_resources: 'Recursos'
+        participation_against_reason: 'Contrarrazão'
+        participation_against_reasons: 'Contrarrazões'
+        participation_process_location: 'Localização do Processo'
+        participation_process_status_date: 'Data do Processo'
+        scheduling_date: 'Data de agendamento'
+        ride_in_process: Carona no processo
+        organ_ride: Orgão caroneiro
+        contract_number: Número do contrato
+        contract_value: Valor do contrato
+        initial_date: Data inicial
+        final_date: Prazo final
+        percent: Percentual
+        residual_value_contract: Valor residual do contrato
+        brs_comission: Comissão BRS
+        date_payment_comission: Data pagamento comissão BRS
+        comission_received: Comissão recebida do processo
+        actions: Ações
+        catch_publication_date: Data de publicação
+        catch_bidding_id: ID Licitação no Portal
+        read_claritication_solicitation_date: Data da solicitação
+        read_impugnment_solicitation_date: Data da solicitação
+  biddings:
+    new: Novo Licitação
+    edit: Alterar Licitação

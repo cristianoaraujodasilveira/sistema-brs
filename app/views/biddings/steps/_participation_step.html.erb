@@ -1,0 +1,1089 @@
+<div class="row">
+	<div class="col-xs-6">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:participation_users) %></label>
+			<%= f.association :participation_users, collection: User.unblocked.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' }, disabled: @current_user.disabled_edit_participation_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:participation_return_date) %></label>
+			<%= f.text_field :participation_return_date, label: false, class: "form-control datetimepicker", :value => f.object.participation_return_date != nil ? I18n.l(f.object.participation_return_date, format: :full) : nil, disabled: @current_user.disabled_edit_participation_bidding?%>
+		</div>
+	</div>
+</div>
+
+<hr class="line-fix">
+
+<%= f.fields_for :bidding_responsibles, defaults: { input_html: { class: 'form-control' } } do |bid_resp| %>
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= BiddingResponsible.human_attribute_name(:user) %></label>
+			<%= bid_resp.association :user, collection: User.unblocked.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' }, disabled: @current_user.disabled_edit_participation_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= BiddingResponsible.human_attribute_name(:initial_date) %></label>
+			<%= bid_resp.text_field :initial_date, label: false, class: "form-control datetimepicker", :value => bid_resp.object.initial_date != nil ? I18n.l(bid_resp.object.initial_date, format: :full) : nil, disabled: @current_user.disabled_edit_participation_bidding?%>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= BiddingResponsible.human_attribute_name(:final_date) %></label>
+			<%= bid_resp.text_field :final_date, label: false, class: "form-control datetimepicker", :value => bid_resp.object.final_date != nil ? I18n.l(bid_resp.object.final_date, format: :full) : nil, disabled: @current_user.disabled_edit_participation_bidding?%>
+		</div>									
+	</div>
+	<% if !@current_user.disabled_edit_participation_bidding? %>
+	<div class="col-xs-3" style="margin-top: 27px;">
+		<div class="remove-div-responsible_client_contact">
+			<%= bid_resp.check_box :_destroy %>
+			<%= bid_resp.label :_destroy, 'Remover' %>
+		</div>
+	</div>								
+	<% end %>
+</div>
+<% end %>
+
+<% if !@current_user.disabled_edit_participation_bidding? %>
+<div class="add-new">
+	<%= f.submit 'Adicionar outro responsável pela participação', :name => "add_responsible" %>
+</div>
+<% end %>
+
+<hr class="line-fix">
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:participation_partner_participation) %></label>
+			<%= f.association :participation_partner_participation, collection: PartnerParticipation.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' }, disabled: @current_user.disabled_edit_participation_bidding? %>
+		</div>										
+	</div>
+	<div class="col-xs-3" id="div_with_participation_partner_participation_justification" <%= 'hidden' if f.object.participation_partner_participation_id != 2 %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:participation_partner_participation_justification) %></label>
+			<%= f.input :participation_partner_participation_justification, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:participation_process_status) %></label>
+			<%= f.association :participation_process_status, collection: ProcessStatus.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' }, disabled: @current_user.disabled_edit_participation_bidding? %>
+		</div>										
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:participation_process_status_date) %></label>
+			<%= f.text_field :participation_process_status_date, label: false, class: "form-control datetimepicker", :value => f.object.participation_process_status_date != nil ? I18n.l(f.object.participation_process_status_date, format: :full) : nil, disabled: @current_user.disabled_edit_participation_bidding?%>
+		</div>										
+	</div>
+</div>
+
+<hr class="drop-line">
+
+<h3 id="accreditation_presential_participation_step" class="show_qualifications show_qualifications_accreditation_presential_participation_step"><b>CREDENCIAMENTO PRESENCIAL <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></b></h3>
+
+<div class="qualifications" id="qualifications_accreditation_presential_participation_step">
+	<div id="group_accreditation_presentials_participation">
+		<div class="row">
+			<% if !@current_user.disabled_edit_participation_bidding? %>
+			<div class="col-xs-2 part-edit-div">
+				<% f.object.accreditation_presentials.each do |accreditation_presential| %>
+				<a class="popup-modal edit_checklist" href="#modal_edit_accreditation_presential_<%=accreditation_presential.id%>">Editar nome</a>
+				<%= render 'biddings/modal_edit/modal_edit_accreditation_presential', object: accreditation_presential %>
+				<% end %>
+			</div>
+			<% end %>
+			<div class="col-xs-9 label-font">
+				<% f.object.accreditation_presentials.each do |accreditation_presential| %>
+				<div class="form-group">
+					<label class="checkbox" id="accreditation_presential_participation_<%=accreditation_presential.id%>"><%= accreditation_presential.name.mb_chars.upcase %></label>
+				</div>
+				<% end %>
+			</div>	
+		</div>
+		<% if !@current_user.disabled_edit_participation_bidding? %>
+		<div class="row">
+			<div class="col-xs-6">
+				<%= f.input :accreditation_presential_name_participation, label: false, :placeholder => 'Nome do novo credenciamento presencial' %>
+			</div>
+			<div class="col-xs-6 add-new">
+				<%= f.submit 'Adicionar novo documento', :name => "add_accreditation_presential_participation" %>
+			</div>				
+		</div>			
+		<% end %>
+	</div>
+</div>
+
+<hr class="drop-line">
+
+<h3 id="habilitation_participation_step" class="show_qualifications show_qualifications_habilitation_participation_step"><b>HABILITAÇÃO <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></b></h3>
+
+<div class="qualifications" id="qualifications_habilitation_participation_step">
+	<div id="group_habilitations_participation">
+		<div class="row">
+			<% if !@current_user.disabled_edit_participation_bidding? %>
+			<div class="col-xs-2 part-edit-div">
+				<% f.object.habilitations.each do |habilitation| %>
+				<a class="popup-modal edit_checklist" href="#modal_edit_habilitation_<%=habilitation.id%>">Editar nome</a>
+				<%= render 'biddings/modal_edit/modal_edit_habilitation', object: habilitation %>
+				<% end %>
+			</div>
+			<% end %>
+			<div class="col-xs-9 label-font">
+				<% f.object.habilitations.each do |habilitation| %>
+				<div class="form-group">
+					<label class="checkbox" id="habilitation_participation_<%=habilitation.id%>"><%= habilitation.name.mb_chars.upcase %></label>
+				</div>
+				<% end %>
+			</div>
+		</div>
+		<% if !@current_user.disabled_edit_participation_bidding? %>
+		<div class="row">
+			<div class="col-xs-6">
+				<%= f.input :habilitation_name_participation, label: false, :placeholder => 'Nome da nova habilitação' %>
+			</div>
+			<div class="col-xs-6 add-new">
+				<%= f.submit 'Adicionar novo documento', :name => "add_habilitation_participation" %>
+			</div>				
+		</div>			
+		<% end %>
+	</div>
+</div>
+
+<hr class="fix-drop-line">
+
+<% responsibles_counter = 0 %>
+
+<%= f.fields_for :bidding_proposals, defaults: { input_html: { class: 'form-control' } } do |bid_pro| %>
+<div class="row show_group_proposals" id="show_group_<%= responsibles_counter %>">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<h2 for="#">Posição: <%= responsibles_counter+1 %> -> Número: <%= bid_pro.object.item_number %></h2>
+		</div>
+	</div>
+</div>
+
+<div class="group_proposal_<%= responsibles_counter %> group_proposal">
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:price_offer) %></label>
+				<%= bid_pro.association :price_offer, collection: PriceOffer.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' }, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>										
+		</div>
+		<div class="col-xs-3" <%= 'hidden' if bid_pro.object.price_offer_id != 10 %>>
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:another_price_offer) %></label>
+				<%= bid_pro.input :another_price_offer, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>										
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:registration_form) %></label>
+				<%= bid_pro.association :registration_form, collection: RegistrationForm.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' }, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>										
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:technical_offer) %></label>
+				<%= bid_pro.input :technical_offer, as: :select, input_html: {class: 'select optional form-control chosen'}, label: false, collection: [['Sim', 1], ['Não', 0]], :selected => (bid_pro.object.technical_offer ? 1 : 0), disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>										
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:judgment_form) %></label>
+				<%= bid_pro.association :judgment_form, collection: JudgmentForm.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen'}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>										
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:quoted_value) %> R$</label>
+				<%= bid_pro.input :quoted_value, label: false, input_html: {class: 'form-control optional money'}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>									
+		</div>	
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:discount_percent) %> %</label>
+				<%= bid_pro.input :discount_percent, label: false, input_html: {class: 'form-control optional percent'}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>									
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:item_number) %> %</label>
+				<%= bid_pro.input :item_number, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>										
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:description) %> %</label>
+				<%= bid_pro.input :description, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>									
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:unitary_value) %> R$</label>
+				<%= bid_pro.input :unitary_value, label: false, input_html: {class: 'form-control optional money'}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>									
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:total_value) %> R$</label>
+				<%= bid_pro.input :total_value, label: false, input_html: {class: 'form-control optional money'}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>									
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:global_value) %> R$</label>
+				<%= bid_pro.input :global_value, label: false, input_html: {class: 'form-control optional money'}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>									
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:partner_rank) %></label>
+				<%= bid_pro.association :partner_rank, collection: PartnerRank.all.order(:id), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen'}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>										
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:participation_result) %></label>
+				<%= bid_pro.association :participation_result, collection: ParticipationResult.all.order(:id), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen'}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>										
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:competition_status) %></label>
+				<%= bid_pro.association :competition_status, collection: CompetitionStatus.all.order(:id), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen'}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>										
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:auctioned_value) %> R$</label>
+				<%= bid_pro.input :auctioned_value, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>									
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:unit) %></label>
+				<%= bid_pro.association :unit, collection: Unit.all.order(:id), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen'}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>										
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:traded_value) %> R$</label>
+				<%= bid_pro.input :traded_value, label: false, input_html: {class: 'form-control optional money'}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>									
+		</div>
+		<div class="col-xs-4">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:bidder_name) %></label>
+				<%= bid_pro.input :bidder_name, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>									
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-4">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:representative_name) %></label>
+				<%= bid_pro.input :representative_name, label: false, disabled: @current_user.disabled_edit_participation_bidding?%>
+			</div>									
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:cnpj) %></label>
+				<%= bid_pro.input :cnpj, label: false, input_html: {class: 'form-control optional cnpj'}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>										
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:past_due) %> R$</label>
+				<%= bid_pro.input :past_due, label: false, input_html: {class: 'form-control optional money'}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>									
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:bidder_status) %></label>
+				<%= bid_pro.association :bidder_status, collection: BidderStatus.all.order(:id), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen'}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>										
+		</div>
+		<div class="col-xs-3" <%= 'hidden' if bid_pro.object.bidder_status_id != 4 %>>
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:another_bidder_status) %> </label>
+				<%= bid_pro.input :another_bidder_status, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>										
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:provenance) %></label>
+				<%= bid_pro.association :provenance, collection: Provenance.all.order(:id), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen change_provenance provenance_position_'+responsibles_counter.to_s} , disabled: @current_user.disabled_edit_participation_bidding?%>
+			</div>										
+		</div>
+		<div class="col-xs-3" id="group_with_country_<%=responsibles_counter%>" <%= 'hidden' if bid_pro.object.provenance_id != 2 %>>
+			<div class="form-group">
+				<label for="#"><%= BiddingProposal.human_attribute_name(:country) %></label>
+				<%= bid_pro.association :country, collection: Country.all.order(:id), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen'}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>										
+		</div>
+	</div>
+
+	<%= bid_pro.fields_for :address, defaults: { input_html: { class: 'form-control' } } do |address| %>
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>CEP do Concorrente</label>
+				<%= address.input :zipcode, label: false, input_html: { class: 'string optional form-control cep' }, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Logradouro</label>
+				<%= address.input :address, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>
+		</div>
+		<div class="col-xs-1">
+			<div class="form-group">
+				<label>Número</label>
+				<%= address.input :number, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Complemento</label>
+				<%= address.input :complement, label: false, disabled: @current_user.disabled_edit_participation_bidding?%>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Bairro</label>
+				<%= address.input :district, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Estado</label>
+				<%= address.association :state, collection: State.all.order(:name), label_method: :acronym, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' }, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Cidade</label>
+				<%= address.association :city, collection: City.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' }, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>
+		</div>
+	</div>
+	<% end %>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label style="display: block;"><%= Responsible.human_attribute_name(:phone)%></label>
+				<% first_phone = false %>
+				<% phones_counter_responsibles = 0 %>
+				<div id="group_phones_responsibles_<%=responsibles_counter%>" class="inline">
+					<%= bid_pro.fields_for :phones, defaults: { input_html: { class: 'form-control' } } do |phone| %>
+					<%= phone.input :phone, label: false, input_html: {class: 'tel width-input form-control'}, disabled: @current_user.disabled_edit_participation_bidding? %>
+					<% phones_counter_responsibles += 1 %>
+					<% if !@current_user.disabled_edit_participation_bidding? %>
+					<a class="add-anchor add_new_phone_dynamic_responsible_bidding" id="add_new_phone_dynamic_<%=responsibles_counter%>">
+						<div class="add-input">+</div>
+					</a>
+					<% if phone.object.persisted? && %>
+					<a title="Excluir" rel="nofollow" data-method="delete" href="<%= delete_phone_portal_path(phone.object) %>">x</a>
+					<% end %>
+					<% end %>
+					<% end %>
+				</div>
+				<%= hidden_field_tag "phones_counter_responsibles_#{responsibles_counter}", phones_counter_responsibles %>
+			</div>
+		</div>
+
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label style="display: block;"><%= Responsible.human_attribute_name(:email)%></label>
+				<% first_email = false %>
+				<% emails_counter_responsibles = 0 %>
+				<div id="group_emails_responsibles_<%=responsibles_counter%>" class="inline">
+					<%= bid_pro.fields_for :emails, defaults: { input_html: { class: 'form-control' } } do |email| %>
+					<%= email.input :email, label: false, input_html: {class: 'width-input form-control'}, disabled: @current_user.disabled_edit_participation_bidding? %>
+					<% emails_counter_responsibles += 1 %>
+					<% if !@current_user.disabled_edit_participation_bidding? %>
+					<a class="add-anchor add_new_email_dynamic_responsible_bidding" id="add_new_email_dynamic_<%=responsibles_counter%>">
+						<div class="add-input">+</div>
+					</a>
+					<% if email.object.persisted? %>
+					<a title="Excluir" rel="nofollow" data-method="delete" href="<%= delete_email_portal_path(email.object) %>">x</a>
+					<% end %>
+					<% end %>
+					<% end %>
+				</div>
+
+				<%= hidden_field_tag "emails_counter_responsibles_#{responsibles_counter}", emails_counter_responsibles %>
+			</div>
+		</div>
+		<div class="col-xs-4">
+			<div class="form-group">
+				<label><%= BiddingProposal.human_attribute_name(:site)%></label>
+				<%= bid_pro.input :site, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>									
+		</div>
+	</div>
+
+	<% if !@current_user.disabled_edit_participation_bidding? %>
+	<div class="row">
+		<div class="col-xs-4 label-style">
+			<div class="remove-div-responsible_client_contact">
+				<%= bid_pro.check_box :_destroy, disabled: @current_user.disabled_edit_participation_bidding? %>
+				<%= bid_pro.label :_destroy, 'Remover', disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>
+		</div>
+	</div>
+	<% end %>
+
+	<hr class="line-fix">
+
+</div>
+
+<% responsibles_counter += 1 %>
+<% end %>
+
+<% if !@current_user.disabled_edit_participation_bidding? %>
+<div class="row">
+	<div class="col-xs-12 add-new">
+		<%= f.submit 'Adicionar outro', :name => "add_bidding_proposal" %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<%= f.submit 'Salvar', :class => 'save-btn', :name => "save_participation" %>
+	</div>
+</div>
+<% end %>
+
+<hr class="line-fix">
+
+<h2><b>OUTROS DOCUMENTOS E MODALIDADES</b></h2>
+
+<%= f.fields_for :attachments, f.object.attachments.select{|item| item[:attachment_type] == 7}, defaults: { input_html: { class: 'form-control' } } do |attach| %>
+<div class="row">
+	<div class="col-xs-4">
+		<div class="form-group">
+			<% if attach.object.persisted? %>
+			<%= link_to attach.object.attachment_file_name, attach.object.attachment.url(:original, false), target: "_blank" %>
+			<% else %>
+			<%= attach.input :attachment, as: :file, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+			<%= attach.input :attachment_type, :as => :hidden, input_html: { value: 7}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			<% end %>
+		</div>
+	</div>
+	<% if attach.object.persisted? %>
+	<div class="col-xs-4 label-style" style="margin-top: 2px;">
+		<div class="remove-div-responsible_client_contact">
+			<%= attach.check_box :_destroy, disabled: @current_user.disabled_edit_participation_bidding? %>
+			<%= attach.label :_destroy, 'Remover', disabled: @current_user.disabled_edit_participation_bidding? %>
+		</div>
+	</div>
+	<% end %>
+</div>
+<% end %>
+<br><br>
+
+<div class="row files-div">
+	<div class="col-xs-4">
+		<div>
+			<label for="#">Qualificação técnica</label>
+		</div>
+		<div>
+			<span>Qualificação técnica da empresa</span>
+			<%= f.fields_for :attachments, f.object.attachments.select{|item| item[:attachment_type] == 8}, defaults: { input_html: { class: 'form-control' } } do |attach| %>
+			<div class="row">
+				<div class="col-xs-8 download-div">
+					<div class="form-group">
+						<% if attach.object.persisted? %>
+						<%= link_to attach.object.attachment_file_name, attach.object.attachment.url(:original, false), target: "_blank" %>
+						<% else %>
+						<%= attach.input :attachment, as: :file, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+						<%= attach.input :attachment_type, :as => :hidden, input_html: { value: 8}, disabled: @current_user.disabled_edit_participation_bidding? %>
+						<% end %>
+					</div>
+				</div>
+				<% if attach.object.persisted? && !@current_user.disabled_edit_participation_bidding? %>
+				<div class="col-xs-4 label-style">
+					<div class="remove-div-responsible_client_contact">
+						<%= attach.check_box :_destroy %>
+						<%= attach.label :_destroy, 'Remover' %>
+					</div>
+				</div>
+				<% end %>
+			</div>
+			<% end %>
+		</div>
+		<br>
+		<div>
+			<span>Qualificação técnica dos empregados</span>
+			<%= f.fields_for :attachments, f.object.attachments.select{|item| item[:attachment_type] == 9}, defaults: { input_html: { class: 'form-control' } } do |attach| %>
+			<div class="row">
+				<div class="col-xs-8 download-div">
+					<div class="form-group">
+						<% if attach.object.persisted? %>
+						<%= link_to attach.object.attachment_file_name, attach.object.attachment.url(:original, false), target: "_blank" %>
+						<% else %>
+						<%= attach.input :attachment, as: :file, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+						<%= attach.input :attachment_type, :as => :hidden, input_html: { value: 9}, disabled: @current_user.disabled_edit_participation_bidding? %>
+						<% end %>
+					</div>
+				</div>
+				<% if attach.object.persisted? && !@current_user.disabled_edit_participation_bidding? %>
+				<div class="col-xs-4 label-style">
+					<div class="remove-div-responsible_client_contact">
+						<%= attach.check_box :_destroy %>
+						<%= attach.label :_destroy, 'Remover' %>
+					</div>
+				</div>
+				<% end %>
+			</div>
+			<% end %>
+		</div>
+
+		<br>
+		<div>
+			<span>Projetos técnicos</span>
+			<%= f.fields_for :attachments, f.object.attachments.select{|item| item[:attachment_type] == 10}, defaults: { input_html: { class: 'form-control' } } do |attach| %>
+			<div class="row">
+				<div class="col-xs-8 download-div">
+					<div class="form-group">
+						<% if attach.object.persisted? %>
+						<%= link_to attach.object.attachment_file_name, attach.object.attachment.url(:original, false), target: "_blank" %>
+						<% else %>
+						<%= attach.input :attachment, as: :file, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+						<%= attach.input :attachment_type, :as => :hidden, input_html: { value: 10}, disabled: @current_user.disabled_edit_participation_bidding? %>
+						<% end %>
+					</div>
+				</div>
+				<% if attach.object.persisted? && !@current_user.disabled_edit_participation_bidding? %>
+				<div class="col-xs-4 label-style">
+					<div class="remove-div-responsible_client_contact">
+						<%= attach.check_box :_destroy %>
+						<%= attach.label :_destroy, 'Remover' %>
+					</div>
+				</div>
+				<% end %>
+			</div>
+			<% end %>
+		</div>
+	</div>
+	<div class="col-xs-4">
+		<div>
+			<label for="#">Concurso</label>
+		</div>
+		<div>
+			<span>Projeto</span>
+			<%= f.fields_for :attachments, f.object.attachments.select{|item| item[:attachment_type] == 11}, defaults: { input_html: { class: 'form-control' } } do |attach| %>
+			<div class="row">
+				<div class="col-xs-8 download-div">
+					<div class="form-group">
+						<% if attach.object.persisted? %>
+						<%= link_to attach.object.attachment_file_name, attach.object.attachment.url(:original, false), target: "_blank" %>
+						<% else %>
+						<%= attach.input :attachment, as: :file, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+						<%= attach.input :attachment_type, :as => :hidden, input_html: { value: 11}, disabled: @current_user.disabled_edit_participation_bidding? %>
+						<% end %>
+					</div>
+				</div>
+				<% if attach.object.persisted? && !@current_user.disabled_edit_participation_bidding?%>
+				<div class="col-xs-4 label-style">
+					<div class="remove-div-responsible_client_contact">
+						<%= attach.check_box :_destroy %>
+						<%= attach.label :_destroy, 'Remover' %>
+					</div>
+				</div>
+				<% end %>
+			</div>
+			<% end %>
+		</div>
+		<br>
+		<div>
+			<label for="#">Leilão</label>
+		</div>
+		<div>
+			<span>Projeto</span>
+			<%= f.fields_for :attachments, f.object.attachments.select{|item| item[:attachment_type] == 12}, defaults: { input_html: { class: 'form-control' } } do |attach| %>
+			<div class="row">
+				<div class="col-xs-8 download-div">
+					<div class="form-group">
+						<% if attach.object.persisted? %>
+						<%= link_to attach.object.attachment_file_name, attach.object.attachment.url(:original, false), target: "_blank" %>
+						<% else %>
+						<%= attach.input :attachment, as: :file, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+						<%= attach.input :attachment_type, :as => :hidden, input_html: { value: 12}, disabled: @current_user.disabled_edit_participation_bidding? %>
+						<% end %>
+					</div>
+				</div>
+				<% if attach.object.persisted? && !@current_user.disabled_edit_participation_bidding? %>
+				<div class="col-xs-4 label-style">
+					<div class="remove-div-responsible_client_contact">
+						<%= attach.check_box :_destroy %>
+						<%= attach.label :_destroy, 'Remover' %>
+					</div>
+				</div>
+				<% end %>
+			</div>
+			<% end %>
+		</div>
+	</div>
+	<div class="col-xs-4">
+		<div>
+			<label for="#">Inexigibilidade</label>
+		</div>
+		<div>
+			<span>Projeto</span>
+			<%= f.fields_for :attachments, f.object.attachments.select{|item| item[:attachment_type] == 13}, defaults: { input_html: { class: 'form-control' } } do |attach| %>
+			<div class="row">
+				<div class="col-xs-8 download-div">
+					<div class="form-group">
+						<% if attach.object.persisted? %>
+						<%= link_to attach.object.attachment_file_name, attach.object.attachment.url(:original, false), target: "_blank" %>
+						<% else %>
+						<%= attach.input :attachment, as: :file, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+						<%= attach.input :attachment_type, :as => :hidden, input_html: { value: 13}, disabled: @current_user.disabled_edit_participation_bidding? %>
+						<% end %>
+					</div>
+				</div>
+				<% if attach.object.persisted? && !@current_user.disabled_edit_participation_bidding?%>
+				<div class="col-xs-4 label-style">
+					<div class="remove-div-responsible_client_contact">
+						<%= attach.check_box :_destroy %>
+						<%= attach.label :_destroy, 'Remover' %>
+					</div>
+				</div>
+				<% end %>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<% if !@current_user.disabled_edit_participation_bidding? %>
+<%= f.submit 'Salvar', :class => 'save-btn', :name => "save_participation" %>
+<% end %>
+
+<hr class="line-fix">
+
+<div class="row">
+	<div class="col-xs-3 resource-div">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:participation_resources) %></label>
+			<%= f.input :participation_resource, as: :select, input_html: {class: 'select optional form-control chosen'}, label: false, collection: [['Sim', 1], ['Não', 0]], :selected => (f.object.participation_resource ? 1 : 0), disabled: @current_user.disabled_edit_participation_bidding? %>
+		</div>
+	</div>
+</div>
+
+<div id="bidding_resources_group_1" <%= 'hidden' if f.object.participation_resource != true %>>
+	
+	<% bidding_resource_counter = 0 %>
+	<%= f.fields_for :bidding_resources, f.object.bidding_resources.select{|item| item[:resource_type] == 1}, defaults: { input_html: { class: 'form-control' } } do |resource| %>
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#"><%= BiddingResource.human_attribute_name(:bidding_proposal) %></label>
+				<%= resource.association :bidding_proposal, collection: f.object.bidding_proposals, label_method: :item_number, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' }, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>				
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#"><%= BiddingResource.human_attribute_name(:initial_date) %></label>
+				<%= resource.text_field :initial_date, label: false, class: "form-control datetimepicker", :value => resource.object.initial_date != nil ? I18n.l(resource.object.initial_date, format: :full) : nil, disabled: @current_user.disabled_edit_participation_bidding?%>
+			</div>				
+		</div>		
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#"><%= BiddingResource.human_attribute_name(:final_date) %></label>
+				<%= resource.text_field :final_date, label: false, class: "form-control datetimepicker", :value => resource.object.final_date != nil ? I18n.l(resource.object.final_date, format: :full) : nil, disabled: @current_user.disabled_edit_participation_bidding?%>
+			</div>				
+		</div>	
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#"><%= BiddingResource.human_attribute_name(:insertion_portal_date) %></label>
+				<%= resource.text_field :insertion_portal_date, label: false, class: "form-control datetimepicker", :value => resource.object.insertion_portal_date != nil ? I18n.l(resource.object.insertion_portal_date, format: :full) : nil, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>				
+		</div>	
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#"><%= BiddingResource.human_attribute_name(:result) %></label>
+				<%= resource.association :result, collection: Result.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' }, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>									
+		</div>
+		<%= resource.input :resource_type, :as => :hidden, input_html: { value: 1 }, disabled: @current_user.disabled_edit_participation_bidding? %>
+	</div>
+
+	<div class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="title slide_historic_observations_resource_<%=bidding_resource_counter%> show_motivitations">
+					<span>Visualizar Histórico de Motivações (<%=(resource.object.observations.length-1)%>) <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Histórico de Observações -->
+	<%= resource.fields_for :observations, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+	<% if observation.object.persisted? %>
+	<div class="row row_with_observation_resource_<%=bidding_resource_counter%> historic_motivations observation-div">
+		<div class="col-xs-3">
+			<label for="#"><%= Observation.human_attribute_name(:created_at) %>:</label>
+			<% if observation.object.created_at %>
+			<%= I18n.l observation.object.created_at.to_datetime, format: :full %>
+			<% end %>
+		</div>
+		<div class="col-xs-3">
+			<label for="#"><%= Observation.human_attribute_name(:user)%>:</label>
+			<% if observation.object.user %>
+			<%= observation.object.user.name %>
+			<% end %>
+		</div>
+		<div class="col-xs-4">
+			<label for="#"><%= Observation.human_attribute_name(:observation)%>:</label>
+			<% if observation.object.user_id == @current_user.id %>
+			<%= observation.input :observation, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+			<% else %>
+			<% if observation.object.observation %>
+			<%= observation.object.observation %>
+			<% end %>
+			<% end %>
+		</div>
+		<% if !@current_user.disabled_edit_participation_bidding? %>
+		<div class="col-xs-2">
+			<a title="Excluir" data-confirm="Tem certeza que deseja excluir essa observação?" rel="nofollow" data-method="delete" href="<%= delete_observation_bidding_resource_path(observation.object) %>">Excluir
+			</a>
+		</div>
+		<% end %>
+	</div>
+	<% end %>
+	<% end %>
+	<!-- Fim histórico de observações -->
+
+	<!-- Nova observação -->
+	<%= resource.fields_for :observations, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+	<% if !observation.object.persisted? %>
+	<div class="row">
+		<div class="col-xs-12 text-div">
+			<label for="#">Motivação:</label>
+			<%= observation.association :user, :as => :hidden, input_html: { value: @current_user.id}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			<%= observation.input :observation, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+		</div>
+	</div>
+	<% end %>
+	<% end %>
+	<!-- Fim nova observação -->
+
+	<div class="row files-div">
+		<div class="col-xs-12">
+			<div>
+				<span>Demonstrações de Recurso</span>
+				<%= resource.fields_for :attachments, defaults: { input_html: { class: 'form-control' } } do |attach| %>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<% if attach.object.persisted? %>
+							<%= link_to attach.object.attachment_file_name, attach.object.attachment.url(:original, false), target: "_blank" %>
+							<% else %>
+							<%= attach.input :attachment, as: :file, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+							<% end %>
+						</div>
+					</div>
+					<% if attach.object.persisted? && !@current_user.disabled_edit_participation_bidding?%>
+					<div class="col-xs-4 label-style">
+						<div class="remove-div-responsible_client_contact">
+							<%= attach.check_box :_destroy %>
+							<%= attach.label :_destroy, 'Remover' %>
+						</div>
+					</div>
+					<% end %>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<% bidding_resource_counter += 1 %>
+		<% if !@current_user.disabled_edit_participation_bidding? %>
+		<div class="col-xs-3 label-position">
+			<div class="remove-div-responsible_client_contact">
+				<%= resource.check_box :_destroy %>
+				<%= resource.label :_destroy, 'Remover recurso' %>
+			</div>
+		</div>
+		<% end %>
+	</div>
+	<br><br>
+	<% end %>
+	<% if !@current_user.disabled_edit_participation_bidding? %>
+	<div class="row">
+		<div class="col-xs-12 add-new">
+			<%= f.submit 'Adicionar novo Recurso', :name => "add_resource_1" %>
+		</div>
+	</div>
+	<% end %>
+</div>
+
+<hr class="line-fix">
+
+<div class="row">
+	<div class="col-xs-3 resource-div">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:participation_against_reasons) %></label>
+			<%= f.input :participation_against_reason, as: :select, input_html: {class: 'select optional form-control chosen'}, label: false, collection: [['Sim', 1], ['Não', 0]], :selected => (f.object.participation_against_reason ? 1 : 0), disabled: @current_user.disabled_edit_participation_bidding? %>
+		</div>
+	</div>
+</div>
+
+<div id="bidding_resources_group_2" <%= 'hidden' if f.object.participation_against_reason != true %>>
+
+	<%= f.fields_for :bidding_resources, f.object.bidding_resources.select{|item| item[:resource_type] == 2}, defaults: { input_html: { class: 'form-control' } } do |resource| %>
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#"><%= BiddingResource.human_attribute_name(:bidding_proposal) %></label>
+				<%= resource.association :bidding_proposal, collection: f.object.bidding_proposals, label_method: :item_number, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' }, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>				
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#"><%= BiddingResource.human_attribute_name(:initial_date) %></label>
+				<%= resource.text_field :initial_date, label: false, class: "form-control datetimepicker", :value => resource.object.initial_date != nil ? I18n.l(resource.object.initial_date, format: :full) : nil, disabled: @current_user.disabled_edit_participation_bidding?%>
+			</div>				
+		</div>		
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#"><%= BiddingResource.human_attribute_name(:final_date) %></label>
+				<%= resource.text_field :final_date, label: false, class: "form-control datetimepicker", :value => resource.object.final_date != nil ? I18n.l(resource.object.final_date, format: :full) : nil, disabled: @current_user.disabled_edit_participation_bidding?%>
+			</div>				
+		</div>	
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#"><%= BiddingResource.human_attribute_name(:insertion_portal_date) %></label>
+				<%= resource.text_field :insertion_portal_date, label: false, class: "form-control datetimepicker", :value => resource.object.insertion_portal_date != nil ? I18n.l(resource.object.insertion_portal_date, format: :full) : nil, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>				
+		</div>	
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#"><%= BiddingResource.human_attribute_name(:result) %></label>
+				<%= resource.association :result, collection: Result.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' }, disabled: @current_user.disabled_edit_participation_bidding? %>
+			</div>									
+		</div>
+		<%= resource.input :resource_type, :as => :hidden, input_html: { value: 2}, disabled: @current_user.disabled_edit_participation_bidding? %>
+	</div>
+
+	<div class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="title slide_historic_observations_resource_<%=bidding_resource_counter%> show_motivitations">
+					<span>Visualizar Histórico de Motivações (<%=(resource.object.observations.length-1)%>) <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Histórico de Observações -->
+	<%= resource.fields_for :observations, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+	<% if observation.object.persisted? %>
+	<div class="row row_with_observation_resource_<%=bidding_resource_counter%> historic_motivations observation-div">
+		<div class="col-xs-3">
+			<label for="#"><%= Observation.human_attribute_name(:created_at) %>:</label>
+			<% if observation.object.created_at %>
+			<%= I18n.l observation.object.created_at.to_datetime, format: :full %>
+			<% end %>
+		</div>
+		<div class="col-xs-3">
+			<label for="#"><%= Observation.human_attribute_name(:user)%>:</label>
+			<% if observation.object.user %>
+			<%= observation.object.user.name %>
+			<% end %>
+		</div>
+		<div class="col-xs-4">
+			<label for="#"><%= Observation.human_attribute_name(:observation)%>:</label>
+			<% if observation.object.user_id == @current_user.id %>
+			<%= observation.input :observation, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+			<% else %>
+			<% if observation.object.observation %>
+			<%= observation.object.observation %>
+			<% end %>
+			<% end %>
+		</div>
+		<% if !@current_user.disabled_edit_participation_bidding? %>
+		<div class="col-xs-2">
+			<a title="Excluir" data-confirm="Tem certeza que deseja excluir essa observação?" rel="nofollow" data-method="delete" href="<%= delete_observation_bidding_resource_path(observation.object) %>">Excluir
+			</a>
+		</div>
+		<% end %>
+	</div>
+	<% end %>
+	<% end %>
+	<!-- Fim histórico de observações -->
+
+	<!-- Nova observação -->
+	<%= resource.fields_for :observations, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+	<% if !observation.object.persisted? %>
+	<div class="row">
+		<div class="col-xs-12 text-div">
+			<label for="#">Motivação:</label>
+			<%= observation.association :user, :as => :hidden, input_html: { value: @current_user.id}, disabled: @current_user.disabled_edit_participation_bidding? %>
+			<%= observation.input :observation, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+		</div>
+	</div>
+	<% end %>
+	<% end %>
+	<!-- Fim nova observação -->
+
+	<div class="row files-div">
+		<div class="col-xs-12">
+			<div>
+				<span>Demonstrações de Contrarrazão</span>
+				<%= resource.fields_for :attachments, defaults: { input_html: { class: 'form-control' } } do |attach| %>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<% if attach.object.persisted? %>
+							<%= link_to attach.object.attachment_file_name, attach.object.attachment.url(:original, false), target: "_blank" %>
+							<% else %>
+							<%= attach.input :attachment, as: :file, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+							<% end %>
+						</div>
+					</div>
+					<% if attach.object.persisted? && !@current_user.disabled_edit_participation_bidding?%>
+					<div class="col-xs-4 label-style">
+						<div class="remove-div-responsible_client_contact">
+							<%= attach.check_box :_destroy %>
+							<%= attach.label :_destroy, 'Remover' %>
+						</div>
+					</div>
+					<% end %>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<% bidding_resource_counter += 1 %>
+		<% if !@current_user.disabled_edit_participation_bidding? %>
+		<div class="col-xs-3 label-position">
+			<div class="remove-div-responsible_client_contact">
+				<%= resource.check_box :_destroy %>
+				<%= resource.label :_destroy, 'Remover contrarrazão' %>
+			</div>
+		</div>
+		<% end %>
+	</div>
+	<br><br>
+	<% end %>
+	<% if !@current_user.disabled_edit_participation_bidding? %>
+	<div class="row">
+		<div class="col-xs-12 add-new">
+			<%= f.submit 'Adicionar nova Contrarrazão', :name => "add_resource_2" %>
+		</div>
+	</div>
+	<% end %>
+</div> 
+
+<hr class="line-fix">
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:participation_process_location) %></label>
+			<%= f.association :participation_process_location, collection: ProcessLocation.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' }, disabled: @current_user.disabled_edit_participation_bidding? %>
+		</div>											
+	</div>
+</div>
+
+<div class="content">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="title slide_historic_observations_4 show_content">
+				<span>Visualizar Histórico de Observações (<%=(f.object.observations.select{|item| item[:observation_type] == 4}.length-1)%>) <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Histórico de Observações -->
+<%= f.fields_for :observations, f.object.observations.select{|item| item[:observation_type] == 4}, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+<% if observation.object.persisted? %>
+<div class="row row_with_observation_4 observation-div">
+	<div class="col-xs-3">
+		<label for="#"><%= Observation.human_attribute_name(:created_at) %>:</label>
+		<% if observation.object.created_at %>
+		<%= I18n.l observation.object.created_at.to_datetime, format: :full %>
+		<% end %>
+	</div>
+	<div class="col-xs-3">
+		<label for="#"><%= Observation.human_attribute_name(:user)%>:</label>
+		<% if observation.object.user %>
+		<%= observation.object.user.name %>
+		<% end %>
+	</div>
+	<div class="col-xs-4">
+		<label for="#"><%= Observation.human_attribute_name(:observation)%>:</label>
+		<% if observation.object.user_id == @current_user.id %>
+		<%= observation.input :observation, label: false %>
+		<% else %>
+		<% if observation.object.observation %>
+		<%= observation.object.observation %>
+		<% end %>
+		<% end %>
+	</div>
+	<% if !@current_user.disabled_edit_participation_bidding? %>
+	<div class="col-xs-2">
+		<a title="Excluir" data-confirm="Tem certeza que deseja excluir essa observação?" rel="nofollow" data-method="delete" href="<%= delete_observation_bidding_path(observation.object) %>">Excluir
+		</a>
+	</div>
+	<% end %>
+</div>
+<% end %>
+<% end %>
+<!-- Fim histórico de observações -->
+
+<!-- Nova observação -->
+<%= f.fields_for :observations, f.object.observations.select{|item| item[:observation_type] == 4}, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+<% if !observation.object.persisted? %>
+<div class="row">
+	<div class="col-xs-12">
+		<label for="#"><%= Bidding.human_attribute_name(:catch_organ_notification_observation)%>:</label>
+		<%= observation.association :user, :as => :hidden, input_html: { value: @current_user.id}, disabled: @current_user.disabled_edit_participation_bidding? %>
+		<%= observation.input :observation_type, :as => :hidden, input_html: { value: 4}, disabled: @current_user.disabled_edit_participation_bidding? %>
+		<%= observation.input :observation, label: false, disabled: @current_user.disabled_edit_participation_bidding? %>
+	</div>
+</div>
+<% end %>
+<% end %>
+<!-- Fim nova observação -->
+
+<br>
+<% if !@current_user.disabled_edit_participation_bidding? %>
+<%= f.submit 'Salvar', :class => 'save-btn', :name => "save_participation" %>
+<% end %>

@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    attributes:
+      effort:
+        bidding: Licitação
+        bidding_id: Licitação
+        number: Número do empenho
+        value: Valor do empenho
+        signature_date: Data assinatura
+        initial_date: Data de início
+        final_date: Data final

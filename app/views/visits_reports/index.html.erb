@@ -1,0 +1,56 @@
+<div class="container" id="visit_reports">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Comercial > <a href="<%= visits_reports_path %>">Relatório de visitas</a></h1>
+			<a class="pull-right new-btn" href="<%= new_visits_report_path %>">Novo</a>
+		</div>
+	</div>
+
+	<!-- Filter -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="col-xs-12">
+					<%= datagrid_form_for @grid_visits_reports, :method => :get, :url => visits_reports_path %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row" id="div_chart_visits_report" hidden>
+		<div class="col-xs-12" id="graph">
+			<div id="chart_visits_reports"></div>
+		</div>
+	</div>
+	
+	<!-- Open chart -->
+	<div class="row" style="margin-top: 25px;">
+		<div class="col-xs-12">
+			<div class="chart-div">
+				<a id="open_visit_report_chart" href="javascript:void(0)" class="open-graph">
+					<img data-toggle="tooltip" title="Gráfico" src="<%= image_path('graph-svg.svg') %>">
+				</a>	
+			</div>
+		</div>
+	</div>
+	
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_table @grid_visits_reports, html: {class: 'datagrid table users_grid'} %>
+		</div>
+	</div>
+
+	<!-- Pagination -->
+	<div class="row">
+		<div class="row">
+			
+		</div>
+		<div class="col-xs-12 center">
+			<%= paginate(@grid_visits_reports.assets) %>
+		</div>
+	</div>
+
+</div>

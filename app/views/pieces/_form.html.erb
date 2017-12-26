@@ -1,0 +1,235 @@
+<%= simple_form_for @piece, defaults: { input_html: {class: 'form-control'}} do |f| %>
+
+<div class="row">
+	<div class="col-xs-6">
+		<div class="form-group">
+			<label for="#"><%= Piece.human_attribute_name(:lawyers) %></label>
+			<%= f.association :lawyers, collection: Lawyer.all.order(:name), label_method: :name, value_method: :id, label: false, input_html: {class: 'form-control chosen'} %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Piece.human_attribute_name(:client) %></label>
+			<%= f.association :client, collection: Client.all.order(:fantasy_name), label_method: :fantasy_name, value_method: :id, label: false, input_html: {class: 'form-control chosen'} %>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Piece.human_attribute_name(:piece_name) %></label>
+			<%= f.association :piece_name, collection: PieceName.all.order(:name), label_method: :name, value_method: :id, label: false, input_html: {class: 'form-control chosen'} %>
+		</div>			
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Piece.human_attribute_name(:judicial_type) %></label>
+			<%= f.association :judicial_type, collection: JudicialType.all.order(:name), label_method: :name, value_method: :id, label: false, input_html: {class: 'form-control chosen'} %>
+		</div>			
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Piece.human_attribute_name(:initial_date) %></label>
+			<%= f.input :initial_date, :as => :string, label: false, input_html: { class: 'form-control datetimepicker', :value => f.object.initial_date != nil ? I18n.l(f.object.initial_date, format: :full) : nil } %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Piece.human_attribute_name(:deadline) %></label>
+			<%= f.input :deadline, :as => :string, label: false, input_html: { class: 'form-control datetimepicker', :value => f.object.deadline != nil ? I18n.l(f.object.deadline, format: :full) : nil }%>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Piece.human_attribute_name(:piece_result) %></label>
+			<%= f.association :piece_result, collection: PieceResult.all.order(:name), label_method: :name, value_method: :id, label: false, input_html: {class: 'form-control chosen'} %>
+		</div>			
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Piece.human_attribute_name(:organ) %></label>
+			<%= f.association :organ, collection: Organ.all.order(:name), label_method: :name, value_method: :id, label: false, input_html: {class: 'form-control chosen'} %>
+		</div>			
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Piece.human_attribute_name(:modalidate) %></label>
+			<%= f.association :modalidate, collection: Modalidate.all.order(:name), label_method: :name, value_method: :id, label: false, input_html: {class: 'form-control chosen'} %>
+		</div>			
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Piece.human_attribute_name(:number) %></label>
+			<%= f.input :number, collection: Bidding.all.order(:catch_number), label: false, label_method: :catch_number, value_method: :catch_number, as: :select, input_html: {class: 'form-control chosen'} %>
+		</div>			
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Piece.human_attribute_name(:process) %></label>
+			<%= f.input :process, collection: Bidding.all.order(:catch_process), label: false, label_method: :catch_process, value_method: :catch_process, as: :select, input_html: {class: 'form-control chosen'} %>
+		</div>			
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Piece.human_attribute_name(:protocol_number)%></label>
+			<%= f.input :protocol_number, label: false %>
+		</div>			
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Piece.human_attribute_name(:shipping_type) %></label>
+			<%= f.association :shipping_type, collection: ShippingType.all.order(:name), label_method: :name, value_method: :id, label: false, input_html: {class: 'form-control chosen'} %>
+		</div>			
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Piece.human_attribute_name(:protocol_files) %></label>
+			<%= f.fields_for :attachments, f.object.attachments.select{|item| item[:id] == nil && item[:attachment_type] == 1}, defaults: { input_html: { class: 'form-control' } } do |cs| %>
+			<%= cs.input :attachment_type, :as => :hidden, input_html: { value: 1} %>
+			<%= cs.input :attachment, as: :file, label: false %>
+			<% end %>
+		</div>
+	</div>
+	<% if f.object.persisted? %>
+	<div class="col-xs-2 view-div">
+		<a class="popup-modal" href="#modal_show_files_1_<%=f.object.id%>">Visualizar todos</a>
+		<%= render 'pieces/modal/show_files_piece', object: f.object, attachments: f.object.attachments.select{|item| item[:id] == nil && item[:attachment_type] == 1}, type: 1 %>
+	</div>
+	<% end %>
+</div>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Piece.human_attribute_name(:piece_situation) %></label>
+			<%= f.association :piece_situation, collection: PieceSituation.all.order(:name), label_method: :name, value_method: :id, label: false, input_html: {class: 'form-control chosen'} %>
+		</div>				
+	</div>
+</div>
+
+<br>
+<div class="content">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="title slide_historic_observations show_content">
+				<span>Visualizar Histórico de observações (<%=(f.object.observations.length-1)%>) <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+<!-- Histórico de Observações -->
+<%= f.fields_for :observations, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+<% if observation.object.persisted? %>
+<div class="row row_with_observation">
+	<div class="col-xs-3">
+		<label for="#"><%= Observation.human_attribute_name(:created_at) %>:</label>
+		<% if observation.object.created_at %>
+		<%= I18n.l observation.object.created_at.to_datetime, format: :full %>
+		<% end %>
+	</div>
+	<div class="col-xs-3">
+		<label for="#"><%= Observation.human_attribute_name(:user)%>:</label>
+		<% if observation.object.user %>
+		<%= observation.object.user.name %>
+		<% end %>
+	</div>
+	<div class="col-xs-4">
+		<label for="#"><%= Observation.human_attribute_name(:observation)%>:</label>
+		<% if observation.object.user_id == @current_user.id %>
+		<%= observation.input :observation, label: false %>
+		<% else %>
+		<% if observation.object.observation %>
+		<%= observation.object.observation %>
+		<% end %>
+		<% end %>
+	</div>
+	<div class="col-xs-2">
+		<a title="Excluir" data-confirm="Tem certeza que deseja excluir essa observação?" rel="nofollow" data-method="delete" href="<%= delete_observation_piece_path(observation.object) %>">Excluir
+		</a>
+	</div>
+</div>
+<% end %>
+<% end %>
+<!-- Fim histórico de observações -->
+
+<!-- Nova observação -->
+<%= f.fields_for :observations, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+<% if !observation.object.persisted? %>
+<div class="row">
+	<div class="col-xs-12 break-line">
+		<label for="#"><%= Observation.human_attribute_name(:new_observation)%>:</label>
+		<%= observation.association :user, :as => :hidden, input_html: { value: @current_user.id} %>
+		<%= observation.input :observation, label: false %>
+	</div>
+</div>
+<% end %>
+<% end %>
+<!-- Fim nova observação -->
+
+<br>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Piece.human_attribute_name(:piece_upload) %></label>
+			<%= f.fields_for :attachments, f.object.attachments.select{|item| item[:id] == nil && item[:attachment_type] == 2}, defaults: { input_html: { class: 'form-control' } } do |cs| %>
+			<%= cs.input :attachment_type, :as => :hidden, input_html: { value: 2} %>
+			<%= cs.input :attachment, as: :file, label: false %>
+			<% end %>
+		</div>
+	</div>
+	<% if f.object.persisted? %>
+	<div class="col-xs-2 view-div">
+		<a class="popup-modal" href="#modal_show_files_2_<%=f.object.id%>">Visualizar todos</a>
+		<%= render 'pieces/modal/show_files_piece', object: f.object, attachments: f.object.attachments.select{|item| item[:id] == nil && item[:attachment_type] == 2}, type: 2 %>
+	</div>
+	<% end %>
+</div>
+
+<h2>Arquivos do processo</h2>
+
+<div class="row">
+	<div class="col-xs-3">
+		<label for="#">Inserir na pasta</label>
+		<div class="form-group">
+			<div class="input select piece_modalidate">
+				<select class="select form-control chosen" name="piece[piece_process_file_id]" id="piece_piece_process_file_id" style="display: none;">
+					<% @collection.each do |process_file| %>
+					<option value="<%=process_file.id%>"><%=process_file.folder_name%></option>
+					<% end %>
+					<option value="0" selected>-- Nova pasta --</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-3" id="div_with_folder_name">
+		<div class="form-group">
+			<label for="#">Nome da pasta</label>
+			<%= f.input :folder_name, as: :string, label: false %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><br></label>
+			<%= f.input :file_to_add, as: :file, label: false %>
+		</div>
+	</div>
+	<% if f.object.persisted? %>
+	<div class="col-xs-2 view-div">
+		<a class="popup-modal" href="#modal_show_files_<%=f.object.id%>">Visualizar todos</a>
+		<%= render 'pieces/modal/show_files_by_piece_process_files', object: f.object %>
+	</div>
+	<% end %>
+	<div class="col-xs-12">
+		<button type="submit" class="save-btn">Salvar</button>
+	</div>
+	<% end %>
+</div>

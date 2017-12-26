@@ -1,0 +1,255 @@
+<%= simple_form_for @user, defaults: { input_html: {class: 'form-control'}} do |f| %>
+<div class="col-xs-12" id="users_new">
+
+	<div class="row">
+		<div class="col-xs-4">
+			<div class="form-group">
+				<label>Tipo*</label>
+				<%= f.association :profile, collection: Profile.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --" %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Nome completo*</label>
+				<%= f.input :name, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>RG*</label>
+				<%= f.input :rg, label: false, input_html: { class: 'string optional form-control rg' } %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>CPF*</label>
+				<%= f.input :cpf, label: false, input_html: { class: 'string optional form-control cpf' } %>
+			</div>					
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Data de nascimento*</label>
+				<%= f.text_field :birth_date, label: false, class: "form-control datepicker", :value => f.object.birth_date != nil ? I18n.l(f.object.birth_date, format: :default) : nil%>
+			</div>							
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Email*</label>
+				<%= f.input :email, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Senha*</label>
+				<%= f.input :password, label: false %>
+				<%= hidden_field_tag "user[password_to_save]", f.object.password_to_save %>
+			</div>
+		</div>	
+		<div class="col-xs-3">
+			<div class="form-group cores-div">
+				<label>Cor*</label>
+				<%= f.association :calendar_color, collection: CalendarColor.all.order(:code), label_method: :name, value_method: :id, label: false, as: :radio_buttons %>
+			</div>
+		</div>		
+		<div class="col-xs-3 block-user">
+			<div class="checkbox">
+				<label><%= f.input :is_blocked, label: false %>Bloquear usuário</label>
+			</div>
+		</div>	
+	</div>
+
+	<% if @user.persisted? %>
+	<div class="users-historic">
+		<a href="<%= audits_path @user %>" style="">Histórico de ações</a>
+	</div>
+	<% end %>
+
+	<h2 class="permission-title">Permissão de acesso</h2>
+
+	<div class="row">
+		<div class="col-xs-12 permission-div">	
+			<%= f.association :permission_profiles, collection: PermissionProfile.order(:id), label_method: lambda { |object| "#{object.name.mb_chars.upcase}"} , value_method: :id, label: false, as: :check_boxes %>
+		</div>
+	</div>
+
+	<h2>Endereço</h2>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>CEP*</label>
+				<%= f.input :zipcode, label: false, input_html: { class: 'string optional form-control cep' } %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Logradouro*</label>
+				<%= f.input :address, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-1">
+			<div class="form-group">
+				<label>Número*</label>
+				<%= f.input :number, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Complemento*</label>
+				<%= f.input :complement, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Bairro*</label>
+				<%= f.input :district, label: false %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Estado*</label>
+				<%= f.association :state, collection: State.all.order(:name), label_method: :acronym, value_method: :id, label: false, include_blank: "-- Selecione --" %>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Cidade*</label>
+				<%= f.association :city, collection: City.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --" %>
+			</div>
+		</div>
+	</div>
+
+	<h2>Escritório (localidade)</h2>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Estado</label>
+				<%= f.association :office_state, collection: State.all.order(:name), label_method: :acronym, value_method: :id, label: false, include_blank: "-- Selecione --" %>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Cidade</label>
+				<%= f.association :office_city, collection: City.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --" %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Cargo</label>
+				<%= f.input :office, label: false %>
+			</div>					
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Departamento</label>
+				<%= f.input :department, label: false %>
+			</div>					
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Whatsapp</label>
+				<%= f.input :whatsapp, label: false, input_html: { class: 'string optional form-control tel custom-tel' } %>
+			</div>					
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Skype</label>
+				<%= f.input :skype, label: false %>
+			</div>					
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Telefone pessoal*</label>
+
+				<% phones_counter = 0 %>
+				<% first_phone = false %>
+				<div id="group_phones">
+					<%= f.fields_for :phone_users, defaults: { input_html: { class: 'form-control width-input' } } do |phone| %>
+					
+					<%= phone.input :phone, label: false, input_html: {class: 'string form-control custom-tel width-input'} %>
+
+					<% if phone.object.persisted? %>
+					<td class="text text-center">
+						<span data-toggle="tooltip" title="Remover">
+							<%= phone.check_box :_destroy %>
+							<% phone.label :_destroy, "Remover" %>
+						</span>
+					</td>
+					<% else %>
+
+					<% if !first_phone %>
+					<% first_phone = true %>
+					<% else %>
+					<a data-toggle="tooltip" title="Remover" id="delete_phone_<%=phones_counter%>" class="delete_phone">x</a>
+					<% end %>
+
+					<% end %>
+
+					<% phones_counter += 1 %>
+
+					<% end %>
+				</div>
+				<a class="add-anchor" id="add_new_phone">
+					<div class="add-input">
+						+
+					</div>
+				</a>
+				<%= hidden_field_tag "phones_counter", phones_counter %>
+			</div>
+		</div>		
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Email pessoal*</label>
+				<% emails_counter = 0 %>
+				<% first_email = false %>
+				<div id="group_emails">
+					<%= f.fields_for :email_users, defaults: { input_html: { class: 'form-control width-input' } } do |email| %>
+					<%= email.input :email, label: false %>
+					<% if email.object.persisted? %>
+					<td class="text text-center">
+						<span data-toggle="tooltip" title="Remover">
+							<%= email.check_box :_destroy %>
+							<% email.label :_destroy, "Remover" %>
+						</span>
+					</td>
+					<% else %>
+					<% if !first_email %>
+					<% first_email = true %>
+					<% else %>
+					<a data-toggle="tooltip" title="Remover" id="delete_email_<%=emails_counter%>" class="delete_email">x</a>
+					<% end %>
+					<% end %>
+					<% emails_counter += 1 %>
+					<% end %>
+				</div>
+				<a class="add-anchor" id="add_new_email">
+					<div class="add-input">
+						+
+					</div>
+				</a>
+				<%= hidden_field_tag "emails_counter", emails_counter %>
+			</div>
+		</div>	
+	</div>
+
+	<button class="save-btn" type="submit">Salvar</button>
+
+</div>
+<% end %>

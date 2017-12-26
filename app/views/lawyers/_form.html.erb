@@ -1,0 +1,239 @@
+<%= simple_form_for @lawyer, defaults: { input_html: {class: 'form-control'}} do |f| %>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Lawyer.human_attribute_name(:lawyer_type) %></label>
+			<%= f.association :lawyer_type, collection: LawyerType.all.order(:id), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>
+	</div>
+	<div class="col-xs-5">
+		<div class="form-group">
+			<label for="#"><%= Lawyer.human_attribute_name(:name) %></label>
+			<%= f.input :name, label: false %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Lawyer.human_attribute_name(:created_date) %></label>
+			<%= f.input :created_date, :as => :string, label: false, input_html: { class: 'form-control datetimepicker', :value => f.object.created_date != nil ? I18n.l(f.object.created_date, format: :full) : nil }%>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Lawyer.human_attribute_name(:office) %></label>
+			<%= f.input :office, label: false %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Lawyer.human_attribute_name(:cnpj) %></label>
+			<%= f.input :cnpj, label: false, input_html: { class: 'form-control cnpj' } %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Lawyer.human_attribute_name(:cpf) %></label>
+			<%= f.input :cpf, label: false, input_html: { class: 'form-control cpf' } %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Lawyer.human_attribute_name(:oab) %></label>
+			<%= f.input :oab, label: false, input_html: { class: 'form-control oab' } %>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Address.human_attribute_name(:state) %></label>
+			<%= f.association :state, collection: State.all.order(:name), label_method: :acronym, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Address.human_attribute_name(:city) %></label>
+			<%= f.association :city, collection: City.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<% @phones_counter = 1 %>
+		<label class="label-fix"><%= Lawyer.human_attribute_name(:phone) %></label>
+		<%= f.fields_for :phones, defaults: { input_html: { class: 'form-control' } } do |phone| %>
+		<div class="row">
+			<div class="col-xs-10 add-fix">
+				<div class="form-group">
+					<%= phone.input :phone, label: false, input_html: { class: 'form-control tel width-fix custom-tel', type: 'text' } %>
+				</div>
+			</div>	
+
+			<% if @phones_counter == f.object.phones.length %>
+			<div class="col-xs-1 add-area">
+				<%= f.submit '+', :name => "add_phone" %>
+			</div>
+			<% end %>
+
+			<div class="col-xs-1 remove-div">
+				<span data-toggle="tooltip" title="Remover">
+					<%= phone.check_box :_destroy %>
+					<% phone.label :_destroy, "Remover" %> 
+				</span>
+			</div>
+		</div>
+		<% @phones_counter += 1 %>
+		<% end %>
+	</div>
+
+	<div class="col-xs-4">
+		<% @emails_counter = 1 %>
+		<label class="label-fix"><%= Lawyer.human_attribute_name(:email) %></label>
+		<%= f.fields_for :emails, defaults: { input_html: { class: 'form-control' } } do |email| %>
+		<div class="row">
+			<div class="col-xs-10 add-fix">
+				<div class="form-group">
+					<%= email.input :email, label: false %>
+				</div>
+			</div>	
+
+			<% if @emails_counter == f.object.emails.length %>
+			<div class="col-xs-1 add-div">
+				<%= f.submit '+', :name => "add_email" %>
+			</div>
+			<% end %>
+
+			<div class="col-xs-1 remove-div-2">
+				<span data-toggle="tooltip" title="Remover">
+					<%= email.check_box :_destroy %>
+					<% email.label :_destroy, "Remover" %> 
+				</span>
+			</div>
+		</div>
+		<% @emails_counter += 1 %>
+		<% end %>
+	</div>
+
+
+</div>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Lawyer.human_attribute_name(:honorary_form) %></label>
+			<%= f.association :honorary_form, collection: HonoraryForm.all.order(:id), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<div class="form-group">
+				<label class="label-fix"><%= Lawyer.human_attribute_name(:honorary_value) %></label>
+				<%= f.input :honorary_value, label: false, input_html: { class: 'form-control money' } %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<h2>Endereço residencial</h2>
+<%= f.fields_for :addresses, f.object.addresses[0], defaults: { input_html: { class: 'form-control' } } do |address| %>
+<%= address.input :address_type, :as => :hidden, input_html: { value: 1} %>
+<div class="row">
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Address.human_attribute_name(:zipcode) %></label>
+			<%= address.input :zipcode, label: false, input_html: {class: 'string form-control cep'} %>
+		</div>			
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Address.human_attribute_name(:address) %></label>
+			<%= address.input :address, label: false %>
+		</div>			
+	</div>
+	<div class="col-xs-1">
+		<div class="form-group">
+			<label for="#"><%= Address.human_attribute_name(:number) %></label>
+			<%= address.input :number, label: false %>
+		</div>			
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Address.human_attribute_name(:complement) %></label>
+			<%= address.input :complement, label: false %>
+		</div>			
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Address.human_attribute_name(:district) %></label>
+			<%= address.input :district, label: false %>
+		</div>			
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Address.human_attribute_name(:state) %></label>
+			<%= address.association :state, collection: State.all.order(:name), label_method: :acronym, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Address.human_attribute_name(:city) %></label>
+			<%= address.association :city, collection: City.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>
+	</div>
+</div>
+<% end %>
+
+<h2>Endereço comercial</h2>
+<%= f.fields_for :addresses, f.object.addresses[1], defaults: { input_html: { class: 'form-control' } } do |address| %>
+<%= address.input :address_type, :as => :hidden, input_html: { value: 2} %>
+<div class="row">
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Address.human_attribute_name(:zipcode) %></label>
+			<%= address.input :zipcode, label: false, input_html: {class: 'string form-control cep'} %>
+		</div>			
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Address.human_attribute_name(:address) %></label>
+			<%= address.input :address, label: false %>
+		</div>			
+	</div>
+	<div class="col-xs-1">
+		<div class="form-group">
+			<label for="#"><%= Address.human_attribute_name(:number) %></label>
+			<%= address.input :number, label: false %>
+		</div>			
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Address.human_attribute_name(:complement) %></label>
+			<%= address.input :complement, label: false %>
+		</div>			
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Address.human_attribute_name(:district) %></label>
+			<%= address.input :district, label: false %>
+		</div>			
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Address.human_attribute_name(:state) %></label>
+			<%= address.association :state, collection: State.all.order(:name), label_method: :acronym, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Address.human_attribute_name(:city) %></label>
+			<%= address.association :city, collection: City.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>
+	</div>
+</div>
+<% end %>
+<button type="submit" class="save-btn">Salvar</button>
+
+<% end %>

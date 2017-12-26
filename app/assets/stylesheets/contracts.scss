@@ -1,0 +1,407 @@
+.delete_attachment_contract {
+    cursor: pointer;
+}
+
+#contratos .minuta .margin-head {
+    margin-top: -18px;
+    margin-bottom: 23px;
+}
+
+.contract-btn a {
+	color: white;
+	&:hover{text-decoration: none;}
+	&:focus{text-decoration: none;}
+}
+
+.contract_contract_payments_all_scope {
+
+    margin-top: 27px;
+
+    input {
+	 	width: auto;
+		height: auto;
+	    display: inline;
+	    margin-right: 8px;
+	    margin-top: 4px;
+	    cursor: pointer;   	
+    }
+
+    label {
+    	cursor: pointer;
+    }
+}
+
+._cnpj {
+	width: 139px;
+}
+
+
+#contracts {
+
+	.client_cnpj {
+		width: 139px;
+	}
+
+	.margin-head {
+
+    	margin-top: 90px;
+    	margin-bottom: 58px;
+
+    	a {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-weight: 700;
+			font-size: 13px;
+			color: #4595D1;
+			text-decoration: underline;
+			margin-right: 20px;
+    	}
+
+		.span-title{
+			margin-top: 19px;
+			span {
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+				font-weight: 700;
+				font-size: 14px;
+				color: #3E3E3E;
+			}
+		}
+	}
+
+	.filter-div {
+		
+		.glyphicon-calendar {
+			float: right;
+		    top: -22px;
+		    right: 8px;
+		}
+
+		.datagrid-submit {
+			background: #3E3E3E;
+			border-radius: 4px;
+		    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		    font-weight: 400;
+			font-size: 12px;
+			color: #FFFFFF;
+			line-height: 21px;
+		    border: 0;
+		    padding: 4px 30px;
+		    margin: 24px 0;
+		    &:hover {background: #313131; transition: all 0.4s ease; text-decoration: none;}
+		    &:focus {background: #313131; outline: 0; text-decoration: none;}
+		}
+	}
+
+	.tab-value {
+		
+		.marg-fix {
+			margin-top: 30px;
+		}
+
+		.marg-fix-2 {
+			margin-top: 29px;
+			padding-right: 0;
+		}
+
+		.label-fix-2 {
+    		display: block;
+    		margin-top: 30px;
+		}
+	}
+
+	.tab-pane {
+
+		h2 {
+			margin: 16px 0px 25px 0px;
+		}
+
+		h3 {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-weight: 700;
+			font-size: 14px;
+			color: #373A3C;
+			letter-spacing: 0;
+			margin: 15px 0px 23px 0px;
+		}
+
+		.new-resp, .new-pay {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-weight: 700;
+			font-size: 13px;
+			color: #4595D1;
+			text-decoration: underline;	
+		}
+
+		.span-fix {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-weight: 300;
+			font-size: 12px;
+			color: #3E3E3E;
+		}
+
+		.label-fix {
+			font-weight: 400;
+		}
+
+		.size-fix {
+			width: 71%;
+		}
+
+		.checkbox-fix {
+			padding-left: 0;
+    		margin-top: 17px;
+    		margin-left: -59px;
+		}
+
+		.checkbox, input[type="checkbox"] {
+			cursor: pointer;
+		}
+	}
+
+	.panel-heading {
+		padding: 0;
+	}
+
+	.panel {
+		background-color: transparent;
+    	box-shadow: none;
+	}
+
+	.panel-body {
+		padding-left: 0;
+    	padding-right: 0;
+	}
+
+	ul.nav.nav-tabs a {
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 21px;
+		background-color: transparent;
+		color: #6E777E;
+	}
+
+	.nav.nav-tabs .active a {
+		color: #4595D1;
+		font-weight: 700;
+	}
+
+	.save-btn {
+	    font-weight: 300;
+	    letter-spacing: 0.5px;
+	    padding: 6px 20px;
+	    margin: 16px 0;
+	    font-size: 13px;
+	}
+}
+
+#minuta .margin-head {
+	margin-top: 91px;
+    margin-bottom: 29px !important;
+}
+
+#minuta, .mfp-content {
+
+	.margin-head {
+		margin-bottom: 52px;
+	}
+
+	.minuta-actions button {
+		background: transparent;
+	    border: 0;
+	    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	    font-weight: 700;
+	    text-decoration: underline;
+	    font-size: 13px;
+	    color: #4595D1;
+	    padding: 0;
+	    margin-right: 15px;
+	    &:focus {outline: 0;}
+	}
+
+	a {
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-size: 14px;
+		color: #4595D1;
+	    text-decoration: underline;
+	    font-style: italic;
+	    font-weight: 300;
+	}
+
+	.save-btn {
+	    margin: 0;
+	    float: right;
+	    font-weight: 300;
+	    letter-spacing: 0.5px;
+	    font-size: 13px;
+	}
+}
+
+
+#new_contract, .edit_contract, #contratos {
+	
+	.tab-margin {
+		margin-top: -30px;
+	}
+
+	.contract_contract_responsibles_phone_users_phone, .contract_contract_responsibles_email_users_email,
+	.client_contract_responsibles_phone_users_phone, .client_contract_responsibles_email_users_email,
+	.contract_contract_responsible_financials_phone_users_phone, .client_contract_responsible_financials_phone_users_phone,
+	.contract_contract_responsible_financials_email_users_email, .client_contract_responsible_financials_email_users_email  {
+		display: inline;
+	}
+
+	.delete_phone_dynamic, .delete_email_dynamic {
+    	float: right;
+    	color: black;
+    	cursor: pointer;
+    	margin-top: 5px;
+	}
+
+	.width-input {
+		width: 132px;
+	}
+
+	.width-input-2 {
+		width: 230px;
+    	margin-bottom: 10px;
+		display: inline;
+    	border-top-right-radius: 0px;
+    	border-bottom-right-radius: 0px;
+	}
+
+	.remove-div-responsible_contract_responsible {
+		margin-bottom: 37px;
+	}
+
+	.remove-div-responsible_contract_responsible label, .remove-div-responsible_contract_responsible_financial label {
+		margin-left: 4px;
+    	cursor: pointer;
+	}
+
+	input[type="checkbox"] {
+		cursor: pointer;
+	}
+
+	.remove-all input {
+	    background: transparent;
+	    border: 0;
+	    padding: 0;
+	    margin-left: 18px;
+	    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	    font-weight: 400;
+	    font-size: 14px;
+	    text-decoration: underline;
+	    &:focus {outline: 0;} 
+	}
+
+	.add-resp {
+
+		input {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-weight: 700;
+			font-size: 13px;
+			color: #4595D1;
+			text-decoration: underline;
+			background-color: transparent;
+			border: 0;
+			padding: 0;
+			margin: 0;
+			&:focus {outline: none;}
+		}
+	}
+
+	.add-resp-2 {
+		
+		margin-top: -16px;
+
+		input {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-weight: 700;
+			font-size: 13px;
+			color: #4595D1;
+			text-decoration: underline;
+			background-color: transparent;
+			border: 0;
+			padding: 0;
+			margin: 0;
+			&:focus {outline: none;}
+		}
+	}
+
+	.add-pay {
+
+		margin-top: -31px;
+
+		input {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-weight: 700;
+			font-size: 13px;
+			color: #4595D1;
+			text-decoration: underline;
+			background-color: transparent;
+			border: 0;
+			padding: 0;
+			margin: 0;
+			&:focus {outline: none;}
+		}
+	}
+
+	#contract_monthly_initial_date, #contract_monthly_final_date,
+	#contract_comission_initial_date, #contract_comission_final_date,
+	#contract_pre_established_initial_date, #contract_pre_established_final_date {
+		width: 103px;
+    	display: inline;
+	}
+
+	.marg-fix {
+		margin-top: 35px;
+	}
+
+	.marg-fix-2 {
+		margin-top: 44px;
+	}
+
+	.label-discount {
+		position: relative;
+	    top: -19px;
+	    left: 1px;
+	}
+
+	.span-fix {
+		font-weight: 300;
+		font-size: 13px;
+		color: #3E3E3E;
+		display: block;
+	}
+
+	h3 {
+		font-weight: 700;
+		font-size: 14px;
+		color: #373A3C;
+		letter-spacing: 0;
+		margin-top: 10px;
+    	margin-bottom: 29px;
+	}
+
+	#contract_undetermined {
+		width: auto;
+		height: auto;
+		display: inline;
+		float: left;
+		cursor: pointer;
+		margin: 5px;
+	}
+
+	label[for="contract_undetermined"] {
+		cursor: pointer;
+	}
+
+	.contract_undetermined {
+		display: inline;
+	}
+
+	#print_draft_contract {
+		cursor: pointer;
+	}
+
+}

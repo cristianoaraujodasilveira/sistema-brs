@@ -1,0 +1,11 @@
+<div class="edit-delete-">
+	<% if object.catch_client %>
+	<% if type == 1 %>
+	<a title="Visualizar cadastro" href="<%= edit_bidding_path(object) %>"><%=object.catch_client.fantasy_name %>
+	</a>
+	<% else %>
+	<a title="Visualizar cadastro" href="<%= edit_bidding_path(object) %>"><%=object.catch_client.social_name %>
+	</a>
+	<% end %>
+	<% end %>
+</div>

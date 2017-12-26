@@ -1,0 +1,11 @@
+<div class="edit-delete-">
+
+	<a title="Histórico" href="<%= proposals_historic_path(object) %>">Histórico
+	</a>
+
+	<a title="Editar" href="<%= edit_proposal_path(object) %>">Alterar
+	</a>
+
+	<a title="Excluir" data-confirm="Tem certeza que deseja excluir" rel="nofollow" data-method="delete" href="<%= proposal_path(object) %>">Excluir
+	</a>
+</div>

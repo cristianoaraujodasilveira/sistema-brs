@@ -1,0 +1,96 @@
+#subcontractors {
+	
+	.margin-head {
+	    margin-bottom: 50px;
+	}
+
+	.datagrid {
+		margin-top: 8px;
+	}
+}
+
+#subcontractors_new {
+	
+	.margin-head {
+	    margin-top: 90px;
+	    margin-bottom: 29px;
+	}
+
+	h2 {
+	    margin-top: 16px;
+	    margin-bottom: 28px;
+	}
+
+	.save-btn {
+ 		margin-top: 20px;
+    	margin-bottom: 15px;
+	}
+
+	.tab-pane {
+
+		.checkbox, input[type="checkbox"] {
+			cursor: pointer;
+		}
+
+		input[type="file"] {
+			background: transparent;
+    		border: 0;
+    		padding: 5px 0px;
+		}
+
+		h2 {
+    		margin-bottom: 7px;
+    		margin-top: 29px;
+    		font-size: 15px;
+		}
+
+		hr {
+			border-color: #979797;
+		    margin-top: 37px;
+		    margin-bottom: 34px;
+		}
+
+		label {
+			display: block;
+		}
+	}
+
+	.panel-heading {
+		padding: 0;
+	}
+
+	.panel {
+		background-color: transparent;
+    	box-shadow: none;
+	}
+
+	.panel-body {
+		padding-left: 0;
+    	padding-right: 0;
+    	margin-top: 16px;
+	}
+
+	ul.nav.nav-tabs a {
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 21px;
+		background-color: transparent;
+		color: #6E777E;
+	}
+
+	.nav.nav-tabs .active a {
+		color: #4595D1;
+		font-weight: 700;
+	}
+
+	.add-div, .view-div {
+
+		a {
+			text-decoration: underline;
+			font-size: 12px;
+			color: #4595D1;
+			font-weight: 700;
+		}
+	}
+}

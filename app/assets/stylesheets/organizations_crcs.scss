@@ -1,0 +1,113 @@
+#organizations_crcs {
+
+	.checkbox {
+    	margin: 0;
+    	text-align: center;
+	}
+
+	input[type="checkbox"] {
+		cursor: pointer;
+	}
+
+	.actions a:last-child {
+		margin-left: 5px;
+	}
+
+	.sector-name {
+
+    	margin-bottom: 5px;
+    	margin-top: 43px;
+
+		span {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-weight: 300;
+			font-size: 16px;
+			color: #3E3E3E;
+		}
+	}
+}
+
+#organizations_crcs_new {
+
+	margin-top: 117px;
+
+	.add-setor input, .add-unidade input {
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-weight: 700;
+		font-size: 13px;
+		color: #4595D1;
+		text-decoration: underline;
+		background-color: transparent;
+		border: 0;
+		padding: 0;
+		margin: 0;
+		&:focus {outline: none;}
+	}
+
+	.add-setor {
+		margin-top: -6px;
+	}
+
+	.add-unidade {
+		margin-top: -19px;
+	}
+
+	.delete_phone_dynamic, .delete_email_dynamic {
+	    float: right;
+	    position: relative;
+	    right: 7px;
+	    top: 15px;
+	    color: black;
+	    cursor: pointer;
+	}
+
+	.registration_unit_responsible_registration_units_phone_users_phone,
+	.registration_unit_responsible_registration_units_email_users_email,
+	.registration_unit_responsible_registration_units_phone_responsible_registration_units_phone,
+	.registration_unit_responsible_registration_units_email_responsible_registration_units_email,
+	.remove-div-responsible_registration_unit,
+	.remove-div-filial,
+	.registration_unit_registration_units_email_users_email,
+	.registration_unit_registration_units_phone_users_phone,
+	.registration_unit_registration_units_email_registration_units_email,
+	.registration_unit_registration_units_phone_registration_units_phone {
+		display: inline;
+	}
+
+	.remove-div-responsible_registration_unit label,
+	.remove-div-filial label {
+		cursor: pointer;
+	}
+
+	input[type="checkbox"] {
+		cursor: pointer;
+		margin-right: 3px;
+	}
+
+	.registration_unit_responsible_registration_units_phone_responsible_registration_units_phone input,
+	.registration_unit_responsible_registration_units_email_responsible_registration_units_email input,
+	.registration_unit_registration_units_email_registration_units_email input,
+	.registration_unit_registration_units_phone_registration_units_phone input {
+		margin-top: 10px;
+	}
+
+	.branch_group {
+		margin-top: -56px;
+	}
+
+	.remove-data {
+
+		display: inline;
+
+		input {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+		    background: transparent;
+		    border: 0;
+		    text-decoration: underline;
+		    margin-left: 12px;
+		    &:focus {outline: none;}
+		}
+	}
+}

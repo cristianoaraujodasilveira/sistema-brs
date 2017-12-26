@@ -1,0 +1,31 @@
+<div class="container" id="library_categories">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Jurídico > Biblioteca > <a href="<%= library_categories_path %>">Categorias</a></h1>
+			<a class="pull-right new-btn" href="<%= new_library_category_path %>">Novo</a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_form_for @grid, :method => :get, :url => library_categories_path %>
+		</div>
+	</div>
+
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_table @grid, html: {class: 'table datagrid library_categories_grid'} %>
+		</div>
+	</div>
+	
+	<!-- Pagination -->
+	<div class="row">
+		<div class="col-xs-12 center">
+			<%= paginate(@grid.assets) %>
+		</div>
+	</div>
+
+</div>

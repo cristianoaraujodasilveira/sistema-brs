@@ -1,0 +1,24 @@
+pt-BR:
+  activerecord:
+    attributes:
+      communication:
+        created_at: Data de abertura
+        user: Transmissor
+        user_id: Transmissor
+        users: Receptor
+        subject: Assunto
+        communication_status: Situação
+        communication_status_id: Situação
+        last_update: Última atualização
+        department_notified: Departamento notificado
+        department_notified_id: Departamento notificado
+        client: Cliente
+        client_id: Cliente
+        organ: Orgão
+        organ_id: Orgão
+        modalidate: Modalidade
+        modalidate_id: Modalidade
+        description: Descrição
+        modalidate_number: Número da modalidade
+        attachments: Arquivos
+        actions: Ações

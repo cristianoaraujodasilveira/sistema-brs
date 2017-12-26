@@ -1,0 +1,13 @@
+<div class="edit-delete-tes admin-area">
+
+	<a title="Histórico" href="<%= audits_path object.id %>">Histórico
+	</a>
+	<% if object.id != 1 && @current_user.is_admin? %>
+	<a title="Editar" href="<%= edit_user_path(object) %>">Alterar
+	</a>
+	<% if object.id != @current_user.id %>
+	<a title="Excluir" data-confirm="Tem certeza que deseja excluir" rel="nofollow" data-method="delete" href="<%= user_path(object) %>">Excluir
+	</a>
+	<% end %>
+	<% end %>
+</div>

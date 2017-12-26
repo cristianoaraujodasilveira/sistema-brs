@@ -1,0 +1,130 @@
+#lawyers {
+	
+	.margin-head {
+	    margin-bottom: 50px;
+	}
+
+	.datagrid-filter #lawyers_grid_name {
+		display: block;
+	    width: 100%;
+	    height: 30px;
+	    box-shadow: none !important;
+	    padding: 6px 12px;
+	    font-size: 14px;
+	    line-height: 1.42857143;
+	    color: #555555;
+	    background-color: #fff;
+	    background-image: none;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	    -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	}
+
+	.datagrid-actions {
+    	position: relative;
+    	top: 26px;
+	}
+}
+
+#lawyers_new {
+
+	.add-div {
+
+		padding-left: 0;
+	    position: relative;
+	    top: 0;
+
+		input {
+			background: #E6E6E6;
+		    border: 1px solid #CCCCCC;
+		    border-radius: 4px;
+		    padding: 4px 11px;
+		    border-bottom-left-radius: 0px;
+		    border-top-left-radius: 0px;
+		    font-size: 14px;
+		    color: #373A3C;
+		    letter-spacing: 0;
+		    border-left: 0;
+		    font-weight: 700;
+		    &:focus {outline: 0;}
+		}
+	}
+
+	.add-area {
+
+	    padding-left: 0;
+	    position: relative;
+	    top: 0px;
+	    left: -27px;
+
+		input {
+			background: #E6E6E6;
+		    border: 1px solid #CCCCCC;
+		    border-radius: 4px;
+		    padding: 4px 11px;
+		    border-bottom-left-radius: 0px;
+		    border-top-left-radius: 0px;
+		    font-size: 14px;
+		    color: #373A3C;
+		    letter-spacing: 0;
+		    border-left: 0;
+		    font-weight: 700;
+		    &:focus {outline: 0;}
+		}
+	}
+
+	.remove-div {
+
+	    position: absolute;
+	    right: 15px;
+	    margin-top: 5px;
+
+    	input {
+    		cursor: pointer;
+    	}
+	}
+
+	.remove-div-2 {
+
+	    position: absolute;
+	    right: 4px;
+	    margin-top: 5px;
+
+    	input {
+    		cursor: pointer;
+    	}
+	}
+
+	.width-fix {
+		width: 202px;
+	}
+
+	.add-fix {
+
+		padding-right: 0;
+
+		input {
+			border-top-right-radius: 0px;
+			border-bottom-right-radius: 0px;
+		}
+	}
+	
+	.margin-head {
+	    margin-top: 90px;
+	    margin-bottom: 48px;
+	}
+
+	h2 {
+	    margin-top: 16px;
+	    margin-bottom: 28px;
+	}
+
+	.save-btn {
+ 		margin-top: 20px;
+    	margin-bottom: 15px;
+	}
+}

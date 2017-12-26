@@ -1,0 +1,30 @@
+<div class="container" id="notifications">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline"><a href="<%= notifications_path %>">Histórico de notificações</a></h1>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_form_for @grid, :method => :get, :url => notifications_path %>
+		</div>
+	</div>
+
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_table @grid, html: {class: 'table datagrid'} %>
+		</div>
+	</div>
+	
+	<!-- Pagination -->
+	<div class="row">
+		<div class="col-xs-12 center">
+			<%= paginate(@grid.assets) %>
+		</div>
+	</div>
+
+</div>

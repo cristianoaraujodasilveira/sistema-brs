@@ -1,0 +1,18 @@
+pt-BR:
+  activerecord:
+    models:
+      observation:
+        one: Observação
+        other: Observações
+    attributes:
+      observation:
+        user: Criado por
+        user_id: Criado por
+        observation: Texto
+        new_observation: Nova Observação
+        new_answer: Nova resposta
+        type: tipo
+        created_at: Criado em
+  observations:
+    new: Nova Observação
+    edit: Alterar Observação

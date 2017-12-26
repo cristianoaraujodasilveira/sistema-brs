@@ -1,0 +1,31 @@
+<div class="container" id="bidding">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline"><a href="<%= biddings_path %>">Licitações</a></h1>
+			<a class="pull-right new-btn" href="<%= new_bidding_path %>">Novo</a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_form_for @grid_biddings, :method => :get, :url => biddings_path %>
+		</div>
+	</div>
+
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_table @grid_biddings, html: {class: 'table datagrid'} %>
+		</div>
+	</div>
+	
+	<!-- Pagination -->
+	<div class="row">
+		<div class="col-xs-12 center">
+			<%= paginate(@grid_biddings.assets) %>
+		</div>
+	</div>
+
+</div>

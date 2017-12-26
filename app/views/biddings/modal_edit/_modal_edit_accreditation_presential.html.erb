@@ -1,0 +1,19 @@
+<div id="modal_edit_accreditation_presential_<%=object.id%>" class="mfp-hide white-popup-block parts-modal">
+	<h1>Edição do nome</h1>
+	<% object.reload %>
+
+	<div class="row">
+		<div class="col-xs-9">
+			<div class="form-group">
+				<label for="#">Nome</label>
+				<div class="input string optional bidding_read_displacement">
+					<input class="string optional form-control optional" type="text" value="<%=object.name.mb_chars.upcase%>" id="accreditation_presential_<%=object.id%>">
+				</div>
+			</div>									
+		</div>
+		<div class="col-xs-3 btn-margin">
+			<a name="save_read" id="save_edit_accreditation_presential_<%=object.id%>" class="save-btn save-edit-qualifications">Salvar</a>
+		</div>
+	</div>
+	<p class="close-modal"><a class="popup-modal-dismiss" href="#">x</a></p>
+</div>

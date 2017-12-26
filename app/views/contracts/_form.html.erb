@@ -1,0 +1,604 @@
+<%= simple_form_for @contract, defaults: { input_html: {class: 'form-control'}} do |f| %>
+
+<div id="contratos">
+
+	<!-- Head -->
+	<% if @contract.persisted? %>
+	<div class="row minuta">
+		<div class="col-xs-12 margin-head">
+			<div>
+				<a href="<%= draft_contract_edit_path @contract.id %>">Minuta de contrato</a>
+			</div>
+		</div>
+	</div>
+	<% end %>
+	
+	<!-- Panel -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="panel">
+				<div class="panel-heading">
+					<ul class="nav nav-tabs">
+						<li class="<%= 'active' if @active == 1 %>" id="contract_step_1">
+							<a href="#">Cliente</a>
+						</li>
+						<li class="<%= 'active' if @active == 2 %>" id="contract_step_2">
+							<a href="#">Financeiro</a>
+						</li>
+						<li class="<%= 'active' if @active == 3 %>" id="contract_step_3">
+							<a href="#">Valores</a>
+						</li>
+						<li class="<%= 'active' if @active == 4 %>" id="contract_step_4">
+							<a href="#">Prazo</a>
+						</li>
+						<li>
+							<a href="#">Gerar contrato</a>
+						</li>
+					</ul>     
+				</div>
+				<!-- Conteudo Panel -->
+				<div class="panel-body">
+					<div class="tab-content">
+
+						<!-- Cliente -->
+						<div class="tab-pane <%= 'active' if @active == 1 %>">
+							<h2 style="margin-top: 0;">Proposta</h2>
+
+							<div class="row">
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label for="#">Selecionar proposta</label>
+										<%= f.association :proposal, collection: Proposal.all.order(:title), label_method: lambda { |proposal| "#{proposal.fantasy_name} / #{proposal.social_name} / #{proposal.cnpj}" }, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<div class="form-group">
+										<label for="#">Título da proposta</label>
+										<%= f.input :title, label: false %>
+									</div>
+								</div>
+							</div>
+							<br>
+
+							<!-- <div class="row">
+								<div class="col-xs-7">
+									<div class="form-group">
+										<label>Intermediador*</label> -->
+										<%# f.association :users, label_method: :name, value_method: :id, label: false, collection: User.unblocked.order(:name), include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen'}, :as => :hidden %>
+										<% if @contract.persisted? %>
+										<%= f.association :user, :as => :hidden, collection: User.unblocked.order(:name), input_html: { value: @contract.user_id } %>
+										<% else %>
+										<%= f.association :user, :as => :hidden, collection: User.unblocked.order(:name), input_html: { value: @current_user.id } %>
+										<% end %>
+								<!-- 	</div>
+								</div>
+							</div> -->
+							<% contract_responsibles_counter = 0 %>
+
+							<h2>Contato responsável</h2>
+							<%= f.fields_for :contract_responsibles, defaults: { input_html: { class: 'form-control' } } do |cr| %>
+							<div class="row">
+								<div class="col-xs-3">
+									<div class="form-group">
+										<label for="#">Nome completo do responsável*</label>
+										<%= cr.input :name, label: false %>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<div class="form-group">
+										<label for="#">Cargo / Funçāo</label>
+										<%= cr.input :office, label: false %>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<div class="form-group">
+										<label for="#">Departamento</label>
+										<%= cr.input :department, label: false %>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label for="#">WhatsApp</label>
+										<%= cr.input :whatsapp, label: false, input_html: { class: 'string optional form-control tel' } %>
+									</div>
+								</div>		
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label for="#">Skype</label>
+										<%= cr.input :skype, label: false %>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label class="label-fix">Telefone</label>
+										<% phones_counter_contract_responsibles = 0 %>
+										<% first_phone = false %>
+										<div id="group_phones_contract_responsibles_<%=contract_responsibles_counter%>" class="inline">
+											<%= cr.fields_for :phone_users, defaults: { input_html: { class: 'form-control width-input' } } do |phone| %>
+											<%= phone.input :phone, label: false, input_html: {class: 'string form-control custom-tel width-input'} %>
+											<% if phone.object != nil && phone.object.persisted? %>
+											<td class="text text-center">
+												<span data-toggle="tooltip" title="Remover">
+													<%= phone.check_box :_destroy %>
+													<% phone.label :_destroy, "Remover" %>
+												</span>
+											</td>
+											<% else %>
+											<% if !first_phone %>
+											<% first_phone = true %>
+											<% else %>
+											<a data-toggle="tooltip" title="Remover" id="delete_phone_dynamic_<%=contract_responsibles_counter%>_<%=phones_counter_contract_responsibles%>" class="delete_phone_dynamic_specific">x</a>
+											<% end %>
+											<% end %>
+											<% phones_counter_contract_responsibles += 1 %>
+											<% end %>
+										</div>
+										<a class="add-anchor add_new_phone_dynamic_contract_responsible" id="add_new_phone_dynamic_<%=contract_responsibles_counter%>">
+											<div class="add-input">
+												+
+											</div>
+										</a>
+										<%= hidden_field_tag "phones_counter_contract_responsibles_#{contract_responsibles_counter}", phones_counter_contract_responsibles %>
+									</div>
+								</div>		
+								<div class="col-xs-3">
+									<div class="form-group">
+										<label class="label-fix">Email</label>
+										<% emails_counter_contract_responsibles = 0 %>
+										<% first_email = false %>
+										<div id="group_emails_contract_responsibles_<%=contract_responsibles_counter%>" class="inline">
+											<%= cr.fields_for :email_users, defaults: { input_html: { class: 'form-control width-input-2' } } do |email| %>
+											<%= email.input :email, label: false %>
+											<% if email.object != nil && email.object.persisted? %>
+											<td class="text text-center">
+												<span data-toggle="tooltip" title="Remover">
+													<%= email.check_box :_destroy %>
+													<% email.label :_destroy, "Remover" %>
+												</span>
+											</td>
+											<% else %>
+											<% if !first_email %>
+											<% first_email = true %>
+											<% else %>
+											<a data-toggle="tooltip" title="Remover" id="delete_email_dynamic_<%=contract_responsibles_counter%>_<%=emails_counter_contract_responsibles%>" class="delete_email_dynamic_specific">x</a>
+											<% end %>
+											<% end %>
+											<% emails_counter_contract_responsibles += 1 %>
+											<% end %>
+										</div>
+										<a class="add-anchor add_new_email_dynamic_contract_responsible" id="add_new_email_dynamic_<%=contract_responsibles_counter%>">
+											<div class="add-input">
+												+
+											</div>
+										</a>
+										<%= hidden_field_tag "emails_counter_contract_responsibles_#{contract_responsibles_counter}", emails_counter_contract_responsibles %>
+									</div>
+								</div>	
+								<div class="col-xs-12">
+									<div class="remove-div-responsible_contract_responsible">
+										<%= cr.check_box :_destroy %>
+										<%= cr.label :_destroy, 'Remover' %>
+									</div>
+								</div>
+
+							</div>
+							<% contract_responsibles_counter += 1 %>
+							<% end %>
+
+							<div class="add-resp">
+								<%= f.submit 'Adicionar responsável', :name => "add_responsible" %>
+							</div>
+
+							<br>
+
+							<%= f.submit 'Salvar', :name => "save_1", class: "save-btn" %>
+							<div class="inline remove-all">
+								<% if !f.object.persisted? %>
+								<%= f.submit 'Remover marcados', :name => "remove_data_1" %>
+								<% end %>
+							</div>
+
+						</div>
+						<!-- end -->
+
+						<!-- Financeiro -->
+						<div class="tab-pane <%= 'active' if @active == 2 %>">
+
+							<h2 style="margin-top: 1px;margin-bottom: -13px;">Forma de pagamento</h2>
+
+							<%= f.fields_for :contract_payments, defaults: { input_html: { class: 'form-control' } } do |cr| %>
+							<br><br>
+							<div class="row">
+								<div class="col-xs-3">
+									<div class="form-group">
+										<label for="#">Escolha a forma de pagamento*</label>
+										<%= cr.association :payment_form, collection: PaymentForm.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div class="form-group">
+										<label for="#">Âmbito*</label>
+										<%= cr.association :payment_scopes, collection: PaymentScope.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<%= cr.input :all_scope, label: "Selecionar todos", input_html: {class: 'boolean optional form-control select_all_scope'} %>
+									</div>
+								</div>
+							</div>
+
+							<h2>Data de vencimento dos pagamentos</h2>
+
+							<div class="row">
+								<div class="col-xs-3">
+									<div class="form-group">
+										<label for="#">Pagamento de*</label>
+										<%= cr.association :payment_from, collection: PaymentFrom.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label for="#">Sugestão de dia</label>
+										<%= cr.association :payment_sugestion_day, collection: PaymentSugestionDay.all.order(:id), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="remove-div-responsible_contract_responsible" style="margin-top: 27px;margin-bottom: 0;">
+										<%= cr.check_box :_destroy %>
+										<%= cr.label :_destroy, 'Remover' %>
+									</div>
+								</div>
+							</div>
+							<% end %>
+							<br><br>
+
+							<div class="add-pay">
+								<%= f.submit 'Adicionar pagamento', :name => "add_payment" %>
+							</div>
+
+							<br>
+
+							<h2 style="margin-bottom: 0px;">Responsável pelo pagamento</h2>
+							<% contract_responsible_financials_counter = 0 %>
+
+							<%= f.fields_for :contract_responsible_financials, defaults: { input_html: { class: 'form-control' } } do |cr| %>
+							<br><br>
+							<div class="row">
+								<div class="col-xs-3">
+									<div class="form-group">
+										<label for="#">Nome completo do responsável*</label>
+										<%= cr.input :name, label: false %>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<div class="form-group">
+										<label for="#">Cargo / Funçāo</label>
+										<%= cr.input :office, label: false %>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<div class="form-group">
+										<label for="#">Departamento</label>
+										<%= cr.input :department, label: false %>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label for="#">WhatsApp</label>
+										<%= cr.input :whatsapp, label: false, input_html: { class: 'string optional form-control tel' } %>
+									</div>
+								</div>		
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label for="#">Skype</label>
+										<%= cr.input :skype, label: false %>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label class="label-fix">Telefone</label>
+										<% phones_counter_contract_responsible_financials = 0 %>
+										<% first_phone = false %>
+										<div id="group_phones_contract_responsible_financials_<%=contract_responsible_financials_counter%>" class="inline">
+											<%= cr.fields_for :phone_users, defaults: { input_html: { class: 'form-control width-input' } } do |phone| %>
+											<%= phone.input :phone, label: false, input_html: {class: 'string form-control custom-tel width-input'} %>
+											<% if phone.object != nil && phone.object.persisted? %>
+											<td class="text text-center">
+												<span data-toggle="tooltip" title="Remover">
+													<%= phone.check_box :_destroy %>
+													<% phone.label :_destroy, "Remover" %>
+												</span>
+											</td>
+											<% else %>
+											<% if !first_phone %>
+											<% first_phone = true %>
+											<% else %>
+											<a data-toggle="tooltip" title="Remover" id="delete_phone_dynamic_<%=contract_responsible_financials_counter%>_<%=phones_counter_contract_responsible_financials%>" class="delete_phone_dynamic_specific">x</a>
+											<% end %>
+											<% end %>
+											<% phones_counter_contract_responsible_financials += 1 %>
+											<% end %>
+										</div>
+										<a class="add-anchor add_new_phone_dynamic_contract_responsible_financial" id="add_new_phone_dynamic_<%=contract_responsible_financials_counter%>">
+											<div class="add-input">
+												+
+											</div>
+										</a>
+										<%= hidden_field_tag "phones_counter_contract_responsible_financials_#{contract_responsible_financials_counter}", phones_counter_contract_responsible_financials %>
+									</div>
+								</div>		
+								<div class="col-xs-3">
+									<div class="form-group">
+										<label class="label-fix">Email</label>
+										<% emails_counter_contract_responsible_financials = 0 %>
+										<% first_email = false %>
+										<div id="group_emails_contract_responsible_financials_<%=contract_responsible_financials_counter%>" class="inline">
+											<%= cr.fields_for :email_users, defaults: { input_html: { class: 'form-control width-input-2' } } do |email| %>
+											<%= email.input :email, label: false %>
+											<% if email.object != nil && email.object.persisted? %>
+											<td class="text text-center">
+												<span data-toggle="tooltip" title="Remover">
+													<%= email.check_box :_destroy %>
+													<% email.label :_destroy, "Remover" %>
+												</span>
+											</td>
+											<% else %>
+											<% if !first_email %>
+											<% first_email = true %>
+											<% else %>
+											<a data-toggle="tooltip" title="Remover" id="delete_email_dynamic_<%=contract_responsible_financials_counter%>_<%=emails_counter_contract_responsible_financials%>" class="delete_email_dynamic_specific">x</a>
+											<% end %>
+											<% end %>
+											<% emails_counter_contract_responsible_financials += 1 %>
+											<% end %>
+										</div>
+										<a class="add-anchor add_new_email_dynamic_contract_responsible_financial" id="add_new_email_dynamic_<%=contract_responsible_financials_counter%>">
+											<div class="add-input">
+												+
+											</div>
+										</a>
+										<%= hidden_field_tag "emails_counter_contract_responsible_financials_#{contract_responsible_financials_counter}", emails_counter_contract_responsible_financials %>
+									</div>
+								</div>	
+								<div class="col-xs-12">
+									<div class="remove-div-responsible_contract_responsible_financial">
+										<%= cr.check_box :_destroy %>
+										<%= cr.label :_destroy, 'Remover' %>
+									</div>
+								</div>
+							</div>
+							<% contract_responsible_financials_counter += 1 %>
+							<% end %>
+							<br><br>
+							<div class="add-resp-2">
+								<%= f.submit 'Adicionar responsável', :name => "add_responsible_financial" %>
+							</div>
+
+							<br><br>
+
+							<%= f.submit 'Salvar', :name => "save_2", class: "save-btn" %>
+							<div class="inline remove-all">
+								<% if !f.object.persisted? %>
+								<%= f.submit 'Remover marcados', :name => "remove_data_2" %>
+								<% end %>
+							</div>
+
+						</div>
+						<!-- end -->
+
+						<!-- Valores -->
+						<div class="tab-pane <%= 'active' if @active == 3 %>">
+							
+							<div class="row">
+								<div class="col-xs-2">
+									<h2 style="margin-top: 0;">Pré-estabelecido</h2>
+									<label for="#">Investimento mensal</label>
+								</div>
+								<div class="col-xs-2 col-xs-offset-1 marg-fix">
+									<div class="form-group">
+										<label class="label-fix">Valor da mensalidade fixa (R$)*</label>
+										<%= f.input :monthly_fixed_payment, label: false, as: :string, input_html: {class: 'form-control optional money'} %>
+									</div>
+								</div>
+								<div class="col-xs-2 col-xs-offset-1 marg-fix-2">
+									<label class="label-discount">Desconto</label>
+									<div class="form-group" style="margin-top: -1px;">
+										<label class="label-fix">Desconto (R$)</label>
+										<%= f.input :monthly_discount, label: false, as: :string, input_html: {class: 'form-control optional money'} %>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<div class="form-group">
+										<label class="label-fix">Valor da mensalidade (R$)</label>
+										<%= f.input :monthly_payment, label: false, as: :string, input_html: {class: 'form-control optional money'} %>
+									</div>
+									<div class="form-group">
+										<label class="label-fix">Início e término do desconto</label>
+										<%= f.text_field :monthly_initial_date, label: false, class: "form-control datepicker", :value => f.object.monthly_initial_date != nil ? I18n.l(f.object.monthly_initial_date, format: :default) : nil%>
+										-
+										<%= f.text_field :monthly_final_date, label: false, class: "form-control datepicker", :value => f.object.monthly_final_date != nil ? I18n.l(f.object.monthly_final_date, format: :default) : nil%>
+									</div>
+								</div>
+							</div>
+
+							<br><br><br>
+
+							<div class="row">
+								<div class="col-xs-2">
+									<h2><br></h2>
+									<label for="#">Comissão</label>
+								</div>
+								<div class="col-xs-2 col-xs-offset-1 marg-fix">
+									<div class="form-group">
+										<label class="label-fix">Percentual de comissão (%)*</label>
+										<%= f.input :comission_fixed_payment, label: false, as: :string, input_html: {class: 'form-control optional percent'} %>
+									</div>
+								</div>
+								<div class="col-xs-2 col-xs-offset-1 marg-fix-2">
+									<label class="label-discount">Desconto</label>
+									<div class="form-group" style="margin-top: -1px;">
+										<label class="label-fix">Desconto (%)</label>
+										<%= f.input :comission_discount, label: false, as: :string, input_html: {class: 'form-control optional percent'} %>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<div class="form-group">
+										<label class="label-fix">Percentual de Comissão (%)</label>
+										<%= f.input :comission_payment, label: false, as: :string, input_html: {class: 'form-control optional percent'} %>
+									</div>
+									<div class="form-group">
+										<label class="label-fix">Início e término do desconto</label>
+										<%= f.text_field :comission_initial_date, label: false, class: "form-control datepicker", :value => f.object.comission_initial_date != nil ? I18n.l(f.object.comission_initial_date, format: :default) : nil%>
+										-
+										<%= f.text_field :comission_final_date, label: false, class: "form-control datepicker", :value => f.object.comission_final_date != nil ? I18n.l(f.object.comission_final_date, format: :default) : nil%>
+									</div>
+								</div>
+							</div>
+
+							<br><br><br>
+
+							<div class="row">
+								<div class="col-xs-2">
+									<label class="label-fix-2">Indeterminado</label>
+									<span class="span-fix">Atuação específica</span>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label for="#">Agente comercial</label>
+										<%= f.association :comercial_agent, collection: User.unblocked.comercial_agent.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label class="label-fix">Valor fixo agente comercial (R$)</label>
+										<%= f.input :fixed_value, label: false, as: :string, input_html: {class: 'form-control optional money'} %>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label class="label-fix">Percentual de comissão agente comercial (%)</label>
+										<%= f.input :discount_value, label: false, as: :string, input_html: {class: 'form-control optional percent'} %>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label class="label-fix">Valor da comissão agente comercial (R$)</label>
+										<%= f.input :comission_value, label: false, as: :string, input_html: {class: 'form-control optional money'} %>
+									</div>
+								</div>
+							</div>
+
+							<br><br><br>
+
+							<div class="row">
+								<div class="col-xs-2">
+									<label class="label-fix-2">Intermediador</label>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label for="#">Intermediador</label>
+										<%= f.association :intermediary, collection: User.unblocked.intermediary.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label class="label-fix">Valor fixo intermediador (R$)</label>
+										<%= f.input :fixed_value_intermediary, label: false, as: :string, input_html: {class: 'form-control optional money'} %>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label class="label-fix">Percentual de comissão intermediador (%)</label>
+										<%= f.input :discount_value_intermediary, label: false, as: :string, input_html: {class: 'form-control optional percent'} %>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label class="label-fix">Valor da comissão intermediador (R$)</label>
+										<%= f.input :comission_value_intermediary, label: false, as: :string, input_html: {class: 'form-control optional money'} %>
+									</div>
+								</div>
+							</div>
+							<br>
+							<%= f.submit 'Salvar', :name => "save_3", class: "save-btn" %>
+						</div>
+						<!-- end -->
+
+						<!-- Prazo -->
+						<div class="tab-pane <%= 'active' if @active == 4 %>">
+							
+							<h3>Pré-estabelecido</h3>
+							<div class="row">
+								<div class="col-xs-3">
+									<div class="form-group">
+										<%= f.text_field :pre_established_initial_date, label: false, class: "form-control datepicker first_initial_date", :value => f.object.pre_established_initial_date != nil ? I18n.l(f.object.pre_established_initial_date, format: :default) : nil%>
+										-
+										<%= f.text_field :pre_established_final_date, label: false, class: "form-control datepicker", :value => f.object.pre_established_final_date != nil ? I18n.l(f.object.pre_established_final_date, format: :default) : nil%>
+									</div>
+								</div>
+							</div>
+							
+							<br>
+
+							<h3 style="margin-bottom: 0;">Indeterminado</h3>
+
+							<br>
+							<div class="row">
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label class="label-fix">Início</label>
+										<%= f.text_field :pre_established_initial_date, label: false, class: "form-control datepicker second_initial_date", :value => f.object.pre_established_initial_date != nil ? I18n.l(f.object.pre_established_initial_date, format: :default) : nil%>
+									</div>
+								</div>
+								<div style="margin-top: 26px;">
+									<label for="contract_undetermined">Indeterminado</label>
+									<%= f.input :undetermined, label: false %>
+								</div>
+							</div>
+
+							<br>
+							<%= f.submit 'Salvar', :name => "save_4", class: "save-btn" %>
+						</div>
+						<!-- end -->
+
+						<!-- Gerar contrato -->
+						<div class="tab-pane">
+							<h2 class="documents-title">CONTRATO/ADITIVOS/TERMO DE RESCISÃO</h2>
+							<br>
+							<div class="row">
+								<div class="col-xs-3">
+									<div class="form-group">
+										<%= f.fields_for :attachments, f.object.attachments.select{|item| item[:id] == nil}, defaults: { input_html: { class: 'form-control' } } do |cs| %>
+										<%= cs.input :attachment, as: :file, label: false %>
+										<% end %>
+									</div>
+								</div>
+								<% if f.object.persisted? %>
+								<div class="col-xs-2 view-div view-all-contracts">
+									<a class="popup-modal" href="#modal_show_files_<%=f.object.id%>">Visualizar todos</a>
+									<%= render 'contracts/modal/show_files_contract', object: f.object, attachments: f.object.attachments.select{|item| item[:id] == nil} %>
+								</div>
+								<% end %>
+							</div>
+							<br>
+							<%= f.submit 'Salvar', :name => "save_5", class: "save-btn" %>
+							<% if @contract.persisted? %>
+							<button class="contract-btn"><a href="<%= draft_contract_edit_path @contract.id %>">Gerar minuta de contrato</a></button>
+							<% end %>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<% end %>

@@ -1,0 +1,48 @@
+<section class="captcha" id="login">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-xs-12 center img-margin">
+				<img class="inline" src="<%= image_url ('login-logo.png') %>" alt="Logo">
+			</div>
+
+			<div class="col-xs-12">
+
+				<%= form_tag create_recovery_pass_path %>
+				
+				<div class="row">
+
+					<div class="col-xs-3 login-margin">
+						<p>
+							Digite seu <b>email</b> e resolva o <b>captcha</b> para redefinir sua senha.
+						</p>
+						<div class="form-group">
+							<label for="#">Email</label>
+							<%= text_field_tag :email, params[:email], class: 'form-control', :placeholder => "Digite o email cadastrado"%>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="row">
+
+					<div class="col-xs-3 login-margin">
+						<div class="form-group">
+							<%= recaptcha_tags %>
+						</div>
+						<div>
+							<button class="pull-right" type="submit">Enviar</button>
+						</div>
+					</div>
+					
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</section>

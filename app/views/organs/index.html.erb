@@ -1,0 +1,69 @@
+<div class="container" id="organizations">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Cadastros > <a href="<%= organs_path %>">Orgãos</a></h1>
+			<a class="pull-right new-btn" href="<%= new_organ_path %>">Novo</a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_form_for @grid_organs, :method => :get, :url => organs_path %>
+		</div>
+	</div>
+	
+	<!-- Grafico -->
+	<div class="row">
+		<div class="col-xs-12" id="graph">
+			<a>Abrir gráfico</a>
+		</div>
+	</div>
+
+	<div id="chart_organs" hidden></div>
+	
+	<div class="row">
+		<div class="col-xs-12">
+			<a id="open_organ_chart" href="javascript:void(0)" data-toggle="tooltip" title="Gráfico">
+				<img src="<%= image_path('graph-svg.svg') %>">
+			</a>
+		</div>
+	</div>
+
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_table @grid_organs, html: {class: 'table datagrid'} %>
+		</div>
+	</div>
+	
+	<!-- Pagination -->
+	<div class="row">
+		<div class="col-xs-12 center">
+			<%= paginate(@grid_organs.assets) %>
+		</div>
+	</div>
+	
+	<% if @show_grid_sector %>
+	<div class="row">
+		<div class="col-xs-12">
+
+			<div class="sector-name">
+				<span>Setores do <%= @organ.name %></span>
+			</div>
+
+			<!-- Table -->
+			<div>
+				<%= datagrid_table @grid_sectors, html: {class: 'table datagrid'} %>
+			</div>
+
+			<!-- Pagination -->
+			<div class="center">
+				<%= paginate(@grid_sectors.assets) %>
+			</div>
+		</div>
+	</div>
+	<% end %>
+
+</div>

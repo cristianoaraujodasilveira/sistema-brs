@@ -1,0 +1,4 @@
+<% if object && object.piece_situation %>
+<a class="popup-modal" href="#show_historic_situation_<%=object.id%>"><%=object.piece_situation.name%></a>
+<%= render 'pieces/modal/show_historic_situation', object: object %>
+<% end %>

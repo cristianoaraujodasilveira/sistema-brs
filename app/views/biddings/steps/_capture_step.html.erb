@@ -1,0 +1,297 @@
+<!-- Captura -->
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_user) %></label>
+			<%= f.association :catch_user, collection: User.unblocked.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_publication_date) %></label>
+			<%= f.text_field :catch_publication_date, label: false, class: "form-control datetimepicker", :value => f.object.catch_publication_date != nil ? I18n.l(f.object.catch_publication_date, format: :full) : nil%>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_date_catch) %></label>
+			<%= f.text_field :catch_date_catch, label: false, class: "form-control datetimepicker", :value => f.object.catch_date_catch != nil ? I18n.l(f.object.catch_date_catch, format: :full) : nil%>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_client) %></label>
+			<%= f.association :catch_client, collection: Client.all.order(:fantasy_name), label_method: :fantasy_name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_organ) %></label>
+			<%= f.association :catch_organ, collection: Organ.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_capture_form) %></label>
+			<%= f.association :catch_capture_form, collection: CaptureForm.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>
+	</div>					
+	<div class="col-xs-4 catch_other_capture_form inputs_by_capture_form_selected" <%= 'hidden' if f.object.catch_capture_form_id != 7 %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_other_capture_form) %></label>
+			<%= f.input :catch_other_capture_form, label: false %>
+		</div>
+	</div>			
+	<div class="col-xs-4 catch_bid_newspaper inputs_by_capture_form_selected" <%= 'hidden' if f.object.catch_capture_form_id != 3 %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_bid_newspaper) %></label>
+			<%= f.association :catch_bid_newspaper, collection: BidNewspaper.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>
+	</div>	
+	<div class="col-xs-4 catch_capture_form_presencial inputs_by_capture_form_selected" <%= 'hidden' if f.object.catch_capture_form_id != 1 %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_capture_form_presencial) %></label>
+			<%= f.association :catch_capture_form_presencial, collection: CaptureFormPresencial.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>
+	</div>	
+	<div class="col-xs-4 catch_cost inputs_by_capture_form_selected" <%= 'hidden' if f.object.catch_capture_form_id != 7 && f.object.catch_capture_form_id != 1 %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_cost) %></label>
+			<%= f.input :catch_cost, label: false, input_html: {class: 'form-control optional money'} %>
+		</div>
+	</div>
+	<div class="col-xs-4 catch_date_organ inputs_by_capture_form_selected" <%= 'hidden' if f.object.catch_capture_form_id != 6 %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_solicitation_date_organ) %></label>
+			<%= f.text_field :catch_solicitation_date_organ, label: false, class: "form-control datetimepicker", :value => f.object.catch_solicitation_date_organ != nil ? I18n.l(f.object.catch_solicitation_date_organ, format: :full) : nil%>
+		</div>
+	</div>
+	<div class="col-xs-4 catch_date_organ inputs_by_capture_form_selected" <%= 'hidden' if f.object.catch_capture_form_id != 6 %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_limit_date_organ) %></label>
+			<%= f.text_field :catch_limit_date_organ, label: false, class: "form-control datetimepicker", :value => f.object.catch_limit_date_organ != nil ? I18n.l(f.object.catch_limit_date_organ, format: :full) : nil%>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12 upload-div">
+		<label for="#">Upload da publicação</label>
+	</div>			
+</div>
+<%= f.fields_for :attachments, f.object.attachments.select{|item| item[:attachment_type] == 1}, defaults: { input_html: { class: 'form-control' } } do |attach| %>
+<div class="row">
+	<div class="col-xs-4">
+		<div class="form-group">
+			<% if attach.object.persisted? %>
+			<%= link_to attach.object.attachment_file_name, attach.object.attachment.url(:original, false), target: "_blank" %>
+			<% else %>
+			<%= attach.input :attachment, as: :file, label: false %>
+			<%= attach.input :attachment_type, :as => :hidden, input_html: { value: 1} %>
+			<% end %>
+		</div>
+	</div>
+	<% if attach.object.persisted? %>
+	<div class="col-xs-4" style="margin-top: -4px;">
+		<div class="remove-div-responsible_client_contact">
+			<%= attach.check_box :_destroy %>
+			<%= attach.label :_destroy, 'Remover' %>
+		</div>
+	</div>
+	<% end %>
+</div>
+<% end %>
+
+<!-- <div class="row">
+	<div class="col-xs-12">
+		<div class="add-document">
+			<%#= f.submit 'Adicionar novo upload de publicação', :name => "add_document_1" %>
+		</div>
+	</div>
+</div> -->
+
+<div class="col-xs-12 label-weight">
+	<div class="checkbox">
+		<label><%= f.input :catch_organ_notification, label: false %><%= Bidding.human_attribute_name(:catch_organ_notification) %></label>
+	</div>
+</div>
+
+<br>
+<br>
+<br>
+
+<h2>Modalidade</h2>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_modalidate)%></label>
+			<%= f.association :catch_modalidate, collection: Modalidate.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>
+	</div>
+	<div class="col-xs-3" id="div_modalidate_other" <%= 'hidden' if f.object.catch_modalidate_id != 17 %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_other_modalidate)%></label>
+			<%= f.input :catch_other_modalidate, label: false %>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_number)%></label>
+			<%= f.input :catch_number, label: false %>
+		</div>	
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_process)%></label>
+			<%= f.input :catch_process, label: false %>
+		</div>	
+	</div>
+	<div class="col-xs-4">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_portal)%></label>
+			<%= f.association :catch_portal, collection: Portal.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>											
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_bidding_id)%></label>
+			<%= f.input :catch_bidding_id, label: false %>
+		</div>	
+	</div>
+</div>
+
+<br>
+<h2>Datas</h2>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_limit_date) %></label>
+			<%= f.text_field :catch_limit_date, label: false, class: "form-control datetimepicker", :value => f.object.catch_limit_date != nil ? I18n.l(f.object.catch_limit_date, format: :full) : nil%>
+		</div>											
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_competition_date) %></label>
+			<%= f.text_field :catch_competition_date, label: false, class: "form-control datetimepicker", :value => f.object.catch_competition_date != nil ? I18n.l(f.object.catch_competition_date, format: :full) : nil%>
+		</div>											
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_suspension_communication_date) %></label>
+			<%= f.text_field :catch_suspension_communication_date, label: false, class: "form-control datetimepicker", :value => f.object.catch_suspension_communication_date != nil ? I18n.l(f.object.catch_suspension_communication_date, format: :full) : nil%>
+		</div>											
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:catch_reopened_date) %></label>
+			<%= f.text_field :catch_reopened_date, label: false, class: "form-control datetimepicker", :value => f.object.catch_reopened_date != nil ? I18n.l(f.object.catch_reopened_date, format: :full) : nil%>
+		</div>											
+	</div>
+</div>
+
+<div class="content">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="title slide_historic_observations_2 show_content_2">
+				<span>Visualizar Histórico de Observações (<%=(f.object.observations.select{|item| item[:observation_type] == 2}.length-1)%>) <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Histórico de Observações -->
+<%= f.fields_for :observations, f.object.observations.select{|item| item[:observation_type] == 2}, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+<% if observation.object.persisted? %>
+<div class="row row_with_observation_2 observation-div">
+	<div class="col-xs-3">
+		<label for="#"><%= Observation.human_attribute_name(:created_at) %>:</label>
+		<% if observation.object.created_at %>
+		<%= I18n.l observation.object.created_at.to_datetime, format: :full %>
+		<% end %>
+	</div>
+	<div class="col-xs-3">
+		<label for="#"><%= Observation.human_attribute_name(:user)%>:</label>
+		<% if observation.object.user %>
+		<%= observation.object.user.name %>
+		<% end %>
+	</div>
+	<div class="col-xs-4">
+		<label for="#"><%= Observation.human_attribute_name(:observation)%>:</label>
+		<% if observation.object.user_id == @current_user.id %>
+		<%= observation.input :observation, label: false %>
+		<% else %>
+		<% if observation.object.observation %>
+		<%= observation.object.observation %>
+		<% end %>
+		<% end %>
+	</div>
+	<div class="col-xs-2">
+		<a title="Excluir" data-confirm="Tem certeza que deseja excluir essa observação?" rel="nofollow" data-method="delete" href="<%= delete_observation_bidding_path(observation.object) %>">Excluir
+		</a>
+	</div>
+</div>
+<% end %>
+<% end %>
+<!-- Fim histórico de observações -->
+
+<!-- Nova observação -->
+<%= f.fields_for :observations, f.object.observations.select{|item| item[:observation_type] == 2}, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+<% if !observation.object.persisted? %>
+<div class="row">
+	<div class="col-xs-12 text-div">
+		<label for="#"><%= Bidding.human_attribute_name(:catch_organ_notification_observation)%>:</label>
+		<%= observation.association :user, :as => :hidden, input_html: { value: @current_user.id} %>
+		<%= observation.input :observation_type, :as => :hidden, input_html: { value: 2} %>
+		<%= observation.input :observation, label: false %>
+	</div>
+</div>
+<% end %>
+<% end %>
+<!-- Fim nova observação -->
+
+<div class="row">
+	<div class="col-xs-12">
+		<label for="#"><%= Bidding.human_attribute_name(:catch_attachments_edital)%></label>
+	</div>			
+</div>
+
+<%= f.fields_for :attachments, f.object.attachments.select{|item| item[:attachment_type] == 2}, defaults: { input_html: { class: 'form-control' } } do |attach| %>
+<div class="row">
+	<div class="col-xs-4">
+		<div class="form-group">
+			<% if attach.object.persisted? %>
+			<%= link_to attach.object.attachment_file_name, attach.object.attachment.url(:original, false), target: "_blank" %>
+			<% else %>
+			<%= attach.input :attachment, as: :file, label: false %>
+			<%= attach.input :attachment_type, :as => :hidden, input_html: { value: 2} %>
+			<% end %>
+		</div>
+	</div>
+	<% if attach.object.persisted? %>
+	<div class="col-xs-4" style="margin-top: -4px;">
+		<div class="remove-div-responsible_client_contact">
+			<%= attach.check_box :_destroy %>
+			<%= attach.label :_destroy, 'Remover' %>
+		</div>
+	</div>
+	<% end %>
+</div>
+<% end %>
+<!-- 
+<div class="row">
+	<div class="col-xs-12">
+		<div class="add-document">
+			<%#= f.submit 'Adicionar novo upload de edital', :name => "add_document_2" %>
+		</div>
+	</div>
+</div> -->
+
+<%= f.submit 'Salvar', :class => 'save-btn', :name => "save_capture" %>

@@ -1,0 +1,9 @@
+<% if object.proposal %>
+<% if type == 1 %>
+<a title="Editar" href="<%= edit_contract_path(object) %>"><%=object.proposal.fantasy_name%>
+<% else %>
+<a title="Editar" href="<%= edit_contract_path(object) %>"><%=object.proposal.social_name%>
+<% end %>
+<% else %>
+Proposta não selecionada
+<% end %>

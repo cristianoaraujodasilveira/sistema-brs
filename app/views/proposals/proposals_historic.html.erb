@@ -1,0 +1,77 @@
+<% if @proposal %>
+<%= simple_form_for @proposal, defaults: { input_html: {class: 'form-control'}} do |f| %>
+<div class="container" id="proposals_historic">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-form">
+			<h1>Comercial - Propostas - Histórico de notas</h1>
+		</div>
+	</div>
+	
+	<!-- Form -->
+	<div class="row">
+
+		<div class="col-xs-12">
+			
+			<div>
+				<span class="hist-date"><%= I18n.l @proposal.created_at.to_datetime, format: :full %></span>
+			</div>
+			
+			<br>
+
+			<div>
+				<label>Responsável</label><br>
+				<span><%= @proposal.users.pluck(:name).join(', ') %></span>
+			</div>
+			
+			<br>
+
+			<div>
+				<label>Nota</label><br>
+				<span><%= @proposal.notes %></span>
+			</div>
+			
+			<br>
+			<br>
+			<label>Comentários</label><br><br>
+			<%= f.fields_for :proposal_historics, defaults: { input_html: { class: 'form-control' } } do |ph| %>
+			<% if ph.object != nil && ph.object.persisted? %>
+			<div>
+				<label>Autor: </label>
+				<% if ph.object.user != nil %>
+				<span><%= ph.object.user.name %></span>
+				<% end %>
+			</div>
+			<div>
+				<label>Comentário: </label>
+				<% if ph.object.user.id == @current_user.id %>
+					<%= ph.input :comment, label: false %>
+				<% else %>
+					<span><%= ph.object.comment %></span>
+				<% end %>
+			</div>
+			<div>
+				<label>Data/Horário: </label>
+				<span><%= I18n.l ph.object.created_at.to_datetime, format: :full %></span>
+			</div>
+			<br>
+			<% else %>
+			<br><br>
+			<div class="form-group">
+				<label>Incluir comentário</label>
+				<%= ph.input :comment, label: false %>
+			</div>
+			<%= ph.association :user, :as => :hidden, collection: User.unblocked.order(:name), input_html: {value: @current_user.id} %>
+			<%= f.submit 'Salvar', :name => "add_comment_to_notes", class: "save-btn" %>
+			<% end %>
+			<% end %>
+
+
+		</div>
+
+	</div>
+
+</div>
+<% end %>
+<% end %>

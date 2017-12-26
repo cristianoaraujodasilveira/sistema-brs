@@ -1,0 +1,54 @@
+<section id="login">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-xs-12 center img-margin">
+				<img class="inline" src="<%= image_url ('login-logo.png') %>" alt="Logo">
+			</div>
+
+			<div class="col-xs-12">
+
+					<%= form_tag sessions_path %>
+				
+				
+					<div class="row">
+
+						<div class="col-xs-3 login-margin">
+							<p>
+								Digite seu <b>login</b> e <b>senha</b> para que tenha acesso ao sistema.
+							</p>
+							<div class="form-group">
+								<label for="#">Login</label>
+								<%= text_field_tag :email, params[:email], class: 'form-control', :placeholder => "Digite o email"%>
+								
+							</div>
+						</div>
+
+					</div>
+
+					<div class="row">
+
+						<div class="col-xs-3 login-margin">
+							<div class="form-group">
+								<label for="#">Senha</label>
+								<%= password_field_tag :password, params[:password], class: 'form-control', :placeholder => "Digite a senha" %>
+							</div>
+							<div>
+								<a href="<%= recovery_pass_path %>">Esqueci minha senha</a>
+								<button class="pull-right" type="submit">Entrar</button>
+							</div>
+						</div>
+						
+					</div>
+
+				
+
+			</div>
+
+		</div>
+
+	</div>
+
+</section>

@@ -1,0 +1,21 @@
+<div class="container calendar-edit" id="calendar_new">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-form">
+			<h1>Comercial > <a href="<%= calendar_events_path %>">Calendário</a> > <a href="<%= edit_calendar_event_path @calendar_event %>">Alterar</a> > <%= @calendar_event.name %></h1>
+		</div>
+	</div>
+	
+	<!-- Form -->
+	<div class="row">
+
+		<div class="col-xs-12">
+
+			<%= render 'form' %>
+
+		</div>
+
+	</div>
+
+</div>

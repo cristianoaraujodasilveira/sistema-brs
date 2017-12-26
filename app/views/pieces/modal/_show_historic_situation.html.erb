@@ -1,0 +1,30 @@
+<div id="show_historic_situation_<%=object.id%>" class="mfp-hide white-popup-block parts-modal">
+	<h1>Situação</h1>
+
+	<% object.piece_historic_situations.each do |hist| %>
+	<div id="div_with_historic_piece_<%=hist.id%>">
+		<p>
+			<h2>De '<%=hist.old_piece_situation.name%>' para '<%=hist.new_piece_situation.name%>' em: <%= I18n.l hist.created_at.to_datetime, format: :full %> - Por: <%= hist.user.name %></h2>
+			<span>
+				Última observação:
+			</span>
+			<% if hist.observation %>
+			<span>
+				<%= hist.observation.observation %>
+			</span>
+			<br>
+			<span>
+				Feita por: <%= hist.observation.user.name %>
+			</span>
+			<% end %>
+			<br>
+			<% if @current_user.is_admin? %>
+			<span>
+				<a class="delete_historic_situation_piece" id="#delete_historic_situation_piece_<%=hist.id%>">Excluir</a>
+			</span>
+			<% end %>
+		</p>
+	</div>
+	<% end %>
+	<p class="close-modal"><a class="popup-modal-dismiss" href="#">x</a></p>
+</div>

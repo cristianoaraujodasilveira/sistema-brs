@@ -1,0 +1,149 @@
+<% if @current_user %>
+<input type="text" name="current_user_id" id="current_user_id" value="<%=@current_user.id%>" hidden></input>
+<%= auto_session_timeout_js %>
+<div id="menu">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-xs-12">
+
+                <!-- Logo -->
+                <a href="<%= calendar_events_path %>">
+                    <img src="<%= image_path('logo-img.png') %>" class="logo">
+                </a>
+
+                <div class="menu-links">
+
+                    <div class="center">
+
+                        <% if @current_user.is_admin? %>
+                        <a class="menu-item" href="<%= users_path %>">Usuários</a>
+                        <% end %>
+
+                        <% if @current_user.permission_commercial? %>
+                        <!-- Dropdown 'Comercial' -->
+                        <div class="dropdown inline">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Comercial <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<%= calendar_events_path %>">Calendário</a></li>
+                                <li><a href="<%= visits_reports_path %>">Relatórios da visita</a></li>
+                                <li><a href="<%= proposals_path %>">Propostas</a></li>
+                                <li><a href="<%= contracts_path %>">Contratos</a></li>
+                                <li><a href="<%= entity_classes_path %>">Entidades de classes</a></li>
+                            </ul>
+                        </div>
+                        <% end %>
+
+                        <% if @current_user.permission_bidding? %>
+                        <a class="menu-item" href="<%= biddings_path %>">Licitaçāo</a>
+                        <% end %>
+
+                        <% if @current_user.permission_juridical? %>
+                        <!-- Dropdown 'Jurídico' + Dropdown 'Biblioteca' -->
+                        <div class="dropdown inline">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                                Jurídico <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu border-fix">
+                                <li><a href="<%= pieces_path %>">Peças</a></li>
+                                <li class="dropdown-submenu">
+                                    <a class="sub-menu" href="#">
+                                        Biblioteca <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu submenu-style">
+                                        <li><a href="<%= library_categories_path %>">Categorias</a></li>
+                                        <li><a href="<%= libraries_path %>">Publicações</a></li>
+                                        <li><a href="<%= show_library_path %>">Biblioteca</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <% end %>
+                        
+                        <% if @current_user.permission_financial? %>
+                        <!-- Dropdown 'Financeiro' -->
+                        <div class="dropdown inline">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Financeiro <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<%= financials_path %>">Por cliente</a></li>
+                                <li><a href="<%= bidding_proposals_path %>">Por processo</a></li>
+                            </ul>
+                        </div>
+                        <% end %>
+
+                        <% if @current_user.permission_partner? %>
+                        <a class="menu-item" href="#">Parceiro</a>
+                        <% end %>
+
+                        <% if @current_user.permission_register? %>
+                        <!-- Dropdown 'Cadastros' -->
+                        <div class="dropdown inline">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Cadastros <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<%= clients_path %>">Clientes</a></li>
+                                <li><a href="<%= organs_path %>">Orgāos</a></li>
+                                <li><a href="<%= portals_path %>">Portais</a></li>
+                                <li class="dropdown-submenu">
+                                    <a class="sub-menu" href="#">
+                                        Terceiros <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu submenu-style">
+                                        <li><a href="<%= lawyers_path %>">Advogados</a></li>
+                                        <li><a href="<%= thirds_path(type: 2) %>">Cartórios</a></li>
+                                        <li><a href="<%= thirds_path(type: 1) %>">Correios</a></li>
+                                        <li><a href="<%= thirds_path(type: 5) %>">Diligeiros</a></li>
+                                        <li><a href="<%= thirds_path(type: 3) %>">Motoboys</a></li>
+                                        <li><a href="<%= thirds_path(type: 6) %>">Outros</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="<%= official_diaries_path %>">Diários Oficiais</a></li>
+                                <li><a href="<%= bid_newspapers_path %>">Jornais de Licitação</a></li>
+                                <li><a href="<%= registration_units_path %>">Documentos CRCs</a></li>
+                            </ul>
+                        </div>
+                        <% end %>
+
+                        <% if @current_user.permission_report? %>
+                        <a class="menu-item icon-fix" href="#">Relatórios</a>
+                        <% end %>
+                        
+                        <!-- Usuário logado -->
+                        <div class="log-user">
+                            <%= truncate(@current_user.name, :length => 20) %>
+                        </div>
+                        
+                        <!-- Comunicacao Interna -->
+                        <a href="<%= communications_path %>" class="chat-icon">
+                            <img src="<%= image_url ('chat-icone-svg.svg') %>">
+                        </a>
+                        
+                        <!-- Notificacao -->
+                        <div class="dropdown dropdown-notifications sw-open inline">
+                            <a class="dropdown-toggle noti-icon margin-fix" data-toggle="dropdown">
+                                <img src="<%= image_url ('noti-icone-svg.svg') %>">
+                                <div class="notification-circle" hidden>
+                                    <span id="navigations_length"></span>
+                                </div>
+                            </a>
+                            <%= render 'layouts/notification_modal' %>
+                        </div>
+
+                    </div>
+
+                    <!-- Sair -->
+                    <a class="icon" id="logout" href="<%= logout_path %>" data-confirm="Tem certeza que deseja sair do sistema?">
+                        <img src="<%= image_url ('logout-svg.svg') %>" class="icon-img">
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<% end %>

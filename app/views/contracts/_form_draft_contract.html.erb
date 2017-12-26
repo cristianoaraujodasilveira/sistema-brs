@@ -1,0 +1,32 @@
+<%= simple_form_for @contract, defaults: { input_html: {class: 'form-control'}} do |f| %>
+
+<div class="container" id="minuta">
+
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1>Comercial - Contrato</h1>
+			<label>Minuta de contrato</label>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="form-group">
+				<%= f.input :draft_contact, label: false, input_html: { class: 'tinymce' } %>
+			</div>
+			<div class="minuta-actions">
+				<%= f.submit 'Salvar', :name => "save_draft_contract", class: "save-btn" %>
+				<%= f.submit 'Exportar PDF', :name => "export_draft_pdf", class: "save-btn", style: "margin: 0 20px;" %>
+				
+				<a id="print_draft_contract">Imprimir</a>
+				<!-- Popup "Enviar por email" -->
+				<%= f.submit 'Enviar por email', :name => "save_and_redirect_to_send_email", class: "save-btn" %>
+
+			</div>
+		</div>
+	</div>
+
+	<br><br>
+
+</div>
+<% end %>

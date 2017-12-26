@@ -1,0 +1,201 @@
+<div class="container" id="finances">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Financeiro</h1>
+			<a class="pull-right new-btn" href="<%= new_finance_path %>">Novo</a>
+		</div>
+	</div>
+
+	<!-- Filter -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="col-xs-3 width-fix">
+					<div class="form-group">
+						<label for="#">Período de datas</label>
+						<input type="text" class="form-control datepicker">
+						-
+						<input type="text" class="form-control datepicker">
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#">Nome fantasia</label>
+						<select class="form-control chosen">
+							<option>Selecione</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#">Nome do órgão</label>
+						<select class="form-control chosen">
+							<option>Selecione</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<button class="filter-btn" type="submit">Filtrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<a href="#" class="pull-right" data-toggle="tooltip" title="Imprimir">
+				<img src="<%= image_path('print-icon.svg') %>">
+			</a>
+		</div>
+	</div>
+	
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12 table-actions">
+			<table class="table datagrid">
+				<thead>
+					<tr>
+						<th>
+							<br>
+						</th>
+						<th>
+							Data de vencimento do pagamento
+						</th>
+						<th>
+							Nome fantasia
+						</th>
+						<th>
+							Órgão principal
+						</th>
+						<th>
+							Modalidade
+						</th>
+						<th>
+							Número
+						</th>
+						<th>
+							Caroneiro
+						</th>
+						<th>
+							Valor residual
+						</th>
+						<th>
+							Ações
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="center">
+							<div class="circle-green"></div>
+						</td>
+						<td>
+							10/10/2017
+						</td>
+						<td>
+							Minis. Educação
+						</td>
+						<td>
+							UFMG
+						</td>
+						<td>
+							Tomada de preço
+						</td>
+						<td>
+							123321/2017
+						</td>
+						<td>
+							Sim
+						</td>
+						<td>
+							R$ 1.000,00
+						</td>
+						<td class="actions">
+							<div class="edit-delete-">
+								<a href="#">Alterar</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="center">
+							<div class="circle-red"></div>
+						</td>
+						<td>
+							10/10/2017
+						</td>
+						<td>
+							Minis. Educação
+						</td>
+						<td>
+							UFMG
+						</td>
+						<td>
+							Tomada de preço
+						</td>
+						<td>
+							123321/2017
+						</td>
+						<td>
+							Sim
+						</td>
+						<td>
+							R$ 1.000,00
+						</td>
+						<td class="actions">
+							<div class="edit-delete-">
+								<a href="#">Alterar</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="center">
+							<div class="circle-yellow"></div>
+						</td>
+						<td>
+							10/10/2017
+						</td>
+						<td>
+							Minis. Educação
+						</td>
+						<td>
+							UFMG
+						</td>
+						<td>
+							Tomada de preço
+						</td>
+						<td>
+							123321/2017
+						</td>
+						<td>
+							Sim
+						</td>
+						<td>
+							R$ 1.000,00
+						</td>
+						<td class="actions">
+							<div class="edit-delete-">
+								<a href="#">Alterar</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<!-- Pagination -->
+	<div class="row">
+		<div class="col-xs-12 center">
+			<ul class="pagination">
+			  <li><a href="#">1</a></li>
+			  <li class="active"><a href="#">2</a></li>
+			  <li><a href="#">3</a></li>
+			  <li><a href="#">4</a></li>
+			  <li><a href="#">5</a></li>
+			</ul>
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,186 @@
+<%= simple_form_for @library, defaults: { input_html: {class: 'form-control'}} do |f| %>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Library.human_attribute_name(:library_category) %></label>
+			<%= f.association :library_category, collection: LibraryCategory.all.order(:name), label_method: :name, value_method: :id, label: false, input_html: {class: 'form-control chosen'} %>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Library.human_attribute_name(:title)%></label>
+			<%= f.input :title, label: false %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Library.human_attribute_name(:author_name)%></label>
+			<%= f.input :author_name, label: false %>
+		</div>
+	</div>
+	<div class="col-xs-1">
+		<div class="form-group">
+			<label for="#"><%= Library.human_attribute_name(:edition)%></label>
+			<%= f.input :edition, label: false %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Library.human_attribute_name(:year_publication)%></label>
+			<%= f.input :year_publication, label: false %>
+		</div>			
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Library.human_attribute_name(:publishing_company)%></label>
+			<%= f.input :publishing_company, label: false %>
+		</div>			
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Library.human_attribute_name(:isbn)%></label>
+			<%= f.input :isbn, label: false %>
+		</div>			
+	</div>
+	<div class="col-xs-6">
+		<div class="form-group">
+			<label for="#"><%= Library.human_attribute_name(:link)%></label>
+			<%= f.input :link, label: false %>
+		</div>				
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Library.human_attribute_name(:sanctioned_date) %></label>
+			<%= f.input :sanctioned_date, :as => :string, label: false, input_html: { class: 'form-control datepicker', :value => f.object.sanctioned_date != nil ? I18n.l(f.object.sanctioned_date, format: :default) : nil } %>
+		</div>				
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Library.human_attribute_name(:court)%></label>
+			<%= f.input :court, label: false %>
+		</div>				
+	</div>
+	<div class="col-xs-1">
+		<div class="form-group">
+			<label for="#"><%= Library.human_attribute_name(:state) %></label>
+			<%= f.association :state, collection: State.all.order(:name), label_method: :acronym, value_method: :id, label: false, input_html: {class: 'form-control chosen'} %>
+		</div>			
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Library.human_attribute_name(:city) %></label>
+			<%= f.association :city, collection: City.all.order(:name), label_method: :name, value_method: :id, label: false, input_html: {class: 'form-control chosen'} %>
+		</div>			
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Library.human_attribute_name(:document_name)%></label>
+			<%= f.input :document_name, label: false %>
+		</div>				
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Library.human_attribute_name(:process_number)%></label>
+			<%= f.input :process_number, label: false %>
+		</div>				
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Library.human_attribute_name(:process_date) %></label>
+			<%= f.input :process_date, :as => :string, label: false, input_html: { class: 'form-control datepicker', :value => f.object.process_date != nil ? I18n.l(f.object.process_date, format: :default) : nil } %>
+		</div>				
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<div class="form-group">
+			<label for="#"><%= Library.human_attribute_name(:legislative_reference)%></label>
+			<%= f.input :legislative_reference, label: false %>
+		</div>				
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<div>
+			<label for="#"><%= Library.human_attribute_name(:description)%></label>
+			<%= f.input :description, label: false %>
+		</div>
+	</div>
+</div>
+
+<br>
+
+<div class="row">
+
+	<!-- Contador primário -->
+	<div class="col-xs-8">
+		<% @words_keys_counter = 1 %>
+		<%= f.fields_for :words_keys, defaults: { input_html: { class: 'form-control' } } do |wk| %>
+		<div class="row">
+			<div class="col-xs-10 add-fix">
+				<div class="form-group">
+					<label class="label-fix">Palavra chave</label>
+					<%= wk.input :word, label: false %>
+				</div>
+			</div>	
+
+			<% if @words_keys_counter == f.object.words_keys.length %>
+			<div class="col-xs-1 add-div">
+				<%= f.submit '+', :name => "add_word_key" %>
+			</div>
+			<% end %>
+
+			<div class="col-xs-1 remove-div">
+				<span data-toggle="tooltip" title="Remover">
+					<%= wk.check_box :_destroy %>
+					<% wk.label :_destroy, "Remover" %> 
+				</span>
+			</div>
+		</div>
+		<% @words_keys_counter += 1 %>
+		<% end %>
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Library.human_attribute_name(:files) %></label>
+			<%= f.fields_for :attachments, f.object.attachments.select{|item| item[:id] == nil}, defaults: { input_html: { class: 'form-control' } } do |cs| %>
+			<%= cs.input :attachment, as: :file, label: false %>
+			<% end %>
+		</div>
+	</div>
+	<% if f.object.persisted? %>
+	<div class="col-xs-2 view-div">
+		<a class="popup-modal" href="#modal_show_files_library_<%=f.object.id%>">Visualizar todos</a>
+		<%= render 'libraries/modal/show_files_library', object: f.object, remove: true %>
+	</div>
+	<% end %>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<button type="submit" class="save-btn">Salvar</button>
+		<% if !f.object.persisted? %>
+		<div class="remove-data">
+			<%= f.submit 'Remover marcados', :name => "remove_data_1" %>
+		</div>
+		<% end %>
+	</div>
+</div>
+
+<% end %>

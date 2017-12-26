@@ -1,0 +1,25 @@
+<div class="container" id="historic">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Usuários do sistema - Histórico de ações</h1>
+		</div>
+	</div>
+
+	<!-- Filter -->
+	<div>
+		<%= datagrid_form_for @grid, :method => :get, :url => audits_path %>
+	</div>
+	
+	<!-- Table -->
+	<div>
+		<%= datagrid_table @grid, html: {class: 'datagrid table audits_grid'} %>
+	</div>
+	
+	<!-- Pagination -->
+	<div>
+		<%= paginate(@grid.assets) %>
+	</div>
+
+</div>

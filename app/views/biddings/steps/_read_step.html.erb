@@ -1,0 +1,532 @@
+<div class="row">
+	<div class="col-xs-4">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_user) %></label>
+			<%= f.association :read_user, collection: User.unblocked.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' }, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-4">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_displacement_km) %></label>
+			<%= f.input :read_displacement_km, label: false, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_displacement) %></label>
+			<%= f.input :read_displacement, label: false, input_html: {class: 'form-control optional money'}, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>									
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_agreed_amount) %> R$</label>
+			<%= f.input :read_agreed_amount, label: false, input_html: {class: 'form-control optional money'}, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>									
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_date_read) %></label>
+			<%= f.text_field :read_date_read, label: false, class: "form-control datetimepicker", :value => f.object.read_date_read != nil ? I18n.l(f.object.read_date_read, format: :full) : nil, disabled: @current_user.disabled_edit_read_bidding?%>
+		</div>
+	</div>
+	<div class="col-xs-1 font-fix">
+		<div class="radio">
+			<label><%= f.input_field :read_sample, label: false, disabled: @current_user.disabled_edit_read_bidding? %><%= Bidding.human_attribute_name(:read_sample) %></label>
+		</div>
+	</div>
+	<div class="col-xs-2" id="read_delivery_time" <%= 'hidden' if f.object.read_sample != true %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_delivery_time) %></label>
+			<%= f.text_field :read_delivery_time, label: false, class: "form-control datetimepicker", :value => f.object.read_delivery_time != nil ? I18n.l(f.object.read_delivery_time, format: :full) : nil, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-2 font-fix size-fix">
+		<div class="radio">
+			<label><%= f.input_field :read_survey, label: false, disabled: @current_user.disabled_edit_read_bidding? %><%= Bidding.human_attribute_name(:read_survey) %></label>
+		</div>
+	</div>
+	<div id="read_deadline" <%= 'hidden' if f.object.read_survey != true %>>
+		<div class="col-xs-2" >
+			<div class="form-group">
+				<label for="#"><%= Bidding.human_attribute_name(:scheduling_date) %></label>
+				<%= f.text_field :scheduling_date, label: false, class: "form-control datetimepicker", :value => f.object.scheduling_date != nil ? I18n.l(f.object.scheduling_date, format: :full) : nil, disabled: @current_user.disabled_edit_read_bidding? %>
+			</div>
+		</div>
+		<div class="col-xs-2" >
+			<div class="form-group">
+				<label for="#"><%= Bidding.human_attribute_name(:read_deadline) %></label>
+				<%= f.text_field :read_deadline, label: false, class: "form-control datetimepicker", :value => f.object.read_deadline != nil ? I18n.l(f.object.read_deadline, format: :full) : nil, disabled: @current_user.disabled_edit_read_bidding? %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<hr class="line-fix">
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_judgment_form) %></label>
+			<%= f.association :read_judgment_form, collection: JudgmentForm.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' }, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-3" id="read_other_judgment_form" <%= 'hidden' if f.object.read_judgment_form_id != 15 %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_other_judgment_form) %></label>
+			<%= f.input :read_other_judgment_form, label: false, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+</div>
+
+<hr class="line-fix">
+
+<div class="row">
+	<div class="col-xs-2">
+		<div class="form-group chosen-div">
+			<label for="#"><%= Bidding.human_attribute_name(:read_exclusive_me_epp) %></label>
+			<%= f.input :read_exclusive_me_epp, as: :select, input_html: {class: 'select optional form-control chosen'}, label: false, collection: [['Sim', 1], ['Não', 0]], :selected => (f.object.read_exclusive_me_epp ? 1 : 0), disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group chosen-div">
+			<label for="#"><%= Bidding.human_attribute_name(:read_srp) %></label>
+			<%= f.input :read_srp, as: :select, input_html: {class: 'select optional form-control chosen'}, label: false, collection: [['Sim', 1], ['Não', 0]], :selected => (f.object.read_srp ? 1 : 0), disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group chosen-div">
+			<label for="#"><%= Bidding.human_attribute_name(:read_installation) %></label>
+			<%= f.input :read_installation, as: :select, input_html: {class: 'select optional form-control chosen'}, label: false, collection: [['Sim', 1], ['Não', 0]], :selected => (f.object.read_installation ? 1 : 0), disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group chosen-div">
+			<label for="#"><%= Bidding.human_attribute_name(:read_catalog) %></label>
+			<%= f.input :read_catalog, as: :select, input_html: {class: 'select optional form-control chosen'}, label: false, collection: [['Sim', 1], ['Não', 0]], :selected => (f.object.read_catalog ? 1 : 0), disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group chosen-div">
+			<label for="#"><%= Bidding.human_attribute_name(:read_product_guarantee) %></label>
+			<%= f.input :read_product_guarantee, as: :select, input_html: {class: 'select optional form-control chosen'}, label: false, collection: [['Sim', 1], ['Não', 0]], :selected => (f.object.read_product_guarantee ? 1 : 0), disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+</div>
+
+<hr class="line-fix">
+
+<!-- Garantia da proposta -->
+<div class="row">
+	<div class="col-xs-2">
+		<div class="chosen-div">
+			<label for="#"><%= Bidding.human_attribute_name(:read_proposal_guarantee) %></label>
+			<%= f.input :read_proposal_guarantee, as: :select, input_html: {class: 'select optional form-control chosen'}, label: false, collection: [['Sim', 1], ['Não', 0]], :selected => (f.object.read_proposal_guarantee ? 1 : 0), disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-2 group_proposal_guarantee" <%= 'hidden' if f.object.read_proposal_guarantee != true %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_proposal_guarantee_percent) %> %</label>
+			<%= f.input :read_proposal_guarantee_percent, label: false, input_html: {class: 'form-control optional percent'}, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-2 group_proposal_guarantee" <%= 'hidden' if f.object.read_proposal_guarantee != true %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_proposal_guarantee_value) %> R$</label>
+			<%= f.input :read_proposal_guarantee_value, label: false, input_html: {class: 'form-control optional money'}, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+</div>
+<br>
+<div class="row group_proposal_guarantee" <%= 'hidden' if f.object.read_proposal_guarantee != true %>>
+	<div class="col-xs-12">
+		<label for="#"><%= Bidding.human_attribute_name(:read_proposal_guarantee_documents)%></label>
+	</div>			
+</div>
+
+<%= f.fields_for :attachments, f.object.attachments.select{|item| item[:attachment_type] == 3}, defaults: { input_html: { class: 'form-control' } } do |attach| %>
+<div class="row group_proposal_guarantee" <%= 'hidden' if f.object.read_proposal_guarantee != true %>>
+	<div class="col-xs-4">
+		<div class="form-group">
+			<% if attach.object.persisted? %>
+			<%= link_to attach.object.attachment_file_name, attach.object.attachment.url(:original, false), target: "_blank" %>
+			<% end %>
+			<%= attach.input :attachment, as: :file, label: false, disabled: @current_user.disabled_edit_read_bidding? %>
+			<%= attach.input :attachment_type, :as => :hidden, input_html: { value: 3}, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<% if !@current_user.disabled_edit_read_bidding? %>
+	<div class="col-xs-4" style="margin-top: -4px;">
+		<div class="remove-div-responsible_client_contact">
+			<%= attach.check_box :_destroy, disabled: @current_user.disabled_edit_read_bidding? %>
+			<%= attach.label :_destroy, 'Remover', disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<% end %>
+</div>
+<% end %>
+
+<% if !@current_user.disabled_edit_read_bidding? %>
+<div class="row group_proposal_guarantee" <%= 'hidden' if f.object.read_proposal_guarantee != true %>>
+	<div class="col-xs-12">
+		<div class="add-document">
+			<%= f.submit 'Adicionar novo documento garantia de proposta', :name => "add_document_3" %>
+		</div>
+	</div>
+</div>
+<% end %>
+<!-- Fim garantia da proposta -->
+
+<hr class="line-fix">
+
+<!-- Garantia contratual -->
+<div class="row">
+	<div class="col-xs-2">
+		<div class="chosen-div">
+			<label for="#"><%= Bidding.human_attribute_name(:read_guarantee_contractual) %></label>
+			<%= f.input :read_guarantee_contractual, as: :select, input_html: {class: 'select optional form-control chosen'}, label: false, collection: [['Sim', 1], ['Não', 0]], :selected => (f.object.read_guarantee_contractual ? 1 : 0), disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-2 group_guarantee_contractual" <%= 'hidden' if f.object.read_guarantee_contractual != true %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_guarantee_contractual_percent) %> %</label>
+			<%= f.input :read_guarantee_contractual_percent, label: false, input_html: {class: 'form-control optional percent'}, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-2 group_guarantee_contractual" <%= 'hidden' if f.object.read_guarantee_contractual != true %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_guarantee_contractual_value) %> R$</label>
+			<%= f.input :read_guarantee_contractual_value, label: false, input_html: {class: 'form-control optional money'}, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+</div>
+<br>
+<div class="row group_guarantee_contractual" <%= 'hidden' if f.object.read_guarantee_contractual != true %>>
+	<div class="col-xs-12">
+		<label for="#"><%= Bidding.human_attribute_name(:read_guarantee_contractual_documents)%></label>
+	</div>			
+</div>
+
+<%= f.fields_for :attachments, f.object.attachments.select{|item| item[:attachment_type] == 4}, defaults: { input_html: { class: 'form-control' } } do |attach| %>
+<div class="row group_guarantee_contractual" <%= 'hidden' if f.object.read_guarantee_contractual != true %>>
+	<div class="col-xs-4">
+		<div class="form-group">
+			<% if attach.object.persisted? %>
+			<%= link_to attach.object.attachment_file_name, attach.object.attachment.url(:original, false), target: "_blank" %>
+			<% end %>
+			<%= attach.input :attachment, as: :file, label: false, disabled: @current_user.disabled_edit_read_bidding? %>
+			<%= attach.input :attachment_type, :as => :hidden, input_html: { value: 4}, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<% if !@current_user.disabled_edit_read_bidding? %>
+	<div class="col-xs-4" style="margin-top: -4px;">
+		<div class="remove-div-responsible_client_contact">
+			<%= attach.check_box :_destroy %>
+			<%= attach.label :_destroy, 'Remover' %>
+		</div>
+	</div>
+	<% end %>
+</div>
+<% end %>
+
+<% if !@current_user.disabled_edit_read_bidding? %>
+<div class="row group_guarantee_contractual" <%= 'hidden' if f.object.read_guarantee_contractual != true %>>
+	<div class="col-xs-12">
+		<div class="add-document">
+			<%= f.submit 'Adicionar novo documento garantia contratual', :name => "add_document_4" %>
+		</div>
+	</div>
+</div>
+<% end %>
+
+<!-- Fim garantia contratual -->
+
+<hr class="line-fix">
+
+<!-- Esclarecimento -->
+<div class="row">
+	<div class="col-xs-2">
+		<div class="chosen-div">
+			<label for="#"><%= Bidding.human_attribute_name(:read_claritication) %></label>
+			<%= f.input :read_claritication, as: :select, input_html: {class: 'select optional form-control chosen'}, label: false, collection: [['Sim', 1], ['Não', 0]], :selected => (f.object.read_claritication ? 1 : 0), disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-2 group_read_claritication" <%= 'hidden' if f.object.read_claritication != true %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_claritication_solicitation_date) %></label>
+			<%= f.text_field :read_claritication_solicitation_date, label: false, class: "form-control datetimepicker", :value => f.object.read_claritication_solicitation_date != nil ? I18n.l(f.object.read_claritication_solicitation_date, format: :full) : nil, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-2 group_read_claritication" <%= 'hidden' if f.object.read_claritication != true %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_claritication_deadline) %></label>
+			<%= f.text_field :read_claritication_deadline, label: false, class: "form-control datetimepicker", :value => f.object.read_claritication_deadline != nil ? I18n.l(f.object.read_claritication_deadline, format: :full) : nil, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-4 group_read_claritication" <%= 'hidden' if f.object.read_claritication != true %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_claritication_motivation) %></label>
+			<%= f.input :read_claritication_motivation, label: false, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+</div>
+<br>
+<div class="row group_read_claritication" <%= 'hidden' if f.object.read_claritication != true %>>
+	<div class="col-xs-12">
+		<label for="#"><%= Bidding.human_attribute_name(:read_claritication_documents)%></label>
+	</div>			
+</div>
+
+<%= f.fields_for :attachments, f.object.attachments.select{|item| item[:attachment_type] == 5}, defaults: { input_html: { class: 'form-control' } } do |attach| %>
+<div class="row group_read_claritication" <%= 'hidden' if f.object.read_claritication != true %>>
+	<div class="col-xs-4">
+		<div class="form-group">
+			<% if attach.object.persisted? %>
+			<%= link_to attach.object.attachment_file_name, attach.object.attachment.url(:original, false), target: "_blank" %>
+			<% end %>
+			<%= attach.input :attachment, as: :file, label: false, disabled: @current_user.disabled_edit_read_bidding? %>
+			<%= attach.input :attachment_type, :as => :hidden, input_html: { value: 5}, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<% if !@current_user.disabled_edit_read_bidding? %>
+	<div class="col-xs-4" style="margin-top: -4px;">
+		<div class="remove-div-responsible_client_contact">
+			<%= attach.check_box :_destroy %>
+			<%= attach.label :_destroy, 'Remover' %>
+		</div>
+	</div>
+	<% end %>
+</div>
+<% end %>
+
+<% if !@current_user.disabled_edit_read_bidding? %>
+<div class="row group_read_claritication" <%= 'hidden' if f.object.read_claritication != true %>>
+	<div class="col-xs-12">
+		<div class="add-document">
+			<%= f.submit 'Adicionar novo documento esclarecimento', :name => "add_document_5" %>
+		</div>
+	</div>
+</div>
+<% end %>
+<!-- Fim esclarecimento -->
+
+<hr class="line-fix">
+
+<!-- Impugnação -->
+<div class="row">
+	<div class="col-xs-2">
+		<div class="chosen-div">
+			<label for="#"><%= Bidding.human_attribute_name(:read_impugnment) %></label>
+			<%= f.input :read_impugnment, as: :select, input_html: {class: 'select optional form-control chosen'}, label: false, collection: [['Sim', 1], ['Não', 0]], :selected => (f.object.read_impugnment ? 1 : 0), disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-2 group_read_impugnment" <%= 'hidden' if f.object.read_impugnment != true %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_impugnment_solicitation_date) %></label>
+			<%= f.text_field :read_impugnment_solicitation_date, label: false, class: "form-control datetimepicker", :value => f.object.read_impugnment_solicitation_date != nil ? I18n.l(f.object.read_impugnment_solicitation_date, format: :full) : nil, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-2 group_read_impugnment" <%= 'hidden' if f.object.read_impugnment != true %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_impugnment_deadline) %></label>
+			<%= f.text_field :read_impugnment_deadline, label: false, class: "form-control datetimepicker", :value => f.object.read_impugnment_deadline != nil ? I18n.l(f.object.read_impugnment_deadline, format: :full) : nil, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-4 group_read_impugnment" <%= 'hidden' if f.object.read_impugnment != true %>>
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_impugnment_motivation) %></label>
+			<%= f.input :read_impugnment_motivation, label: false, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+</div>
+<br>
+<div class="row group_read_impugnment" <%= 'hidden' if f.object.read_impugnment != true %>>
+	<div class="col-xs-12">
+		<label for="#"><%= Bidding.human_attribute_name(:read_impugnment_documents)%></label>
+	</div>			
+</div>
+
+<%= f.fields_for :attachments, f.object.attachments.select{|item| item[:attachment_type] == 6}, defaults: { input_html: { class: 'form-control' } } do |attach| %>
+<div class="row group_read_impugnment" <%= 'hidden' if f.object.read_impugnment != true %>>
+	<div class="col-xs-4">
+		<div class="form-group">
+			<% if attach.object.persisted? %>
+			<%= link_to attach.object.attachment_file_name, attach.object.attachment.url(:original, false), target: "_blank" %>
+			<% end %>
+			<%= attach.input :attachment, as: :file, label: false, disabled: @current_user.disabled_edit_read_bidding? %>
+			<%= attach.input :attachment_type, :as => :hidden, input_html: { value: 6}, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<% if !@current_user.disabled_edit_read_bidding? %>
+	<div class="col-xs-4" style="margin-top: -4px;">
+		<div class="remove-div-responsible_client_contact">
+			<%= attach.check_box :_destroy %>
+			<%= attach.label :_destroy, 'Remover' %>
+		</div>
+	</div>
+	<% end %>
+</div>
+<% end %>
+
+<% if !@current_user.disabled_edit_read_bidding? %>
+<div class="row group_read_impugnment" <%= 'hidden' if f.object.read_impugnment != true %>>
+	<div class="col-xs-12">
+		<div class="add-document">
+			<%= f.submit 'Adicionar novo documento impugnação', :name => "add_document_6" %>
+		</div>
+	</div>
+</div>
+<% end %>
+<!-- Fim impugnação -->
+
+<hr class="line-fix">
+
+<h2>Entrega</h2>
+
+<div class="row">
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_bidding_read_delivery) %></label>
+			<%= f.association :read_bidding_read_delivery, collection: BiddingReadDelivery.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' }, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label for="#"><%= Bidding.human_attribute_name(:read_bidding_read_delivery_deadline) %></label>
+			<%= f.input :read_bidding_read_delivery_deadline, label: false, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>										
+	</div>
+</div>
+
+<hr class="drop-line">
+
+<h3 id="accreditation_presential_read_step" class="show_qualifications show_qualifications_accreditation_presential_read_step"><b>CREDENCIAMENTO PRESENCIAL <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></b></h3>
+
+<div class="qualifications" id="qualifications_accreditation_presential_read_step">
+	<div class="row">
+		<% if !@current_user.disabled_edit_read_bidding? %>
+		<div class="col-xs-2 edit-read-div">	
+			<% AccreditationPresential.order(:name).each do |accreditation_presential| %>
+			<a class="popup-modal edit_checklist" href="#modal_edit_accreditation_presential_<%=accreditation_presential.id%>">Editar nome</a>
+			<%= render 'biddings/modal_edit/modal_edit_accreditation_presential', object: accreditation_presential %>
+			<% end %>
+		</div>
+		<% end %>
+		<div class="col-xs-9">	
+			<%= f.association :accreditation_presentials, collection: AccreditationPresential.order(:name), label_method: lambda { |object| "#{object.name.mb_chars.upcase}"} , value_method: :id, label: false, as: :check_boxes, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<% if !@current_user.disabled_edit_read_bidding? %>
+	<div class="row">
+		<div class="col-xs-6">
+			<%= f.input :accreditation_presential_name_read, label: false, :placeholder => 'Nome do novo credenciamento presencial' %>
+		</div>
+		<div class="col-xs-6 add-new">
+			<%= f.submit 'Adicionar novo documento', :name => "add_accreditation_presential" %>
+		</div>						
+	</div>
+	<% end %>
+</div>
+
+<hr class="drop-line">
+
+<h3 id="habilitation_read_step" class="show_qualifications show_habilitation_presential_read_step"><b>HABILITAÇÃO <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></b></h3>
+
+<div class="qualifications" id="habilitation_presential_read_step">
+	<div class="row">
+		<% if !@current_user.disabled_edit_read_bidding? %>
+		<div class="col-xs-2 edit-read-div">	
+			<% Habilitation.order(:name).each do |habilitation| %>
+			<a class="popup-modal edit_checklist" href="#modal_edit_habilitation_<%=habilitation.id%>">Editar nome</a>
+			<%= render 'biddings/modal_edit/modal_edit_habilitation', object: habilitation %>
+			<% end %>
+		</div>
+		<% end %>
+		<div class="col-xs-9">	
+			<%= f.association :habilitations, collection: Habilitation.order(:name), label_method: lambda { |object| "#{object.name.mb_chars.upcase}"} , value_method: :id, label: false, as: :check_boxes, disabled: @current_user.disabled_edit_read_bidding? %>
+		</div>
+	</div>
+	<% if !@current_user.disabled_edit_read_bidding? %>
+	<div class="row">
+		<div class="col-xs-6">
+			<%= f.input :habilitation_name_read, label: false, :placeholder => 'Nome da nova qualificação' %>
+		</div>
+		<div class="col-xs-6 add-new">
+			<%= f.submit 'Adicionar novo documento', :name => "add_habilitation" %>
+		</div>						
+	</div>
+	<% end %>
+</div>
+
+<hr class="drop-line">
+
+<br>
+
+<div class="content no-margin">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="title slide_historic_observations_3 show_content_3">
+				<span>Visualizar Histórico de Observações (<%=(f.object.observations.select{|item| item[:observation_type] == 3}.length-1)%>) <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Histórico de Observações -->
+<%= f.fields_for :observations, f.object.observations.select{|item| item[:observation_type] == 3}, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+<% if observation.object.persisted? %>
+<div class="row row_with_observation_3 observation-div">
+	<div class="col-xs-3">
+		<label for="#"><%= Observation.human_attribute_name(:created_at) %>:</label>
+		<% if observation.object.created_at %>
+		<%= I18n.l observation.object.created_at.to_datetime, format: :full %>
+		<% end %>
+	</div>
+	<div class="col-xs-3">
+		<label for="#"><%= Observation.human_attribute_name(:user)%>:</label>
+		<% if observation.object.user %>
+		<%= observation.object.user.name %>
+		<% end %>
+	</div>
+	<div class="col-xs-4">
+		<label for="#"><%= Observation.human_attribute_name(:observation)%>:</label>
+		<% if observation.object.user_id == @current_user.id %>
+		<%= observation.input :observation, label: false, disabled: @current_user.disabled_edit_read_bidding? %>
+		<% else %>
+		<% if observation.object.observation %>
+		<%= observation.object.observation %>
+		<% end %>
+		<% end %>
+	</div>
+	<% if !@current_user.disabled_edit_read_bidding? %>
+	<div class="col-xs-2">
+		<a title="Excluir" data-confirm="Tem certeza que deseja excluir essa observação?" rel="nofollow" data-method="delete" href="<%= delete_observation_bidding_path(observation.object) %>">Excluir
+		</a>
+	</div>
+	<% end %>
+</div>
+<% end %>
+<% end %>
+<!-- Fim histórico de observações -->
+
+<!-- Nova observação -->
+<%= f.fields_for :observations, f.object.observations.select{|item| item[:observation_type] == 3}, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+<% if !observation.object.persisted? %>
+<div class="row">
+	<div class="col-xs-12">
+		<label for="#"><%= Bidding.human_attribute_name(:catch_organ_notification_observation)%>:</label>
+		<%= observation.association :user, :as => :hidden, input_html: { value: @current_user.id}, disabled: @current_user.disabled_edit_read_bidding? %>
+		<%= observation.input :observation_type, :as => :hidden, input_html: { value: 3}, disabled: @current_user.disabled_edit_read_bidding? %>
+		<%= observation.input :observation, label: false, disabled: @current_user.disabled_edit_read_bidding? %>
+	</div>
+</div>
+<% end %>
+<% end %>
+<!-- Fim nova observação -->
+
+<br>
+<% if !@current_user.disabled_edit_read_bidding? %>
+<%= f.submit 'Salvar', :class => 'save-btn', :name => "save_read" %>
+<% end %>

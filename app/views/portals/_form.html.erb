@@ -1,0 +1,284 @@
+<%= simple_form_for @portal, defaults: { input_html: {class: 'form-control'}} do |f| %>
+<div class="container">
+	<div class="row">
+
+		<div class="col-xs-12">
+
+			<div class="row">
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#"><%= Portal.human_attribute_name(:name) %></label>
+						<%= f.input :name, label: false %>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#"><%= Portal.human_attribute_name(:initial_date) %></label>
+						<%= f.text_field :initial_date, label: false, class: "form-control datepicker", :value => f.object.initial_date != nil ? I18n.l(f.object.initial_date, format: :default) : nil%>
+					</div>					
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#"><%= Portal.human_attribute_name(:final_date) %></label>
+						<%= f.text_field :final_date, label: false, class: "form-control datepicker", :value => f.object.final_date != nil ? I18n.l(f.object.final_date, format: :default) : nil%>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#"><%= Portal.human_attribute_name(:phone) %></label>
+						<%= f.input :phone, label: false %>
+					</div>					
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#"><%= Portal.human_attribute_name(:email) %></label>
+						<%= f.input :email, label: false %>
+					</div>					
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#"><%= Portal.human_attribute_name(:site) %></label>
+						<%= f.input :site, label: false %>
+					</div>					
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#"><%= Portal.human_attribute_name(:client) %></label>
+						<%= f.association :client, collection: Client.all.order(:fantasy_name), label_method: :fantasy_name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#"><%= Portal.human_attribute_name(:responsible) %></label>
+						<%= f.input :responsible, label: false %>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#"><%= Portal.human_attribute_name(:registration_unit) %></label>
+						<%= f.input :registration_unit, label: false %>
+					</div>
+				</div>
+			</div>
+
+
+			<%= f.fields_for :address, defaults: { input_html: { class: 'form-control' } } do |address| %>
+			<div class="row">
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label>CEP*</label>
+						<%= address.input :zipcode, label: false, input_html: { class: 'string optional form-control cep' } %>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label>Logradouro*</label>
+						<%= address.input :address, label: false %>
+					</div>
+				</div>
+				<div class="col-xs-1">
+					<div class="form-group">
+						<label>Número*</label>
+						<%= address.input :number, label: false %>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label>Complemento*</label>
+						<%= address.input :complement, label: false %>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label>Bairro*</label>
+						<%= address.input :district, label: false %>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label>Estado*</label>
+						<%= address.association :state, collection: State.all.order(:name), label_method: :acronym, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label>Cidade*</label>
+						<%= address.association :city, collection: City.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+					</div>
+				</div>
+			</div>
+			<% end %>
+
+			<div class="content">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="title slide_historic_observations show_content">
+							<span>Visualizar Histórico de Observações (<%=(f.object.observations.length-1)%>) <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Histórico de Observações -->
+			<%= f.fields_for :observations, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+			<% if observation.object.persisted? %>
+			<div class="row row_with_observation">
+				<div class="col-xs-3">
+					<label for="#"><%= Observation.human_attribute_name(:created_at) %>:</label>
+					<% if observation.object.created_at %>
+					<%= I18n.l observation.object.created_at.to_datetime, format: :full %>
+					<% end %>
+				</div>
+				<div class="col-xs-3">
+					<label for="#"><%= Observation.human_attribute_name(:user)%>:</label>
+					<% if observation.object.user %>
+					<%= observation.object.user.name %>
+					<% end %>
+				</div>
+				<div class="col-xs-4">
+					<label for="#"><%= Observation.human_attribute_name(:observation)%>:</label>
+					<% if observation.object.user_id == @current_user.id %>
+					<%= observation.input :observation, label: false %>
+					<% else %>
+					<% if observation.object.observation %>
+					<%= observation.object.observation %>
+					<% end %>
+					<% end %>
+				</div>
+				<div class="col-xs-2">
+					<a title="Excluir" data-confirm="Tem certeza que deseja excluir essa observação?" rel="nofollow" data-method="delete" href="<%= delete_observation_portal_path(observation.object) %>">Excluir
+					</a>
+				</div>
+			</div>
+			<% end %>
+			<% end %>
+			<!-- Fim histórico de observações -->
+
+			<!-- Nova observação -->
+			<%= f.fields_for :observations, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+			<% if !observation.object.persisted? %>
+			<div class="row">
+				<div class="col-xs-12">
+					<label for="#"><%= Observation.human_attribute_name(:new_observation)%>:</label>
+					<%= observation.association :user, :as => :hidden, input_html: { value: @current_user.id} %>
+					<%= observation.input :observation, label: false %>
+				</div>
+			</div>
+			<% end %>
+			<% end %>
+			<!-- Fim nova observação -->
+
+			<% responsibles_counter = 0 %>
+			<!-- Responsáveis -->
+			<%= f.fields_for :responsibles, defaults: { input_html: { class: 'form-control' } } do |responsible| %>
+			<div class="row">
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#"><%= Responsible.human_attribute_name(:name)%></label>
+						<%= responsible.input :name, label: false %>
+					</div>					
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#"><%= Responsible.human_attribute_name(:office)%></label>
+						<%= responsible.input :office, label: false %>
+					</div>					
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#"><%= Responsible.human_attribute_name(:department)%></label>
+						<%= responsible.input :department, label: false %>
+					</div>					
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label style="display: block;"><%= Responsible.human_attribute_name(:phone)%></label>
+						<% first_phone = false %>
+						<% phones_counter_responsibles = 0 %>
+						<div id="group_phones_responsibles_<%=responsibles_counter%>" class="inline">
+							<%= responsible.fields_for :phones, defaults: { input_html: { class: 'form-control' } } do |phone| %>
+							<%= phone.input :phone, label: false, input_html: {class: 'tel size-width-default form-control edit-position'} %>
+							<% phones_counter_responsibles += 1 %>
+							<a class="add-anchor add_new_phone_dynamic_responsible" id="add_new_phone_dynamic_<%=responsibles_counter%>">
+								<div class="add-input">+</div>
+							</a>
+							<% if phone.object.persisted? %>
+							<a title="Excluir" rel="nofollow" data-method="delete" class="edit-fix" href="<%= delete_phone_portal_path(phone.object) %>">x</a>
+							<% end %>
+							<% end %>
+						</div>
+						<%= hidden_field_tag "phones_counter_responsibles_#{responsibles_counter}", phones_counter_responsibles %>
+					</div>
+				</div>
+
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label style="display: block;"><%= Responsible.human_attribute_name(:email)%></label>
+						<% first_email = false %>
+						<% emails_counter_responsibles = 0 %>
+						<div id="group_emails_responsibles_<%=responsibles_counter%>" class="inline">
+							<%= responsible.fields_for :emails, defaults: { input_html: { class: 'form-control' } } do |email| %>
+							<%= email.input :email, label: false, input_html: {class: 'form-control size-width-default edit-position'} %>
+							<% emails_counter_responsibles += 1 %>
+							<a class="add-anchor add_new_email_dynamic_responsible" id="add_new_email_dynamic_<%=responsibles_counter%>">
+								<div class="add-input">+</div>
+							</a>
+							<% if email.object.persisted? %>
+							<a title="Excluir" rel="nofollow" data-method="delete" class="edit-fix" href="<%= delete_email_portal_path(email.object) %>">x</a>
+							<% end %>
+							<% end %>
+						</div>
+						
+						<%= hidden_field_tag "emails_counter_responsibles_#{responsibles_counter}", emails_counter_responsibles %>
+					</div>
+				</div>
+
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label style="display: block;"><%= Responsible.human_attribute_name(:skype)%></label>
+						<% first_skype = false %>
+						<% skypes_counter_responsibles = 0 %>
+						<div id="group_skypes_responsibles_<%=responsibles_counter%>" class="inline">
+							<%= responsible.fields_for :skypes, defaults: { input_html: { class: 'form-control' } } do |skype| %>
+							<%= skype.input :skype, label: false, input_html: {class: 'form-control size-width-default edit-position'} %>
+							<% skypes_counter_responsibles += 1 %>
+							<a class="add-anchor add_new_skype_dynamic_responsible" id="add_new_skype_dynamic_<%=responsibles_counter%>">
+								<div class="add-input">+</div>
+							</a>
+							<% if skype.object.persisted? %>
+							<a title="Excluir" rel="nofollow" data-method="delete" class="edit-fix" href="<%= delete_skype_portal_path(skype.object) %>">x</a>
+							<% end %>
+							<% end %>
+						</div>
+						<%= hidden_field_tag "skypes_counter_responsibles_#{responsibles_counter}", skypes_counter_responsibles %>
+					</div>
+				</div>
+			</div>
+			<% responsibles_counter += 1 %>
+			<% end %>
+			<!-- Final responsáveis -->
+
+			<div class="row">
+				<div class="col-xs-12 add-new">
+					<%= f.submit 'Adicionar novo responsável', :name => "add_responsible", :class => "btn btn-link btn-xs" %>
+				</div>
+			</div>
+
+			<button type="submit" class="save-btn">Salvar</button>
+
+		</div>
+	</div>
+</div>
+<% end %>

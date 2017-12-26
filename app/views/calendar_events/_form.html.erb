@@ -1,0 +1,181 @@
+<%= simple_form_for @calendar_event, defaults: { input_html: {class: 'form-control'}} do |f| %>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label>Entidade de classe</label>
+			<%= f.association :entity_class, label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen'} %>
+		</div>
+	</div>
+	<div class="col-xs-4">
+		<div class="form-group">
+			<label>Nome do compromisso</label>
+			<%= f.input :name, label: false %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label>Para quem é o evento?</label>
+			<% if @current_user.is_admin? %>
+			<% if @calendar_event.persisted? %>
+			<%= f.association :user, collection: User.unblocked.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen'}, selected: @calendar_event.user.id %>
+			<% else %>
+			<%= f.association :user, collection: User.unblocked.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen'}, selected: @current_user.id %>
+			<% end %>
+			<% else %>
+			<% if @calendar_event.persisted? %>
+			<%= f.association :user, :as => :hidden, input_html: { value: @calendar_event.user.id} %>
+			<% else %>
+			<%= f.association :user, :as => :hidden, input_html: { value: @current_user.id} %>
+			<% end %>
+			<br>
+			<% if @calendar_event.user %>
+			<%= @calendar_event.user.name %>
+			<% else %>
+			<%= @current_user.name %>
+			<% end %>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+<!-- 	<div class="col-xs-3">
+		<div class="form-group cores-div">
+			<label>Cor*</label>
+			<%# f.association :calendar_color, label_method: :name, value_method: :id, label: false, as: :radio_buttons %>
+		</div>
+	</div> -->
+	<div class="col-xs-3" style="margin-top: 23px;">
+		<div class="form-group">
+			<%= f.association :calendar_type_event, label_method: :name, value_method: :id, label: false, as: :radio_buttons %>
+		</div>
+	</div>
+	<div class="col-xs-2" style="margin-top: 23px;">
+		<div class="form-group">
+			<%= f.input :shared, label: "Compartilhado" %>
+		</div>
+	</div>
+	<div class="col-xs-4" style="margin-top: 23px;">
+		<div class="form-group">
+			<label>Convidados</label>
+			<% if @calendar_event.persisted? && @calendar_event.shared %>
+			<% @disabled = false %>
+			<% else %>
+			<% @disabled = true %>
+			<% end %>
+			<%= f.association :users, collection: User.unblocked.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen'}, disabled: @disabled %>
+		</div>
+	</div>
+</div>
+
+<h3>Endereço</h3>
+<div class="row">
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label>CEP*</label>
+			<%= f.input :zipcode, label: false, input_html: { class: 'string optional form-control cep' } %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label>Logradouro*</label>
+			<%= f.input :address, label: false %>
+		</div>
+	</div>
+	<div class="col-xs-1">
+		<div class="form-group">
+			<label>Número*</label>
+			<%= f.input :number, label: false %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label>Complemento</label>
+			<%= f.input :complement, label: false %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label>Bairro*</label>
+			<%= f.input :district, label: false %>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label>Estado*</label>
+			<%= f.association :state, collection: State.all.order(:name), label_method: :acronym, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen'} %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label>Cidade*</label>
+			<%= f.association :city, collection: City.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen'} %>
+		</div>
+	</div>
+</div>
+
+<hr>
+
+<div class="row">
+	<div class="col-xs-4 time-inputs">
+		<label class="label-fix">Horário de início e término</label>
+		<%= f.input :initial_time, label: false %>
+		<div class="separador inline">
+			-
+		</div>
+		<%= f.input :final_time, label: false %>
+	</div>
+	<div class="col-xs-2" style="margin-top: 8px;">
+		<label>Dia</label>
+		<%= f.input :initial_date, as: :string, label: false, input_html: {class: "form-control datepicker", value: f.object.initial_date != nil ? I18n.l(f.object.initial_date, format: :default) : nil}%>
+	</div>
+	<% if @calendar_event.calendar_event_id == nil %>
+	<div class="col-xs-2">
+		<%= f.input :repeat, label: "Repetir" %>
+	</div>
+	<% end %>
+</div>
+
+<br>
+
+<% if @calendar_event.calendar_event_id == nil %>
+<div class="row" id="div_repetition">
+	<div class="col-xs-3">
+		<label>Repetir</label>
+		<%= f.association :calendar_repetition, collection: CalendarRepetition.all.order(:id), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen'} %>
+	</div>
+	<div class="col-xs-2">
+		<label>Quantidade de repetições</label>
+		<%= f.input :quantity_repetition, label: false %>
+	</div>
+</div>
+
+<div id="div_weekdays">
+	<div class="col-xs-12">
+		<div class="form-group">
+			<%= f.association :weekdays, label_method: :name, value_method: :id, label: false, as: :check_boxes, input_html: {class: 'check_boxes optional form-control check_day'} %>
+		</div>
+	</div>
+</div>
+<% end %>
+
+<br>
+<div class="row">
+	<div class="col-xs-12">
+		<label>Observação</label>
+		<%= f.input :observation, label: false %>
+	</div>
+</div>
+
+<button class="save-btn" type="submit">Salvar</button>
+<% if @calendar_event.persisted? %>
+<div class="delete-event">
+	<a title="Excluir" data-confirm="Tem certeza que deseja excluir" rel="nofollow" data-method="delete" href="<%= calendar_event_path(@calendar_event) %>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Excluir evento</a>
+</div>
+<% end %>
+
+<% end %>

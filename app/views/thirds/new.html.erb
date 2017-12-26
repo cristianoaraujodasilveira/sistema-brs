@@ -1,0 +1,16 @@
+<div class="container" id="thirds_new">
+
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1>Cadastros > Terceiros > <%= link_to @name_to_show, send("index_#{@path}_path") %> > <a href="<%= new_third_path(@third_type) %>">Novo</a></h1>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<%= render 'form' %>
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,16 @@
+pt-BR:
+  activerecord:
+    models:
+      bidding_responsible:
+        one: Responsável
+        other: Responsáveis
+    attributes:
+      bidding_responsible:
+        user: 'Responsável pela participação'
+        user_id: 'Responsável pela participação'
+        initial_date: 'Data de início'
+        final_date: 'Data de término'
+        actions: Ações
+  bidding_responsibles:
+    new: Novo Responsável
+    edit: Alterar Responsável

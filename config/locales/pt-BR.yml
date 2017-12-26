@@ -1,0 +1,462 @@
+pt-BR:
+  datagrid:
+    no_results: "Nenhum registro encontrado"
+    filters:
+      xboolean:
+        "yes": "Sim"
+        "no": "Não"
+    form:
+      reset: "Limpar"
+      search: "Filtrar"
+    table:
+      order:
+        asc: "&uarr;"
+        desc: "&darr;"
+  views:
+    pagination:
+      first: "Primeiro"
+      previous: "Anterior"
+      next: "Próximo"
+      last: "Último"
+      truncate: ""
+  date:
+    abbr_day_names:
+    - Dom
+    - Seg
+    - Ter
+    - Qua
+    - Qui
+    - Sex
+    - Sáb
+    abbr_month_names:
+    -
+    - Jan
+    - Fev
+    - Mar
+    - Abr
+    - Mai
+    - Jun
+    - Jul
+    - Ago
+    - Set
+    - Out
+    - Nov
+    - Dez
+    day_names:
+    - Domingo
+    - Segunda
+    - Terça
+    - Quarta
+    - Quinta
+    - Sexta
+    - Sábado
+    formats:
+      default: "%d/%m/%Y"
+      long: "%d de %B de %Y"
+      short: "%d de %B"
+      full: "%d/%m/%Y %H:%m"
+      time: "%H:%m"
+      just_day: "%d"
+      just_month: "%B"
+      just_year: "%Y"
+    month_names:
+    -
+    - Janeiro
+    - Fevereiro
+    - Março
+    - Abril
+    - Maio
+    - Junho
+    - Julho
+    - Agosto
+    - Setembro
+    - Outubro
+    - Novembro
+    - Dezembro
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: aproximadamente 1 hora
+        other: aproximadamente %{count} horas
+      about_x_months:
+        one: aproximadamente 1 mês
+        other: aproximadamente %{count} meses
+      about_x_years:
+        one: aproximadamente 1 ano
+        other: aproximadamente %{count} anos
+      almost_x_years:
+        one: quase 1 ano
+        other: quase %{count} anos
+      half_a_minute: meio minuto
+      less_than_x_minutes:
+        one: menos de um minuto
+        other: menos de %{count} minutos
+      less_than_x_seconds:
+        one: menos de 1 segundo
+        other: menos de %{count} segundos
+      over_x_years:
+        one: mais de 1 ano
+        other: mais de %{count} anos
+      x_days:
+        one: 1 dia
+        other: "%{count} dias"
+      x_minutes:
+        one: 1 minuto
+        other: "%{count} minutos"
+      x_months:
+        one: 1 mês
+        other: "%{count} meses"
+      x_seconds:
+        one: 1 segundo
+        other: "%{count} segundos"
+    prompts:
+      day: Dia
+      hour: Hora
+      minute: Minuto
+      month: Mês
+      second: Segundo
+      year: Ano
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: deve ser aceito
+      blank: não pode ficar em branco
+      present: deve ficar em branco
+      confirmation: não é igual a %{attribute}
+      empty: não pode ficar vazio
+      equal_to: deve ser igual a %{count}
+      even: deve ser par
+      exclusion: não está disponível
+      greater_than: deve ser maior que %{count}
+      greater_than_or_equal_to: deve ser maior ou igual a %{count}
+      inclusion: não está incluído na lista
+      invalid: não é válido
+      less_than: deve ser menor que %{count}
+      less_than_or_equal_to: deve ser menor ou igual a %{count}
+      not_a_number: não é um número
+      not_an_integer: não é um número inteiro
+      odd: deve ser ímpar
+      record_invalid: 'A validação falhou: %{errors}'
+      restrict_dependent_destroy:
+        one: Não é possível excluir o registro pois existe um %{record} dependente
+        many: Não é possível excluir o registro pois existem %{record} dependentes
+      taken: já está em uso
+      too_long: 'é muito longo (máximo: %{count} caracteres)'
+      too_short: 'é muito curto (mínimo: %{count} caracteres)'
+      wrong_length: não possui o tamanho esperado (%{count} caracteres)
+      other_than: deve ser diferente de %{count}
+    template:
+      body: 'Por favor, verifique o(s) seguinte(s) campo(s):'
+      header:
+        one: 'Não foi possível gravar %{model}: 1 erro'
+        other: 'Não foi possível gravar %{model}: %{count} erros.'
+  helpers:
+    select:
+      prompt: Por favor selecione
+    submit:
+      create: Criar %{model}
+      submit: Salvar %{model}
+      update: Atualizar %{model}
+  number:
+    currency:
+      format:
+        delimiter: "."
+        format: "%u %n"
+        precision: 2
+        separator: ","
+        significant: false
+        strip_insignificant_zeros: false
+        unit: R$
+    format:
+      delimiter: "."
+      precision: 3
+      separator: ","
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion:
+            one: bilhão
+            other: bilhões
+          million:
+            one: milhão
+            other: milhões
+          quadrillion:
+            one: quatrilhão
+            other: quatrilhões
+          thousand: mil
+          trillion:
+            one: trilhão
+            other: trilhões
+          unit: ''
+      format:
+        delimiter: "."
+        precision: 2
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: "."
+        format: "%n%"
+    precision:
+      format:
+        delimiter: "."
+  support:
+    array:
+      last_word_connector: " e "
+      two_words_connector: " e "
+      words_connector: ", "
+  time:
+    am: ''
+    formats:
+      default: "%d/%m/%Y"
+      long: "%d de %B de %Y, %H:%M"
+      short: "%d de %B, %H:%M"
+      full: "%d/%m/%Y %H:%M"
+      time: "%H:%M"
+      just_day: "%d"
+      just_month: "%B"
+      just_year: "%Y"
+    pm: ''
+  activerecord:
+    models:
+      profile: 
+        one: "Perfil"
+        other: "Perfis"
+      user:
+        one: "Usuário"
+        other: "Usuários"
+    attributes:
+      profile:
+        name: "Nome"
+      user:
+        name: "Nome completo"
+        email: "Email"
+        password: "Senha"
+        password_confirmation: "Confirmação de senha"
+        last_access: "Último acesso"
+        profile_id: "Tipo"
+        zipcode: "CEP"
+        address: "Logradouro"
+        district: "Bairro"
+        number: "Número"
+        complement: "Complemento"
+        office: "Cargo"
+        department: "Departamento"
+        rg: "RG"
+        cpf: "CPF"
+        birth_date: "Data de nascimento"
+        whatsapp: "Whatsapp"
+        skype: "Skype"
+        is_blocked: "Bloqueado"
+        state_id: "Estado"
+        city_id: "Cidade"
+        office_city_id: "Cidade do escritório"
+        office_state_id: "Estado do escritório"
+        calendar_color_id: "Cor"
+      organ:
+        name: "Nome do orgão"
+        sphere_id: "Esfera"
+        cnpj: "CNPJ"
+        phone: "Telefone geral"
+        zipcode: "CEP"
+        address: "Logradouro"
+        district: "Bairro"
+        number: "Número"
+        complement: "Complemento"
+        state_id: "Estado"
+        city_id: "Cidade"
+      organ/organs:
+        name: "Nome"
+        sphere_id: "Esfera"
+        cnpj: "CNPJ"
+        phone: "Telefone geral"
+        zipcode: "CEP"
+        address: "Logradouro"
+        district: "Bairro"
+        number: "Número"
+        complement: "Complemento"
+        state_id: "Estado"
+        city_id: "Cidade"
+      organ/sectors:
+        name: "Nome do setor"
+        responsible_name: "Nome completo do responsável"
+      sector:
+        name: "Nome do setor"
+        responsible_name: "Nome completo do responsável"
+      registration_unit:
+        organ_id: "Orgão"
+        name: "Nome"
+        site: "Site"
+        zipcode: "CEP"
+        address: "Logradouro"
+        district: "Bairro"
+        number: "Número"
+        complement: "Complemento"
+        state_id: "Estado"
+        city_id: "Cidade"
+      registration_unit/responsible_registration_units:
+        name: "Nome"
+        office: "Cargo/Função"
+        department: "Departamento"
+        whatsapp: "Whatsapp"
+        skype: "Skype"
+      registration_unit/registration_units:
+        organ_id: "Orgão"
+        name: "Nome"
+        site: "Site"
+        zipcode: "CEP"
+        address: "Logradouro"
+        district: "Bairro"
+        number: "Número"
+        complement: "Complemento"
+        state_id: "Estado"
+        city_id: "Cidade"
+      client:
+        logo: "Logo"
+        stamp: "Carimbo"
+        social_name: "Razão social"
+        fantasy_name: "Nome fantasia"
+        cnpj: "CNPJ"
+        client_banks: "Registro da conta do banco"
+      client/clients:
+        logo: "Logo"
+        stamp: "Carimbo"
+        social_name: "Razão social"
+        fantasy_name: "Nome fantasia"
+        cnpj: "CNPJ"
+      client/client_banks:
+        owner_account: "Titular da conta"
+        bank_name: "Nome do Banco"
+        bank_code: "Código do Banco"
+        agency_number: "Agência"
+        agency_name: "Nome da Agência"
+        cnpj: "CNPJ"
+        operation: "Operação"
+        account_bank_type_id: "Tipo de conta"
+        account_number: "Número da conta"
+      client/client_contacts:
+        responsible_name: "Nome"
+        zipcode: "CEP"
+        address: "Logradouro"
+        district: "Bairro"
+        number: "Número"
+        complement: "Complemento"
+        state_id: "Estado"
+        city_id: "Cidade"
+        office: "Cargo/Função"
+        department: "Departamento"
+        whatsapp: "Whatsapp"
+        skype: "Skype"
+      proposal:
+        proposal_situation_id: "Situação da proposta"
+        client_id: "Razão Social"
+        social_name: "Razão Social"
+        fantasy_name: "Nome fantasia"
+        proposed_value: "Proposto (Valor)"
+        closed_value: "Fechado (Valor)"
+        minimum_value: "Mínimo (Valor)"
+        proposed_percentage: "Proposto (Percentual)"
+        closed_percentage: "Fechado (Percentual)"
+        minimum_percentage: "Mínimo (Percentual)"
+        users: "Responsável"
+        visits_report_id: "Título da proposta"
+      proposal/upload_proposals:
+        file: "Arquivo"
+        file_content_type: "Tipo de arquivo"
+        id: "Usuário"
+      contract:
+        contract_responsibles: "Responsável"
+        contract_responsible_financials: "Responsável"
+        contract_payments: "Pagamento"
+        monthly_fixed_payment: "Valor da mensalidade fixa"
+        monthly_payment: "Valor da mensalidade"
+        comission_fixed_payment: "Valor da comissão fixa"
+        proposal_id: "Proposta"
+      contract/contract_responsibles:
+        name: "Nome do responsável"
+      contract/contract_payments:
+        payment_form_id: "Forma de pagamento"
+        payment_from_id: "Pagamento de"
+      contract/contract_responsible_financials:
+        name: "Nome do responsável"
+      contract_responsibles:
+        name: "Nome do responsável"
+      contract_responsible_financials:
+        name: "Nome do responsável"
+      contract_payments:
+        payment_form_id: "Forma de pagamento"
+        payment_from_id: "Pagamento de"
+      entity_class:
+        name: "Nome"
+      entity_class/entity_class_responsibles:
+        name: "Nome do responsável"
+      calendar_event:
+        name: "Nome"
+        calendar_color_id: "Cor"
+        calendar_type_event_id: "Tipo do evento"
+        user_id: "Usuário"
+        zipcode: "CEP"
+        address: "Logradouro"
+        district: "Bairro"
+        number: "Número"
+        complement: "Complemento"
+        state_id: "Estado"
+        city_id: "Cidade"
+        initial_date: "Data"
+        final_time: "Tempo final"
+        quantity_repetition: "Quantidade de repetições"
+        initial_date: "Dia"
+      visits_report:
+        client_id: "Razão Social"
+        social_name: "Razão Social"
+        fantasy_name: "Nome fantasia"
+        date_and_time: "Data e hora"
+        scale_id: "Porte"
+        subject: "Assunto"
+        proposal_id: "Proposta"
+        proposal_text: "Título da proposta"
+        site: "Site"
+        responsible_name: "Responsável"
+        intermediary: "Intermediador"
+        contacts: "Contatos"
+        phone: "Telefone"
+        email: "Email"
+        segment: "Segmentos"
+        cnpj: "CNPJ"
+        products_and_services: "Produtos e serviços"
+        observation: "Observações"
+        user_id : "Intermediador"
+        zipcode: "CEP"
+        address: "Logradouro"
+        district: "Bairro"
+        number: "Número"
+        complement: "Complemento"
+        state_id: "Estado"
+        city_id: "Cidade"
+      lawyer/addresses:
+        zipcode: "CEP"
+        address: "Logradouro"
+        district: "Bairro"
+        number: "Número"
+        complement: "Complemento"
+        state_id: "Estado"
+        city_id: "Cidade"
+      library_category:
+        name: "Nome"

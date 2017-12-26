@@ -1,0 +1,42 @@
+#historic {
+
+	.margin-head {
+		margin-bottom: 51px;
+	}
+
+	.glyphicon-calendar {
+		float: right;
+	    margin-top: -23px;
+	    margin-right: 9px;
+	}
+
+	#audits_grid_user_id_chosen, #audits_grid_auditable_type_chosen {
+		width: 100% !important;
+	}
+
+	.date_filter {
+		width: 29%;
+		display: inline;
+	}
+
+	.datagrid-actions {
+	    position: relative;
+	    top: 26px;
+	    right: 136px;
+	}
+	
+	/* Retirar border a mais na tabela */
+	.datagrid tr:first-child td {
+		border-top: 1px solid #e7e7e7 !important;
+	}
+	
+	/* Retirar border a mais na tabela */
+	.datagrid tr td {
+		border-top: 0px !important;
+	}
+
+	#audits_grid_user_id_chosen, #audits_grid_auditable_type_chosen {
+		min-width: 200px;
+	}
+
+}

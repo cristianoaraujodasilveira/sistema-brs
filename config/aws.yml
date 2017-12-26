@@ -1,0 +1,11 @@
+development:
+  access_key_id: AKIAJDVMZODOWUMRCMBA
+  secret_access_key: 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
+
+test:
+  access_key_id: AKIAJDVMZODOWUMRCMBA
+  secret_access_key: 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
+
+production:
+  access_key_id: AKIAJDVMZODOWUMRCMBA
+  secret_access_key: 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

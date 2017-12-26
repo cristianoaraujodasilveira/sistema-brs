@@ -1,0 +1,57 @@
+<div class="container" id="clients">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Cadastros > <a href="<%= clients_path %>">Clientes</a></h1>
+			<a class="pull-right new-btn" href="<%= new_client_path %>">Novo</a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_form_for @grid_clients, :method => :get, :url => clients_path %>
+		</div>
+	</div>
+	
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12 table-actions">
+			<%= datagrid_table @grid_clients, html: {class: 'table datagrid'} %>
+		</div>
+	</div>
+	
+	<!-- Pagination -->
+	<div class="row">
+		<div class="col-xs-12 center">
+			<%= paginate(@grid_clients.assets) %>
+		</div>
+	</div>
+
+	<% if @show_grid_client_document %>
+	<br>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="sector-name">
+				<% if @client != nil %>
+				<span>Documentos do cliente <%= @client.social_name %></span>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="form-group">
+		<label for="#">Tipo de documento</label>
+		<%= select_tag "document_type_id_on_clients_list", options_from_collection_for_select(ClientDocumentType.all.order("LENGTH(name) ASC"), "id", "name"), class: 'form-control chosen', :prompt => "Selecione um tipo de documento" %>
+	</div>
+	<br>
+	<%= render 'clients/documents/documents_1' %>
+	<%= render 'clients/documents/documents_2' %>
+	<%= render 'clients/documents/documents_3' %>
+	<%= render 'clients/documents/documents_4' %>
+	<%= render 'clients/documents/documents_5' %>
+	<%= render 'clients/documents/documents_6' %>
+	<%= render 'clients/documents/documents_7' %>
+	<% end %>
+
+</div>

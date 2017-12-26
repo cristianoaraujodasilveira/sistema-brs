@@ -1,0 +1,601 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *= require gritter
+ *= require fullcalendar
+ *= require dataTables/jquery.dataTables
+ */
+
+body {
+	overflow-x: hidden;
+	background: #FAFAFA;
+	position: relative;
+	margin: 0;
+	padding-bottom: 6rem;
+	min-height: 100%;
+}
+
+/*Gritter fix*/
+.gritter-css2 .gritter-close {
+	background: asset-url('gritter.png') no-repeat left top !important;
+}
+
+.gritter-css3 .gritter-close {
+	background: asset-url('gritter-close.png') no-repeat !important;
+}
+/**/
+
+/*Cancelar responsivo*/
+.container {
+  min-width: 1170px !important;
+}
+/**/
+
+.pagination {
+
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    height: auto;
+    line-height: inherit;
+
+    span {
+
+		color: #337ab7;
+		font-size: 13px;
+
+		a {
+		    padding: 8px 11px;
+		    border: 1px solid #ddd;
+		    border-radius: 0px;
+		    font-size: 13px;
+		    margin-right: -4px;
+		    margin-left: -1px;
+			&:hover {text-decoration: none; background: #ddd; transition: all 0.4s ease;}
+			&:focus {text-decoration: none; outline: 0; color: #337ab7;}
+		}
+    }
+
+    .last a {
+	    border-right: 1px solid #ddd !important;
+    }
+
+    .current {
+		padding: 8px 11px;
+	    border: 1px solid #337ab7;
+	    border-radius: 0px;
+	    font-size: 13px;
+	    color: white;
+	    background: #337ab7;
+    }
+
+}
+
+.view-div {
+    
+    padding-left: 0;
+    margin-top: 28px;
+
+    a {
+        text-decoration: underline;
+        font-size: 12px;
+        color: #4595D1;
+    }
+}
+
+.delete_attachment_piece, .delete_attachment_third {
+	font-style: unset !important;
+    text-decoration: none !important;
+    font-weight: 400 !important;
+}
+
+.delete-obs a {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    color: #4595D1;
+    text-decoration: underline;	
+	&:hover {text-decoration: underline; color: #4595D1;}
+    &:focus {text-decoration: underline; color: #4595D1; outline: 0;}
+}
+
+.edit-div {
+
+	margin-top: 10px;
+	margin-bottom: 15px;
+	width: 106px;
+
+	a {
+		display: block;
+    	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    	font-weight: 400;
+    	font-size: 13px;
+    	color: #4595D1;
+    	text-decoration: underline;
+    	margin-bottom: 5px;
+    	&:focus {outline: 0;}
+	}
+}
+
+.edit-read-div {
+
+    margin-top: 10px;
+    margin-bottom: 15px;
+    width: 106px;
+
+ 	a {
+		display: block;
+    	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    	font-weight: 400;
+    	font-size: 13px;
+    	color: #4595D1;
+    	text-decoration: underline;
+    	margin-bottom: 6px;
+    	&:focus {outline: 0;}
+	} 
+}
+
+.observation-div a {
+    	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    	font-weight: 400;
+    	font-size: 13px;
+    	color: #4595D1;
+    	text-decoration: underline;
+    	&:focus {outline: 0;}	
+}
+
+.part-edit-div {
+
+	margin-top: 8px;
+	margin-bottom: 15px;
+	width: 106px;
+
+	a {
+		display: block;
+    	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    	font-weight: 400;
+    	font-size: 13px;
+    	color: #4595D1;
+    	text-decoration: underline;
+    	margin-bottom: 9px;
+    	&:focus {outline: 0;}
+	}	
+}
+
+.white-popup-block.parts-modal .btn-margin {
+	margin-top: 23px;
+}
+
+.view-all-contracts {
+	margin-top: 2px;
+    margin-left: 4px;
+}
+
+.line-fix {
+	margin-top: 10px !important;
+    margin-bottom: 18px !important;
+}
+
+.drop-line {
+	margin-top: 21px !important;
+	margin-bottom: 0px !important;
+}
+
+.fix-drop-line {
+	margin-top: 21px !important;
+	margin-bottom: 16px !important;	
+}
+
+.export-actions {
+
+	a {
+		margin-right: 8px;
+		&:first-child {margin-right: 0;}
+	}
+}
+
+.edit-delete- {
+	a:first-child {
+		margin-right: 6px;
+	}
+}
+
+input[type="checkbox"] {
+	box-shadow: none !important;
+}
+
+.table-actions {
+	.edit-delete- {
+		a:first-child, a:nth-child(2) {
+			margin-right: 6px;
+		}
+	}
+}
+
+.bootstrap-datetimepicker-widget {
+	z-index: 9999;
+}
+
+.error {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    color: red;
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+.datepicker {
+	z-index: 99999;
+}
+
+.datepicker-days {
+    padding: 3px 9px;
+}
+
+input[type="file"] {
+	font-size: 12px;
+	color: #373A3C;
+	line-height: 13px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 400;
+}
+
+#group_phones, #group_emails {
+
+	display: inline;
+
+	div {
+		display: inline;
+
+		input {
+			margin-top: 10px;
+		}
+	}
+}
+
+.delete_phone, .delete_email {
+	float: right;
+    position: relative;
+    right: 7px;
+    top: 14px;
+    color: black;
+    cursor: pointer;
+    &:hover {color: black; text-decoration: none;}
+}
+
+.order {
+
+	display: inline;
+	margin-left: 5px;
+
+	.asc, .desc {
+		text-decoration: none;
+	}
+}
+
+html {
+	height: 100%;
+	box-sizing: border-box;
+}
+
+.center {
+	text-align: center;
+}
+
+.inline {
+	display: inline;
+}
+
+.table a {
+	text-decoration: underline;
+	color: #4595D1;
+}
+
+h1 {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 700;
+	font-size: 18px;
+	color: #3E3E3E;
+}
+
+h2 {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 300;
+	font-size: 16px;
+	color: #3E3E3E;
+	margin: 35px 0;
+}
+
+.margin-head {
+
+	margin-top: 110px;
+	margin-bottom: 100px;
+
+	a {
+		color: #3E3E3E;
+		&:hover {color: #3E3E3E; text-decoration: none;}
+		&:focus {color: #3E3E3E; text-decoration: none; outline: 0;}
+	}
+}
+
+.margin-form {
+	margin-top: -9px;
+	margin-bottom: 50px;
+
+	a {
+		color: #3E3E3E;
+		&:hover {color: #3E3E3E; text-decoration: none;}
+		&:focus {color: #3E3E3E; text-decoration: none; outline: 0;}
+	}
+}
+
+.new-btn {
+	background: #0275D8;
+    border: 0;
+    border-radius: 4px;
+    color: #FFFFFF !important;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+	color: #FFFFFF;
+	line-height: 21px;
+    padding: 7px 23px;
+    margin-top: -16px;
+    &:hover {background: #025aa5; transition: all 0.4s ease; text-decoration: none; color: white;}
+    &:focus {background: #025aa5; outline: 0; text-decoration: none; color: white;}
+}
+
+.filter-btn {
+	background: #3E3E3E;
+	border-radius: 4px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+	font-size: 12px;
+	color: #FFFFFF;
+	line-height: 21px;
+    border: 0;
+    padding: 4px 30px;
+    margin-top: 24px;
+    &:hover {background: #313131; transition: all 0.4s ease; text-decoration: none;}
+    &:focus {background: #313131; outline: 0; text-decoration: none;}
+}
+
+.filter-div {
+	margin-bottom: 8px;
+}
+
+.save-btn {
+	background: #5CB85C;
+	background: #0275D8;
+    border: 0;
+    border-radius: 4px;
+    color: #FFFFFF;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+	line-height: 21px;
+    padding: 7px 23px;
+    margin: 45px 0;
+    &:hover {background: #025aa5; transition: all 0.4s ease; text-decoration: none; color: white;}
+    &:focus {background: #025aa5; outline: 0; text-decoration: none; color: white;}
+}
+
+.save-edit-qualifications {
+	background: #0275D8;
+    border: 0;
+    border-radius: 4px;
+    color: #FFFFFF !important;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-weight: 400 !important;
+    line-height: 21px;
+    padding: 5px 23px;
+    font-style: unset !important;
+    text-decoration: none !important;
+    &:hover {background: #025aa5; transition: all 0.4s ease; text-decoration: none; color: white;}
+    &:focus {background: #025aa5; outline: 0; text-decoration: none; color: white;}	
+}
+
+.contract-btn {
+	background: #5CB85C;
+    border: 0;
+    border-radius: 4px;
+    color: #FFFFFF;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    line-height: 21px;
+    padding: 7px 23px;
+    margin: 11px 0;
+    font-size: 13px;
+    letter-spacing: 0.4px;
+    display: block;
+    &:hover {background: #449d44; transition: all 0.4s ease; text-decoration: none; color: white;}
+    &:focus {background: #449d44; outline: 0; text-decoration: none; color: white;}	
+}
+
+.yellow-btn {
+	font-weight: 300;
+	font-size: 14px;
+	color: #FFFFFF;
+	line-height: 21px;
+	background: #F5A623;
+	border: 0;
+	border-radius: 4px;
+	padding: 5px 14px;
+	margin-right: 8px;
+    &:hover {background: #dc951f; transition: all 0.4s ease; text-decoration: none; color: white;}
+    &:focus {background: #dc951f; outline: 0; text-decoration: none; color: white;}
+}
+
+.blue-btn {
+	font-weight: 300;
+	font-size: 14px;
+	color: #FFFFFF;
+	line-height: 21px;
+	background: #F5A623;
+	border: 0;
+	border-radius: 4px;
+	padding: 5px 14px;
+	background: #0275D8;
+    &:hover {background: #025aa5; transition: all 0.4s ease; text-decoration: none; color: white;}
+    &:focus {background: #025aa5; outline: 0; text-decoration: none; color: white;}
+}
+
+label {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 700;
+	font-size: 12px;
+	color: #4A4A4A;
+}
+
+.form-control {
+	height: 30px;
+	box-shadow: none;
+}
+
+.width-input {
+	width: 78%;
+	display: inline;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.add-input {
+	display: inline;
+	background: #E6E6E6;
+	border: 1px solid #CCCCCC;
+	border-radius: 4px;
+    padding: 5.5px 12px;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    margin-left: -5px;
+	font-size: 14px;
+	color: #373A3C;
+	letter-spacing: 0;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.add-anchor:hover, .add-anchor:focus {
+	color: #373A3C;
+	outline: 0;
+	text-decoration: none;
+}
+
+.datagrid th, .datagrid td {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 400;
+	font-size: 12px;
+	color: #4A4A4A;
+}
+
+.datagrid-filter.filter {
+	display: inline-table;
+	margin-right: 27px;
+}
+
+.datagrid-actions {
+	display: inline;
+}
+
+.datagrid-form {
+
+	margin-bottom: 25px;
+
+	label {
+		display: block;
+	}
+
+	.datagrid-submit {
+		background: #3E3E3E;
+		border-radius: 4px;
+	    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	    font-weight: 400;
+		font-size: 12px;
+		color: #FFFFFF;
+		line-height: 21px;
+	    border: 0;
+	    padding: 4px 30px;
+	    margin-right: 10px;
+	    &:hover {background: #313131; transition: all 0.4s ease; text-decoration: none;}
+	    &:focus {background: #313131; outline: 0; text-decoration: none;}
+	}
+
+	.datagrid-reset {
+		color: #4595D1;
+		font-size: 13px;
+	}
+}
+
+/* border-radius na table */
+.datagrid {
+	border-collapse: separate;
+	border-spacing: 0;
+	width: 100%;
+	background: white;
+	margin-bottom: 2%;
+}
+
+.datagrid th {
+	border-right: none !important;
+  	border-bottom: 1px solid #e7e7e7;
+}
+
+.datagrid td {
+	border-right: none !important;
+  	border-bottom: 1px solid #e7e7e7;
+}
+
+.datagrid td:last-child {
+	border-right: 1px solid #e7e7e7 !important;
+}
+
+.datagrid tr td {
+	border-right: 1px solid #e7e7e7;
+	border-bottom: 1px solid #e7e7e7;
+}
+
+.datagrid tr th:first-child,
+.datagrid tr td:first-child {
+	border-left: 1px solid #e7e7e7;
+}
+
+.datagrid tr th {
+	border-top: 1px solid #e7e7e7;
+	text-align: left;
+}
+
+/* top-left border-radius */
+.datagrid tr:first-child th:first-child {
+	border-top-left-radius: 4px !important;
+}
+
+/* top-right border-radius */
+.datagrid tr:first-child th:last-child {
+	border-top-right-radius: 4px !important;
+	border-right: 1px solid #e7e7e7 !important;
+}
+
+/* bottom-left border-radius */
+.datagrid tr:last-child td:first-child {
+	border-bottom-left-radius: 4px !important;
+}
+
+/* bottom-right border-radius */
+.datagrid tr:last-child td:last-child {
+	border-bottom-right-radius: 4px !important;
+}
+
+.datagrid tr th {
+	border-bottom: 0px !important;
+	border-top: 1px solid #e7e7e7 !important;
+}
+/* FIM border-radius */

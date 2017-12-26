@@ -1,0 +1,173 @@
+<!-- Documentos -->
+<div class="tab-pane <%= 'active' if @active == 6 %>">
+	<%= hidden_field_tag "tag_to_scroll", @document_type %>
+
+	<h2 class="documents-title">Documentos</h2>
+
+	<br>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="form-group">
+				<label for="#">Usuários que receberão notificação:</label>
+				<%= f.association :users, collection: User.unblocked.order(:name), label_method: :name, value_method: :id, label: false, input_html: {class: 'form-control chosen'} %>
+			</div>
+		</div>
+	</div>
+
+	<br>
+	<div class="form-group">
+		<label for="#">Tipo de documento</label>
+		<%= select_tag "document_type_id", options_from_collection_for_select(ClientDocumentType.all.order("LENGTH(name) ASC"), "id", "name"), class: 'form-control chosen', :prompt => "Selecione um tipo de documento" %>
+	</div>
+
+	<br>
+
+	<div class="group_with_documents" id="group_with_documents_1" <%= 'hidden' if @document_type != 1 %>>
+		<label for="#" class="label-title">Habilitação Jurídica</label>
+
+		<%= render 'clients/subfolder_documents/subfolder_documents_1',  :f => f %>
+
+		<!-- Salvar -->
+		<div class="row">
+			<div class="col-xs-12">
+				<%= f.submit 'Salvar', :name => "save_6_1", class: "save-btn" %>
+				<% if !f.object.persisted? %>
+				<div class="remove-data">
+					<%= f.submit 'Remover marcados', :name => "remove_data_6_1" %>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	<div class="group_with_documents" id="group_with_documents_2" <%= 'hidden' if @document_type != 2 %>>
+		<label for="#" class="label-title">Habilitação Técnica</label>
+
+		<%= render 'clients/subfolder_documents/subfolder_documents_2',  :f => f %>
+
+		<!-- Salvar -->
+		<div class="row">
+			<div class="col-xs-12">
+				<%= f.submit 'Salvar', :name => "save_6_2", class: "save-btn" %>
+				<% if !f.object.persisted? %>
+				<div class="remove-data">
+					<%= f.submit 'Remover marcados', :name => "remove_data_6_2" %>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	<div class="group_with_documents" id="group_with_documents_3" <%= 'hidden' if @document_type != 3 %>>
+
+		<label for="#" class="label-title">Habilitação Econônico Financeira</label>
+
+		<%= render 'clients/subfolder_documents/subfolder_documents_3',  :f => f %>
+
+		<!-- Salvar -->
+		<div class="row">
+			<div class="col-xs-12">
+				<%= f.submit 'Salvar', :name => "save_6_3", class: "save-btn" %>
+				<% if !f.object.persisted? %>
+				<div class="remove-data">
+					<%= f.submit 'Remover marcados', :name => "remove_data_6_3" %>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	<div class="group_with_documents" id="group_with_documents_4" <%= 'hidden' if @document_type != 4 %>>
+
+		<label for="#" class="label-title">Habilitação Fiscal e Trabalhista</label>
+
+		<%= render 'clients/subfolder_documents/subfolder_documents_4',  :f => f %>
+
+		<!-- Salvar -->
+		<div class="row">
+			<div class="col-xs-12">
+				<%= f.submit 'Salvar', :name => "save_6_4", class: "save-btn" %>
+				<% if !f.object.persisted? %>
+				<div class="remove-data">
+					<%= f.submit 'Remover marcados', :name => "remove_data_6_4" %>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	<div class="group_with_documents" id="group_with_documents_5" <%= 'hidden' if @document_type != 5 %>>
+
+		<label for="#" class="label-title">CRCs</label>
+
+		<%= render 'clients/subfolder_documents/subfolder_documents_5',  :f => f %>
+
+		<!-- Salvar -->
+		<div class="row">
+			<div class="col-xs-12">
+				<%= f.submit 'Salvar', :name => "save_6_5", class: "save-btn" %>
+				<% if !f.object.persisted? %>
+				<div class="remove-data">
+					<%= f.submit 'Remover marcados', :name => "remove_data_6_5" %>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	<div class="group_with_documents" id="group_with_documents_6" <%= 'hidden' if @document_type != 6 %>>
+
+		<label for="#" class="label-title">Documentos BRS</label>
+
+		<%= render 'clients/subfolder_documents/subfolder_documents_6',  :f => f %>
+
+		<!-- Salvar -->
+		<div class="row">
+			<div class="col-xs-12">
+				<%= f.submit 'Salvar', :name => "save_6_6", class: "save-btn" %>
+				<% if !f.object.persisted? %>
+				<div class="remove-data">
+					<%= f.submit 'Remover marcados', :name => "remove_data_6_6" %>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="group_with_documents" id="group_with_documents_7" <%= 'hidden' if @document_type != 7 %>>
+
+		<label for="#" class="label-title">Outros</label>
+
+		<%= render 'clients/subfolder_documents/subfolder_documents_7',  :f => f %>
+
+		<!-- Salvar -->
+		<div class="row">
+			<div class="col-xs-12">
+				<%= f.submit 'Salvar', :name => "save_6_7", class: "save-btn" %>
+				<% if !f.object.persisted? %>
+				<div class="remove-data">
+					<%= f.submit 'Remover marcados', :name => "remove_data_6_7" %>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	<br>
+
+	<!-- Salvar -->
+	<div class="row" id="alone_button_save" <%= 'hidden' if @document_type != nil %>>
+		<div class="col-xs-12">
+			<%= f.submit 'Salvar', :name => "save_7", class: "save-btn" %>
+			<% if !f.object.persisted? %>
+			<div class="remove-data">
+				<%= f.submit 'Remover marcados', :name => "remove_data_7" %>
+			</div>
+			<% end %>
+		</div>
+	</div>
+
+</div>
+<!-- end -->

@@ -1,0 +1,15 @@
+pt-BR:
+  activerecord:
+    attributes:
+      financial_third:
+        financial: Financeiro
+        third_type: Tipo de terceiro
+        third: Terceiro
+        lawyer: Advogado
+        financial_third_service: Tipo de serviço
+        name: Nome
+        fantasy_name: Nome fantasia
+        social_name: Razão social
+        value: Valor
+        quantity: Quantidade
+        date: Data

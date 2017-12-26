@@ -1,0 +1,35 @@
+pt-BR:
+  activerecord:
+    models:
+      piece:
+        one: Peça
+        other: Peças
+    attributes:
+      piece:
+        lawyers: Advogado responsável
+        lawyer: Advogado responsável
+        piece_name: Nome da peça
+        piece_name_id: Nome da peça
+        judicial_type: Tipo judicial
+        judicial_type_id: Tipo judicial
+        initial_date: Data de início
+        deadline: Prazo final
+        piece_result: Resultado
+        piece_result_id: Resultado
+        client: Cliente
+        client_id: Cliente
+        organ: Orgão
+        organ_id: Orgão
+        shipping_type: Tipo de envio
+        shipping_type_id: Tipo de envio
+        modalidate: Modalidade
+        modalidate_id: Modalidade
+        number: Número
+        process: Processo
+        protocol_number: Número do protocolo
+        protocol_files: Arquivos do protocolo
+        progress_of_situation: Andamento da situação
+        piece_upload: Upload da peça
+        piece_situation: Situação
+        piece_situation_id: Situação
+        actions: Ações

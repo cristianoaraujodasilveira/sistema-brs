@@ -1,0 +1,458 @@
+<%= simple_form_for @registration_unit, defaults: { input_html: {class: 'form-control'}} do |f| %>
+<%= hidden_field_tag "registration_unit[id]", @registration_unit.id %>
+<div class="row">
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label>Órgão*</label>
+			<%= f.association :organ, collection: Organ.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen'} %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label>Nome do cadastro*</label>
+			<%= f.input :name, label: false %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label>Site</label>
+			<%= f.input :site, label: false %>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label>Email geral</label>
+			<% emails_counter = 0 %>
+			<% first_email = false %>
+			<div id="group_emails">
+				<%= f.fields_for :email_users, defaults: { input_html: { class: 'form-control width-input' } } do |email| %>
+				<%= email.input :email, label: false %>
+				<% if email.object.persisted? %>
+				<td class="text text-center">
+					<span data-toggle="tooltip" title="Remover">
+						<%= email.check_box :_destroy %>
+						<% email.label :_destroy, "Remover" %>
+					</span>
+				</td>
+				<% else %>
+				<% if !first_email %>
+				<% first_email = true %>
+				<% else %>
+				<a data-toggle="tooltip" title="Remover" id="delete_email_<%=emails_counter%>" class="delete_email">x</a>
+				<% end %>
+				<% end %>
+				<% emails_counter += 1 %>
+				<% end %>
+			</div>
+			<a class="add-anchor" id="add_new_email_registration_unit">
+				<div class="add-input">
+					+
+				</div>
+			</a>
+			<%= hidden_field_tag "emails_counter", emails_counter %>
+		</div>
+	</div>		
+
+	<div class="col-xs-3">
+		<div class="form-group">
+
+			<label>Telefone geral</label>
+
+			<% phones_counter = 0 %>
+			<% first_phone = false %>
+
+			<div id="group_phones">
+				<%= f.fields_for :phone_users, defaults: { input_html: { class: 'form-control width-input' } } do |phone| %>
+
+					<%= phone.input :phone, label: false, input_html: {class: 'string form-control custom-tel width-input'} %>
+
+					<% if phone.object.persisted? %>
+						<td class="text text-center">
+							<span data-toggle="tooltip" title="Remover">
+								<%= phone.check_box :_destroy %>
+								<% phone.label :_destroy, "Remover" %>
+							</span>
+						</td>
+					<% else %>
+
+						<% if !first_phone %>
+							<% first_phone = true %>
+						<% else %>
+							<a data-toggle="tooltip" title="Remover" id="delete_phone_<%=phones_counter%>" class="delete_phone">x</a>
+						<% end %>
+
+					<% end %>
+
+					<% phones_counter += 1 %>
+
+				<% end %>
+			</div>
+
+			<a class="add-anchor" id="add_new_phone_registration_unit">
+				<div class="add-input">+</div>
+			</a>
+
+			<%= hidden_field_tag "phones_counter", phones_counter %>
+
+		</div>
+	</div>	
+
+</div>
+
+<h2>Endereço</h2>
+
+<div class="row">
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label>CEP*</label>
+			<%= f.input :zipcode, label: false, input_html: { class: 'string optional form-control cep' } %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label>Logradouro*</label>
+			<%= f.input :address, label: false %>
+		</div>
+	</div>
+	<div class="col-xs-1">
+		<div class="form-group">
+			<label>Número*</label>
+			<%= f.input :number, label: false %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label>Complemento*</label>
+			<%= f.input :complement, label: false %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label>Bairro*</label>
+			<%= f.input :district, label: false %>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label>Estado*</label>
+			<%= f.association :state, collection: State.all.order(:name), label_method: :acronym, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control width-input chosen'} %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label>Cidade*</label>
+			<%= f.association :city, collection: City.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control width-input chosen'} %>
+		</div>
+	</div>
+</div>
+<br><br>
+<div class="branch_group">
+	<% registration_units_counter = 0 %>
+	<%= f.fields_for :registration_units, defaults: { input_html: { class: 'form-control' } } do |branch| %>
+	<br><br>
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Órgão*</label>
+				<%= branch.association :organ, collection: Organ.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen'} %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Nome do cadastro*</label>
+				<%= branch.input :name, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Site</label>
+				<%= branch.input :site, label: false %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Email geral</label>
+				<% emails_counter_registration_units = 0 %>
+				<% first_email = false %>
+				<div id="group_emails_registration_units_<%=registration_units_counter%>" class="inline">
+					<%= branch.fields_for :email_users, defaults: { input_html: { class: 'form-control width-input' } } do |email| %>
+					<%= email.input :email, label: false %>
+					<% if email.object.persisted? %>
+					<td class="text text-center">
+						<span data-toggle="tooltip" title="Remover">
+							<%= email.check_box :_destroy %>
+							<% email.label :_destroy, "Remover" %>
+						</span>
+					</td>
+					<% else %>
+					<% if !first_email %>
+					<% first_email = true %>
+					<% else %>
+					<a data-toggle="tooltip" title="Remover" id="delete_email_dynamic_<%=registration_units_counter%>_<%=emails_counter_registration_units%>" class="delete_email_dynamic_specific">x</a>
+					<% end %>
+					<% end %>
+					<% emails_counter_registration_units += 1 %>
+					<% end %>
+				</div>
+				<a class="add-anchor add_new_email_dynamic_registration_unit" id="add_new_email_dynamic_<%=registration_units_counter%>">
+					<div class="add-input">
+						+
+					</div>
+				</a>
+				<%= hidden_field_tag "emails_counter_registration_units_#{registration_units_counter}", emails_counter_registration_units %>
+			</div>
+		</div>		
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Telefone geral</label>
+				<% phones_counter_registration_units = 0 %>
+				<% first_phone = false %>
+				<div id="group_phones_registration_units_<%=registration_units_counter%>" class="inline">
+					<%= branch.fields_for :phone_users, defaults: { input_html: { class: 'form-control width-input' } } do |phone| %>
+					<%= phone.input :phone, label: false, input_html: { class: 'form-control width-input custom-tel' } %>
+					<% if phone.object.persisted? %>
+					<td class="text text-center">
+						<span data-toggle="tooltip" title="Remover">
+							<%= phone.check_box :_destroy %>
+							<% phone.label :_destroy, "Remover" %>
+						</span>
+					</td>
+					<% else %>
+					<% if !first_phone %>
+					<% first_phone = true %>
+					<% else %>
+					<a data-toggle="tooltip" title="Remover" id="delete_phone_dynamic_<%=registration_units_counter%>_<%=phones_counter_registration_units%>" class="delete_phone_dynamic_specific">x</a>
+					<% end %>
+					<% end %>
+					<% phones_counter_registration_units += 1 %>
+					<% end %>
+				</div>
+				<a class="add-anchor add_new_phone_dynamic_registration_unit" id="add_new_phone_dynamic_<%=registration_units_counter%>">
+					<div class="add-input">
+						+
+					</div>
+				</a>
+				<%= hidden_field_tag "phones_counter_registration_units_#{registration_units_counter}", phones_counter_registration_units %>
+			</div>
+		</div>	
+	</div>
+
+	<h2>Endereço</h2>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>CEP*</label>
+				<%= branch.input :zipcode, label: false, input_html: { class: 'string optional form-control cep dynamic_cep_registration_unit' } %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Logradouro*</label>
+				<%= branch.input :address, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-1">
+			<div class="form-group">
+				<label>Número*</label>
+				<%= branch.input :number, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Complemento*</label>
+				<%= branch.input :complement, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Bairro*</label>
+				<%= branch.input :district, label: false %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Estado*</label>
+				<%= branch.association :state, collection: State.all.order(:name), label_method: :acronym, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control width-input chosen dynamic_state_registration_unit'} %>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Cidade*</label>
+				<%= branch.association :city, collection: City.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control width-input chosen dynamic_city_registration_unit'} %>
+			</div>
+		</div>
+	</div>
+
+	<%= branch.check_box :_destroy %>
+	<div class="remove-div-filial">
+		<%= branch.label :_destroy, 'Remover' %>
+	</div>
+
+	<% registration_units_counter += 1 %>
+	<% end %>
+</div>
+<br><br>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="add-unidade">
+			<%= f.submit 'Adicionar unidade', :name => "add_unit" %>
+		</div>
+	</div>
+</div>
+
+
+<br>
+<h2>Responsável</h2>
+
+<div class="responsible_registration_unit_group">
+	<% responsible_registration_units_counter = 0 %>
+	<%= f.fields_for :responsible_registration_units, defaults: { input_html: { class: 'form-control' } } do |branch| %>
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Nome completo do responsável</label>
+				<%= branch.input :name, label: false %>
+			</div>	
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Cargo / Função</label>
+				<%= branch.input :office, label: false %>
+			</div>	
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Departamento</label>
+				<%= branch.input :department, label: false %>
+			</div>	
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Whatsapp</label>
+				<%= branch.input :whatsapp, label: false, input_html: {class: 'form-control tel'} %>
+			</div>	
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Skype</label>
+				<%= branch.input :skype, label: false %>
+			</div>	
+		</div>
+	</div>
+
+	<div class="row">
+
+		<div class="col-xs-3">
+			<div class="form-group">
+
+				<label>Telefone pessoal*</label>
+				<% phones_counter_responsible_registration_units = 0 %>
+				<% first_phone = false %>
+
+				<div id="group_phones_responsible_registration_units_<%=responsible_registration_units_counter%>" class="inline">
+
+					<%= branch.fields_for :phone_users, defaults: { input_html: { class: 'form-control width-input' } } do |phone| %>
+
+						<%= phone.input :phone, label: false, input_html: {class: 'string form-control custom-tel width-input'} %>
+
+						<% if phone.object.persisted? %>
+							<td class="text text-center">
+								<span data-toggle="tooltip" title="Remover">
+									<%= phone.check_box :_destroy %>
+									<% phone.label :_destroy, "Remover" %>
+								</span>
+							</td>
+						<% else %>
+							<% if !first_phone %>
+								<% first_phone = true %>
+							<% else %>
+								<a data-toggle="tooltip" title="Remover" id="delete_phone_dynamic_<%=responsible_registration_units_counter%>_<%=phones_counter_responsible_registration_units%>" class="delete_phone_dynamic_specific">x</a>
+							<% end %>
+						<% end %>
+
+						<% phones_counter_responsible_registration_units += 1 %>
+
+					<% end %>
+
+				</div>
+
+				<a class="add-anchor add_new_phone_dynamic_responsible_registration_unit" id="add_new_phone_dynamic_<%=responsible_registration_units_counter%>">
+					<div class="add-input">+</div>
+				</a>
+				<%= hidden_field_tag "phones_counter_responsible_registration_units_#{responsible_registration_units_counter}", phones_counter_responsible_registration_units %>
+			</div>
+		</div>		
+
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Email pessoal*</label>
+				<% emails_counter_responsible_registration_units = 0 %>
+				<% first_email = false %>
+				<div id="group_emails_responsible_registration_units_<%=responsible_registration_units_counter%>" class="inline">
+					<%= branch.fields_for :email_users, defaults: { input_html: { class: 'form-control width-input' } } do |email| %>
+					<%= email.input :email, label: false %>
+					<% if email.object.persisted? %>
+					<td class="text text-center">
+						<span data-toggle="tooltip" title="Remover">
+							<%= email.check_box :_destroy %>
+							<% email.label :_destroy, "Remover" %>
+						</span>
+					</td>
+					<% else %>
+					<% if !first_email %>
+					<% first_email = true %>
+					<% else %>
+					<a data-toggle="tooltip" title="Remover" id="delete_email_dynamic_<%=responsible_registration_units_counter%>_<%=emails_counter_responsible_registration_units%>" class="delete_email_dynamic_specific">x</a>
+					<% end %>
+					<% end %>
+					<% emails_counter_responsible_registration_units += 1 %>
+					<% end %>
+				</div>
+				<a class="add-anchor add_new_email_dynamic_responsible_registration_unit" id="add_new_email_dynamic_<%=responsible_registration_units_counter%>">
+					<div class="add-input">
+						+
+					</div>
+				</a>
+				<%= hidden_field_tag "emails_counter_responsible_registration_units_#{responsible_registration_units_counter}", emails_counter_responsible_registration_units %>
+			</div>
+		</div>	
+	</div>
+
+	<%= branch.check_box :_destroy %>
+	<div class="remove-div-responsible_registration_unit">
+		<%= branch.label :_destroy, 'Remover' %>
+	</div>
+	<br><br>
+	<% responsible_registration_units_counter += 1 %>
+	<% end %>
+</div>
+
+<div class="add-setor">
+	<%= f.submit 'Adicionar responsável', :name => "add_responsible_registration_unit" %>
+</div>
+<button class="save-btn" type="submit">Salvar</button>
+<div class="remove-data">
+	<% if !f.object.persisted? %>
+	<%= f.submit 'Remover marcados', :name => "remove_data" %>
+	<% end %>
+</div>
+
+</div>
+
+<% end %>

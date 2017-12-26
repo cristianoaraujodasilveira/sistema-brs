@@ -1,0 +1,9 @@
+pt-BR:
+  activerecord:
+    attributes:
+      notification:
+        created_at: Data
+        action_notification: Área de notificação
+        sender: Criador
+        receiver: Receptor
+        read: Lida

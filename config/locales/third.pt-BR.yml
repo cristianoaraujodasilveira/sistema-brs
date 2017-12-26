@@ -1,0 +1,28 @@
+pt-BR:
+  activerecord:
+    attributes:
+      third:
+        register_number: "Número de cadastro"
+        name: "Nome"
+        fantasy_name: "Nome fantasia"
+        social_name: "Razão social"
+        rg: "RG"
+        cpf: "CPF"
+        diligent_profile_id: "Perfil"
+        diligent_profile: "Perfil"
+        third_type_id: "Tipo"
+        third_type: "Tipo"
+        phones: "Telefones"
+        emails: "Emails"
+        actions: "Ações"
+        post_offices: Correios
+        registries: Cartórios
+        motoboys: Motoboys
+        diligents: Diligeiros
+        others: Outros
+        registry: Cartório
+        motoboy: Motoboy
+        diligent: Diligeiro
+        other: Outro
+        cnpj: 'CNPJ'
+        phone: 'Telefone'

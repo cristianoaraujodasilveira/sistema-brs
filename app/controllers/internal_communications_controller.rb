@@ -1,0 +1,3 @@
+class InternalCommunicationsController < ApplicationController
+	
+end

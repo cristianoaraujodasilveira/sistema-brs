@@ -1,0 +1,22 @@
+pt-BR:
+  gflash:
+    #
+    # These are the translations for the different titles.
+    #
+    titles:
+      notice: "Aviso"
+      success: "Sucesso"
+      warning: "Alerta"
+      error: "Erro"
+      progress: "Carregando"
+    #
+    # Add default gflash messages:
+    defaults:
+      success: "Salvo com sucesso"
+      error: "Erro"
+      new:
+        success: "Salvo com sucesso"
+      update:
+        success: "Editado com sucesso"
+      destroy:
+        success: "Removido com sucesso"

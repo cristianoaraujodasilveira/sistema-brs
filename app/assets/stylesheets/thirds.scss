@@ -1,0 +1,165 @@
+.delete_attachment_third {
+    cursor: pointer;
+}
+
+#thirds {
+
+	th.phones {
+		width: 119px;
+		min-width: 119px;
+		max-width: 119px;
+	}
+
+	.margin-head {
+		margin-bottom: 47px;
+	}
+
+	#thirds_grid_state_id_chosen {
+		max-width: 70px;
+    	width: 70px !important;	
+	}
+
+	#thirds_grid_city_id_chosen {
+		max-width: 127px;
+		width: 127px !important;
+	}
+
+	@media screen and (min-width: 1440px) {
+		
+		.datagrid-actions {
+			position: relative;
+			top: 17px !important;
+		}
+
+		.datagrid {
+			margin-top: 14px;
+		}
+
+	}
+
+	.datagrid-filter.filter {
+		margin-right: 13px;
+	}
+
+	.datagrid-filter .string_filter {
+		display: block;
+	    width: 100%;
+	    height: 30px;
+	    box-shadow: none !important;
+	    padding: 6px 12px;
+	    font-size: 14px;
+	    line-height: 1.42857143;
+	    color: #555555;
+	    background-color: #fff;
+	    background-image: none;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	    -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	}
+
+	.datagrid-actions {
+	    position: relative;
+	    top: 27px;
+	}
+	
+}
+
+#thirds_new {
+	
+	.margin-head {
+    	margin-top: 90px;
+    	margin-bottom: 26px;
+	}
+
+	.third_responsible_phones_phone, .third_responsible_emails_email, .third_responsible_skypes_skype {
+		display: inline;
+	}
+
+	.third_responsible_phones_phone .size-width-default, .third_responsible_emails_email .size-width-default,
+	.third_responsible_skypes_skype .size-width-default {
+		margin-top: 10px;	
+	}
+
+	.big-input {
+	    width: 87%;
+	    display: inline;
+	    border-top-right-radius: 0px;
+	    border-bottom-right-radius: 0px;
+	}
+
+	.delete_phone_dynamic, .delete_email_dynamic, .delete_skype_dynamic {
+	    float: right;
+	    position: relative;
+	    right: 19px;
+	    top: 15px;
+	    color: black;
+	    cursor: pointer;
+	    &:hover {color: black; text-decoration: none;}
+	    &:focus {color: black; text-decoration: none; outline: 0;}
+	}
+
+	.documents-title {
+		margin-top: 12px;
+    	margin-bottom: 6px;
+	}
+
+	.content {
+
+		margin-bottom: 23px;
+		
+		span {
+		    font-size: 14px;
+		    font-weight: 600;
+		    color: #3E3E3E;
+		}
+
+		.title {
+			cursor: pointer;
+		}
+	}
+
+	.save-btn {
+		margin-top: 28px;
+	}
+
+	.view-div {
+		margin-top: 3px;
+	}
+
+	.delete-obs a {
+    	font-size: 13px;
+    	color: #4595D1;
+	}
+
+	input[type="file"] {
+		background: transparent;
+		border: 0;
+		padding-left: 0;
+	}
+
+	#group_phones {
+
+		div input {
+			margin-top: 0px;
+		}
+
+		.custom-tel input {
+			margin-top: 10px;
+		}
+	}
+
+	#group_emails {
+
+		div input {
+			margin-top: 0px;
+		}
+
+		.custom-email input {
+			margin-top: 10px;
+		}
+	}
+}

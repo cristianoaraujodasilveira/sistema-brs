@@ -1,0 +1,23 @@
+pt-BR:
+  activerecord:
+    models:
+      official_diary:
+        one: Diário Oficial
+        other: Diários Oficiais
+    attributes:
+      official_diary:
+        name: Nome do Diário
+        social_name: Razão Social
+        cnpj: CNPJ
+        phone_brs: Telefone BRS Cadastrado
+        email_brs: Email BRS Cadastrado
+        site: Endereço Eletrônico
+        sphere: Esfera
+        sphere_id: Esfera
+        responsible: Responsável
+        responsible_phone: Telefone Responsável
+        responsible_email: Email Responsável
+        actions: Ações
+  official_diaries:
+    new: Novo Diário Oficial
+    edit: Alterar Diário Oficial

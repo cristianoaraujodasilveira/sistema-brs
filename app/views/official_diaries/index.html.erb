@@ -1,0 +1,31 @@
+<div class="container" id="organizations">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Cadastros > <a href="<%= official_diaries_path %>">Diários Oficiais</a></h1>
+			<a class="pull-right new-btn" href="<%= new_official_diary_path %>">Novo</a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_form_for @grid_official_diaries, :method => :get, :url => official_diaries_path %>
+		</div>
+	</div>
+
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_table @grid_official_diaries, html: {class: 'table datagrid'} %>
+		</div>
+	</div>
+	
+	<!-- Pagination -->
+	<div class="row">
+		<div class="col-xs-12 center">
+			<%= paginate(@grid_official_diaries.assets) %>
+		</div>
+	</div>
+
+</div>

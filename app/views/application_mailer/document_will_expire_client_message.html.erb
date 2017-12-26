@@ -1,0 +1,17 @@
+<h1>Vencimento de documentos</h1>
+
+<p>
+	Olá!
+	<br><br>
+	Lista de documentos do cliente "<%= @client.social_name %>" que irão vencer no sistema BRS:
+	<br><br>
+	<% @list_document.each do |document| %>
+	Documento: <%= link_to document.instance_variable_get(:@document).document_file_name, document.instance_variable_get(:@document).document.url(:original, false), target: "_blank" %>
+	<br>
+	Vencimento daqui: <%= document.instance_variable_get(:@days).to_s+ " " +document.instance_variable_get(:@text) %>
+	<br><br>
+	<% end %>
+	<br><br>
+	Obrigado, Equipe BRS.
+</p>
+

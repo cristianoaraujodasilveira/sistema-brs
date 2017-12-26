@@ -1,0 +1,257 @@
+<!-- Dados da empresa -->
+<div class="tab-pane <%= 'active' if @active == 1 %>">
+
+	<!-- Matriz -->
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Selecionar proposta</label>
+				<%= f.association :proposal, collection: Proposal.all.order(:title), label_method: lambda { |proposal| "#{proposal.fantasy_name} / #{proposal.social_name} / #{proposal.cnpj}" }, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Matriz/Filial:</label>
+				<%= f.association :client_class, collection: ClientClass.all.order(:id), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#">Razão Social*</label>
+				<%= f.input :social_name, label: false %>
+			</div>
+		</div>		
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#">Nome Fantasia*</label>
+				<%= f.input :fantasy_name, label: false %>
+			</div>
+		</div>		
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">CNPJ*</label>
+				<%= f.input :cnpj, label: false, input_html: { class: 'string optional form-control cnpj' } %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#">Site</label>
+				<%= f.input :site, label: false %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#">Insc. Municipal</label>
+				<%= f.input :municipal_registration, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label for="#">Insc. Estadual</label>
+				<%= f.input :state_registration, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="checkbox">
+				<label for="client_bid_participant" style="position: absolute;top: 20px;">Participa de licitação?</label>
+				<%= f.input :bid_participant, label: false %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Porte da empresa</label>
+				<%= f.association :client_company_size, collection: ClientCompanySize.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Tipo</label>
+				<%= f.association :client_type, collection: ClientType.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+			</div>
+		</div>
+		<div class="col-xs-5">
+			<div class="form-group">
+				<label for="#">Status</label>
+				<%= f.association :client_status, collection: ClientStatus.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-xs-4">
+			<div class="form-group">
+				<label for="#">Logo</label>
+				<% if f.object.persisted? && f.object.logo && f.object.logo_file_name %>
+				<br>
+				<%= link_to f.object.logo_file_name, f.object.logo.url(:original, false), target: "_blank" %>
+				<div class="col-xs-4 remove-client">
+					<%= f.check_box :delete_logo %>
+					<%= f.label :delete_logo, 'Remover' %>
+				</div>
+				<% end %>
+				<%= f.input :logo, as: :file, name: "client[logo]", label: false %>
+			</div>
+		</div>
+		<div class="col-xs-4">
+			<div class="form-group">
+				<label for="#">Carimbo</label>
+				<% if f.object.persisted? && f.object.stamp && f.object.stamp_file_name %>
+				<br>
+				<%= link_to f.object.stamp_file_name, f.object.stamp.url(:original, false), target: "_blank" %>
+				<div class="col-xs-4 remove-client">
+					<%= f.check_box :delete_stamp %>
+					<%= f.label :delete_stamp, 'Remover' %>
+				</div>
+				<% end %>
+				<%= f.input :stamp, as: :file, name: "client[stamp]", label: false %>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<!-- Final Matriz -->
+
+	<!-- Filiais -->
+	<div class="group_branchs">
+		<%= f.fields_for :clients, defaults: { input_html: { class: 'form-control' } } do |branch| %>
+		<br>
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#">Matriz/Filial:</label>
+					<%= branch.association :client_class, collection: ClientClass.all.order(:id), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#">Razão Social*</label>
+					<%= branch.input :social_name, label: false %>
+				</div>
+			</div>		
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#">Nome Fantasia*</label>
+					<%= branch.input :fantasy_name, label: false %>
+				</div>
+			</div>		
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#">CNPJ*</label>
+					<%= branch.input :cnpj, label: false, input_html: { class: 'string optional form-control cnpj' } %>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#">Site</label>
+					<%= branch.input :site, label: false %>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#">Insc. Municipal</label>
+					<%= branch.input :municipal_registration, label: false %>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#">Insc. Estadual</label>
+					<%= branch.input :state_registration, label: false %>
+				</div>
+			</div>
+			<div class="col-xs-3 label-licit">
+				<div class="checkbox">
+					<%= branch.input :bid_participant, label: "Participa de licitação?" %>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#">Porte da empresa</label>
+					<%= branch.association :client_company_size, collection: ClientCompanySize.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#">Tipo</label>
+					<%= branch.association :client_type, collection: ClientType.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#">Status</label>
+					<%= branch.association :client_status, collection: ClientStatus.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-xs-4">
+				<div class="form-group">
+					<label for="#">Logo*</label>
+					<% if branch.object.persisted? && branch.object.logo && branch.object.logo_file_name %>
+					<br>
+					<%= link_to branch.object.logo_file_name, branch.object.logo.url(:original, false), target: "_blank" %>
+					<div class="col-xs-4 remove-client">
+						<%= branch.check_box :delete_logo %>
+						<%= branch.label :delete_logo, 'Remover' %>
+					</div>
+					<% end %>
+					<%= branch.input :logo, as: :file, name: "client[logo]", label: false %>
+				</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="form-group">
+					<label for="#">Carimbo*</label>
+					<% if branch.object.persisted? && branch.object.stamp && branch.object.stamp_file_name %>
+					<br>
+					<%= link_to branch.object.stamp_file_name, branch.object.stamp.url(:original, false), target: "_blank" %>
+					<div class="col-xs-4 remove-client">
+						<%= branch.check_box :delete_stamp %>
+						<%= branch.label :delete_stamp, 'Remover' %>
+					</div>
+					<% end %>
+					<%= branch.input :stamp, as: :file, name: "client[stamp]", label: false %>
+				</div>
+			</div>
+		</div>
+		<%= branch.check_box :_destroy %>
+		<div class="remove-div-responsible_client_contact">
+			<%= branch.label :_destroy, 'Remover' %>
+		</div>
+		<hr>
+		<% end %>
+	</div>
+	<!-- Fim Filiais -->
+
+	<br>
+	<div class="add-filial">
+		<%= f.submit 'Adicionar filial', :name => "add_branch", :class => "btn btn-link btn-xs" %>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<%= f.submit 'Salvar', :name => "save_1", class: "save-btn" %>
+			<% if !f.object.persisted? %>
+			<div class="remove-data">
+				<%= f.submit 'Remover marcados', :name => "remove_data_1" %>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+<!-- end -->

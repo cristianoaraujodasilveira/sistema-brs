@@ -1,0 +1,73 @@
+<div class="group_documents_on_clients_list" id="group_documents_on_clients_list_4" hidden>
+	<table class="table datagrid table_documents_client">
+		<thead>
+			<tr>
+				<th class="document">
+					<b>Documento</b>
+				</th>
+				<th class="subfolder">
+					Subpasta
+				</th>
+				<th class="status">
+					<b>Status</b>
+				</th>
+				<th class="emission_date">
+					<b>Emissão</b>
+				</th>
+				<th class="due_date">
+					<b>Vencimento</b>
+				</th>
+				<th class="client_document_notification">
+					<b>Notificação com</b>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% if @documents_4.length > 0 %>
+			<% @documents_4.each do |doc| %>
+			<tr>
+				<td class="document">
+					<div class="row">
+						<div class="col-xs-4">
+							<%= link_to doc.document_file_name, doc.document.url(:original, false), target: "_blank" %>
+						</div>
+					</div>
+				</td>
+				<td class="subfolder">
+					<% if doc.subfolder_document %>
+					<%= doc.subfolder_document.name %>
+					<% end %>
+				</td>
+				<td class="status">
+					<% if doc.client_document_status%><label for="color_client_document_<%=doc.client_document_status_id%>"></label><% end %>
+				</td>
+				<td class="emission_date">
+					<% if doc.emission_date %>
+					<%= I18n.l(doc.emission_date.to_date, format: :default) %>
+					<% end %>
+				</td>
+				<td class="due_date">
+					<% if doc.due_date %>
+					<%= I18n.l(doc.due_date.to_date, format: :default) %>
+					<% end %>
+				</td>
+				<td class="client_document_notification">
+					<% if doc.client_document_notification %>
+					<%= doc.client_document_notification.days.to_s + " dias" %>
+					<% end %>
+				</td>
+			</tr>
+			<% end %>
+			<% else %>
+			<tr>
+				<td class="document" colspan="100%">Nenhum registro encontrado</td>
+				<td class="subfolder" colspan="100%"></td>
+				<td class="status" colspan="100%"></td>
+				<td class="emission_date" colspan="100%"></td>
+				<td class="due_date" colspan="100%"></td>
+				<td class="client_document_notification" colspan="100%"></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,54 @@
+<div class="container" id="proposals">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Comercial > <a href="<%= proposals_path %>">Propostas</a></h1>
+			<a class="pull-right new-btn" href="proposals/new">Novo</a>
+		</div>
+	</div>
+
+	<!-- Filter -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="col-xs-12">
+					<%= datagrid_form_for @proposal, :method => :get, :url => proposals_path %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Grafico -->
+	<div class="row" id="div_chart_proposal" hidden>
+		<div class="col-xs-12" id="graph">
+			<div id="chart_proposals"></div>
+		</div>
+	</div>
+	
+	<!-- Open chart -->
+	<div class="row" style="margin-top: 25px;">
+		<div class="col-xs-12">
+			<div class="chart-div">					
+				<a id="open_proposal_chart" href="javascript:void(0)" class="open-graph">
+					<img data-toggle="tooltip" title="Gráfico" src="<%= image_path('graph-svg.svg') %>">
+				</a>	
+			</div>
+		</div>
+	</div>
+
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12 table-actions">
+			<%= datagrid_table @proposal, html: {class: 'table datagrid'} %>
+		</div>
+	</div>
+	
+	<!-- Pagination -->
+	<div class="row">
+		<div class="col-xs-12 center">
+			<%= paginate(@proposal.assets) %>
+		</div>
+	</div>
+
+</div>

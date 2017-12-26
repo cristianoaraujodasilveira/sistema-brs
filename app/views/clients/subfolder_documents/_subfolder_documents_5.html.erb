@@ -1,0 +1,110 @@
+<%= f.fields_for :client_documents, f.object.client_documents.select{|item| item[:id] != nil && item[:client_document_type_id] == 5}, defaults: { input_html: { class: 'form-control' } } do |cs| %>
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<% if cs.object.persisted? %>
+			<%= link_to cs.object.document_file_name, cs.object.document.url(:original, false), target: "_blank" %>
+			<% end %>
+		</div>
+	</div>
+	<div class="col-xs-2 remove-div">
+		<div class="remove-div-responsible_client_contact">
+			<%= cs.check_box :_destroy %>
+			<%= cs.label :_destroy, 'Remover' %>
+		</div>				
+	</div>
+	<div class="col-xs-2 margin-list">
+		<div class="form-group">
+			<div class="inner-addon right-addon">
+				<label for="#">Tipo do documento</label>
+				<%= cs.association :client_document_type, collection: ClientDocumentType.all.order("LENGTH(name) ASC"), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen change_client_document_type', id: 'document_client_document_type_'+cs.object.id.to_s } %>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-2 margin-list">
+		<div class="form-group">
+			<div class="inner-addon right-addon">
+				<label for="#">Subpasta</label>
+				<%= cs.association :subfolder_document, collection: SubfolderDocument.where(:client_document_type_id => 5).order("LENGTH(name) ASC"), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen', id: 'subfolder_client_document_type_'+cs.object.id.to_s } %>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-2 margin-list">
+		<div class="form-group">
+			<div class="inner-addon right-addon">
+				<label for="#">Data de emissão</label>
+				<i class="glyphicon glyphicon-calendar"></i>
+				<%= cs.text_field :emission_date, label: false, class: "form-control datepicker", :value => cs.object.emission_date != nil ? I18n.l(cs.object.emission_date, format: :default) : nil%>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-2 margin-list">
+		<div class="form-group">
+			<div class="inner-addon right-addon">
+				<label for="#">Data de vencimento</label>
+				<i class="glyphicon glyphicon-calendar"></i>
+				<%= cs.text_field :due_date, label: false, class: "form-control datepicker", :value => cs.object.due_date != nil ? I18n.l(cs.object.due_date, format: :default) : nil%>
+			</div>
+		</div>										
+	</div>
+	<div class="col-xs-2 margin-list">
+		<div class="form-group">
+			<label for="#">Notificar com</label>
+			<%= cs.association :client_document_notification, collection: ClientDocumentNotification.all.order(:days), label_method: lambda { |notification| "#{notification.days} dias" }, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>										
+	</div>
+</div>
+<hr>
+<% end %>
+<br>
+<label for="#" class="label-title">Novo arquivo</label>
+<%= f.fields_for :client_documents, f.object.client_documents.select{|item| item[:id] == nil && item[:client_document_type_id] == 5}, defaults: { input_html: { class: 'form-control' } } do |cs| %>
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<%= cs.input :document, as: :file, label: false %>
+		</div>
+	</div>
+	<div class="col-xs-2 margin-list">
+		<div class="form-group">
+			<div class="inner-addon right-addon">
+				<label for="#">Tipo do documento</label>
+				<%= cs.association :client_document_type, collection: ClientDocumentType.all.order("LENGTH(name) ASC"), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-2 margin-list">
+		<div class="form-group">
+			<div class="inner-addon right-addon">
+				<label for="#">Subpasta</label>
+				<%= cs.association :subfolder_document, collection: SubfolderDocument.where(:client_document_type_id => 5).order("LENGTH(name) ASC"), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-2 margin-list">
+		<div class="form-group">
+			<div class="inner-addon right-addon">
+				<label for="#">Data de emissão</label>
+				<i class="glyphicon glyphicon-calendar"></i>
+				<%= cs.text_field :emission_date, label: false, class: "form-control datepicker", :value => cs.object.emission_date != nil ? I18n.l(cs.object.emission_date, format: :default) : nil%>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-2 margin-list">
+		<div class="form-group">
+			<div class="inner-addon right-addon">
+				<label for="#">Data de vencimento</label>
+				<i class="glyphicon glyphicon-calendar"></i>
+				<%= cs.text_field :due_date, label: false, class: "form-control datepicker", :value => cs.object.due_date != nil ? I18n.l(cs.object.due_date, format: :default) : nil%>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-2 margin-list">
+		<div class="form-group">
+			<label for="#">Notificar com</label>
+			<%= cs.association :client_document_notification, collection: ClientDocumentNotification.all.order(:days), label_method: lambda { |notification| "#{notification.days} dias" }, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+		</div>
+	</div>
+</div>
+<hr>
+<% end %>

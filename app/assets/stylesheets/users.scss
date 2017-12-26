@@ -1,0 +1,319 @@
+#users {
+
+	.checkbox {
+    	margin: 0;
+    	text-align: center;
+	}
+
+	input[type="checkbox"] {
+		cursor: pointer;
+	}
+
+	.actions a:nth-child(2) {
+		margin: 0px 5px;
+	}
+
+    .margin-head {
+        margin-bottom: 50px;
+    }
+
+    .datagrid-actions {
+        position: relative;
+        top: 27px;
+    }
+
+    #users_grid_name, #users_grid_email {
+        display: block;
+        width: 100%;
+        height: 30px;
+        box-shadow: none !important;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    }
+}
+
+#users_new {
+
+	margin-top: 30px;
+
+    .permission-title {
+        margin-bottom: 26px;
+        margin-top: 32px;
+    }
+
+    .permission-div {
+
+        margin-left: 20px;
+
+        .checkbox {
+            margin: 0;
+        }
+
+        label {
+            padding: 1px;
+            margin-top: 3px;
+        }
+    }
+	
+	input[type="checkbox"] {
+		height: auto;
+    	width: auto;
+    	top: 1px;
+    	cursor: pointer;
+	}
+
+    .margin-head {
+        margin-top: 78px;
+        margin-bottom: 20px;
+    }
+
+	.block-user {
+
+	    margin-top: 54px;
+	    
+	    label {
+	    	font-weight: 700;
+	    }
+	}
+
+	.checkbox {
+		margin-top: -24px;
+	}
+
+	.users-historic {
+
+		margin-bottom: 14px;
+
+		a {
+			text-decoration: underline;
+    		color: #4595D1;
+		}
+	}
+}
+
+.users_grid {
+
+	label[for="color_user_#0000FF"] {
+        background: #0000FF;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#8A2BE2"] {
+        background: #8A2BE2;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#A52A2A"] {
+        background: #A52A2A;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#DEB887"] {
+        background: #DEB887;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#5F9EA0"] {
+        background: #5F9EA0;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#7FFF00"] {
+        background: #7FFF00;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#D2691E"] {
+        background: #D2691E;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#FF7F50"] {
+        background: #FF7F50;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#6495ED"] {
+        background: #6495ED;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#FFF8DC"] {
+        background: #FFF8DC;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#DC143C"] {
+        background: #DC143C;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#00FFFF"] {
+        background: #00FFFF;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#00008B"] {
+        background: #00008B;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#008B8B"] {
+        background: #008B8B;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#8B0000"] {
+        background: #8B0000;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#E9967A"] {
+        background: #E9967A;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#8FBC8F"] {
+        background: #8FBC8F;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#483D8B"] {
+        background: #483D8B;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#2F4F4F"] {
+        background: #2F4F4F;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#2F4F4F"] {
+        background: #2F4F4F;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#00CED1"] {
+        background: #00CED1;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#9400D3"] {
+        background: #9400D3;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#FF1493"] {
+        background: #FF1493;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#00BFFF"] {
+        background: #00BFFF;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#696969"] {
+        background: #696969;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#696969"] {
+        background: #696969;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#1E90FF"] {
+        background: #1E90FF;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#B22222"] {
+        background: #B22222;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#FFFAF0"] {
+        background: #FFFAF0;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#228B22"] {
+        background: #228B22;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+
+    label[for="color_user_#FFFF00"] {
+        background: #FFFF00;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#FFD700"] {
+        background: #FFD700;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#EEDD82"] {
+        background: #EEDD82;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#DAA520"] {
+        background: #DAA520;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+	label[for="color_user_#B8860B"] {
+        background: #B8860B;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;        
+    }
+
+}

@@ -1,0 +1,22 @@
+<div id="modal_show_files_<%=type%>_<%=object.id%>" class="mfp-hide white-popup-block parts-modal">
+	<h1>Arquivos</h1>
+	<% if object.attachments.select{|item| item[:attachment_type] == type}.length > 0 %>
+	<% object.attachments.select{|item| item[:attachment_type] == type}.each do |attach| %>
+	<% if attach.persisted? %>
+	<div class="row" id="div_with_attachment_piece_<%=attach.id%>">
+		<div class="col-xs-10">
+			<div class="form-group">
+				<%= link_to attach.attachment_file_name, attach.attachment.url(:original, false), target: "_blank" %>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<a class="delete_attachment_piece" id="#delete_attachment_piece_<%=attach.id%>">Excluir</a>
+			</div>
+		</div>
+	</div>
+	<% end %>
+	<% end %>
+	<% end %>
+	<p class="close-modal"><a class="popup-modal-dismiss" href="#">x</a></p>
+</div>

@@ -1,0 +1,22 @@
+<div id="modal_show_files_<%=object.id%>" class="mfp-hide white-popup-block parts-modal communication-modal">
+	<h1>Arquivos</h1>
+	<% object.attachments.select{|item| item[:id] != nil}.each do |attach| %>
+	<% if attach.persisted? %>
+	<div class="row" id="div_with_attachment_communication_<%=attach.id%>">
+		<div class="col-xs-10">
+			<div class="form-group">
+				<%= link_to attach.attachment_file_name, attach.attachment.url(:original, false), target: "_blank" %>
+			</div>
+		</div>
+		<% if !object.persisted? || (@current_user.is_admin? || @current_user.id == object.user.id) && object.communication_status_id == 1 %>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<a class="delete_attachment_communication" id="#delete_attachment_communication_<%=attach.id%>">Excluir</a>
+			</div>
+		</div>
+		<% end %>
+	</div>
+	<% end %>
+	<% end %>
+	<p class="close-modal"><a class="popup-modal-dismiss" href="#">x</a></p>
+</div>

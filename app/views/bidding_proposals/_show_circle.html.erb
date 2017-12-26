@@ -1,0 +1,7 @@
+<% if object.bidding && object.bidding.date_payment_comission %>
+<% if object.bidding.date_payment_comission > DateTime.now %>
+<div class="circle-gree"></div>
+<% else %>
+<div class="circle-red"></div>
+<% end %>
+<% end %>

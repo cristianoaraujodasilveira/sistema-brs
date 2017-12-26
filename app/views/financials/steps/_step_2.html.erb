@@ -1,0 +1,725 @@
+<div id="div_step_2_financial" class="tab-pane <%= 'active' if @active == 2 %>">
+
+	<%= f.fields_for :client, defaults: { input_html: { class: 'form-control' } } do |client| %>
+	<% process_counter = 0 %>
+	<%= client.fields_for :biddings, defaults: { input_html: { class: 'form-control' } } do |bidding| %>
+	<div class="row show_group_process cursor_pointer" id="show_group_process_<%= process_counter %>">
+		<div class="col-xs-12">
+			<div>
+				<h1 class="pregao">Pregão: <%= process_counter+1 %> -> Número:</h1>
+			</div>
+		</div>
+	</div>
+
+	<div class="group_process_<%= process_counter %> group_process" id="group_process_<%= process_counter %>">
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:catch_organ) %></label>
+					<% if @current_user.is_admin? %>
+					<%= bidding.association :catch_organ, collection: Organ.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+					<% else %>
+					<% if bidding.object.catch_organ %>
+					<%= bidding.object.catch_organ.name %>
+					<% else %>
+					[Não informado]
+					<% end %>
+					<% end %>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:ride_in_process) %></label>
+					<%= bidding.input :ride_in_process, as: :select, input_html: {class: 'select optional form-control chosen change_ride_in_process change_ride_in_process_'+process_counter.to_s}, label: false, collection: [['Sim', 1], ['Não', 0]], :selected => (bidding.object.ride_in_process ? 1 : 0) %>
+				</div>										
+			</div>
+			<div class="col-xs-3" id="organ_ride_<%=process_counter%>" <%= 'hidden' if !bidding.object.ride_in_process %>>
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:organ_ride) %></label>
+					<%= bidding.association :organ_ride, collection: Organ.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+				</div>										
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:catch_modalidate)%></label>
+					<% if @current_user.is_admin? %>
+					<%= bidding.association :catch_modalidate, collection: Modalidate.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen change_modalidate change_modalidate_'+process_counter.to_s } %>
+					<% else %>
+					<% if bidding.object.catch_modalidate %>
+					<%= bidding.object.catch_modalidate.name %>
+					<% else %>
+					[Não informado]
+					<% end %>
+					<% end %>
+				</div>
+			</div>
+			<div class="col-xs-3" id="div_modalidate_other_<%=process_counter%>" <%= 'hidden' if bidding.object.catch_modalidate_id != 17 %>>
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:catch_other_modalidate)%></label>
+					<% if @current_user.is_admin? %>
+					<%= bidding.input :catch_other_modalidate, label: false %>
+					<% else %>
+					<%= bidding.object.catch_other_modalidate %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:catch_number)%></label>
+					<% if @current_user.is_admin? %>
+					<%= bidding.input :catch_number, label: false %>
+					<% else %>
+					<%= bidding.object.catch_number %>
+					<% end %>
+				</div>	
+			</div>
+			<div class="col-xs-4">
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:catch_process)%></label>
+					<% if @current_user.is_admin? %>
+					<%= bidding.input :catch_process, label: false %>
+					<% else %>
+					<%= bidding.object.catch_process %>
+					<% end %>
+				</div>	
+			</div>
+			<div class="col-xs-4">
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:catch_portal)%></label>
+					<% if @current_user.is_admin? %>
+					<%= bidding.association :catch_portal, collection: Portal.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+					<% else %>
+					<% if bidding.object.catch_portal %>
+					<%= bidding.object.catch_portal.name %>
+					<% else %>
+					[Não informado]
+					<% end %>
+					<% end %>
+				</div>											
+			</div>
+		</div>
+
+		<br>
+
+		<hr>
+
+		<% proposals_counter = 0 %>
+		<%= bidding.fields_for :bidding_proposals, bidding.object.bidding_proposals.select{|item| item[:participation_result_id] == 1 && (item[:competition_status_id] == 2 || item[:competition_status_id] == 3 || item[:competition_status_id] == 4 )}, defaults: { input_html: { class: 'form-control' } } do |bid_pro| %>
+		<div class="row show_group_proposal cursor_pointer" id="show_group_proposal_<%= process_counter %>_<%= proposals_counter %>">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<h2 class="position-title">Posição: <%= proposals_counter+1 %> -> Número: <%= bid_pro.object.item_number %></h2>
+				</div>
+			</div>
+		</div>
+
+		<div class="group_proposal_<%=process_counter%>_<%=proposals_counter%> group_proposal" id="group_proposal_<%=process_counter%>_<%=proposals_counter%>">
+
+			<!-- Número item lote grupo -->
+			<div class="row">
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#"><%= BiddingProposal.human_attribute_name(:item_number) %> %</label>
+						<% if @current_user.is_admin? %>
+						<%= bid_pro.input :item_number, label: false %>
+						<% else %>
+						<%= bid_pro.object.item_number %>
+						<% end %>
+					</div>										
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label for="#"><%= BiddingProposal.human_attribute_name(:description) %></label>
+						<% if @current_user.is_admin? %>
+						<%= bid_pro.input :description, label: false %>
+						<% else %>
+						<%= bid_pro.object.description %>
+						<% end %>
+					</div>									
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#"><%= BiddingProposal.human_attribute_name(:unitary_value) %> R$</label>
+						<% if @current_user.is_admin? %>
+						<%= bid_pro.input :unitary_value, label: false, input_html: {class: 'form-control optional money'} %>
+						<% else %>
+						<%= bid_pro.object.unitary_value %>
+						<% end %>
+					</div>									
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#"><%= BiddingProposal.human_attribute_name(:total_value) %> R$</label>
+						<% if @current_user.is_admin? %>
+						<%= bid_pro.input :total_value, label: false, input_html: {class: 'form-control optional money'} %>
+						<% else %>
+						<%= bid_pro.object.total_value %>
+						<% end %>
+					</div>									
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#"><%= BiddingProposal.human_attribute_name(:global_value) %> R$</label>
+						<% if @current_user.is_admin? %>
+						<%= bid_pro.input :global_value, label: false, input_html: {class: 'form-control optional money'} %>
+						<% else %>
+						<%= bid_pro.object.global_value %>
+						<% end %>
+					</div>									
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#"><%= BiddingProposal.human_attribute_name(:auctioned_value) %> R$</label>
+						<% if @current_user.is_admin? %>
+						<%= bid_pro.input :auctioned_value, label: false, input_html: {class: 'form-control optional money'} %>
+						<% else %>
+						<%= bid_pro.object.auctioned_value %>
+						<% end %>
+					</div>										
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#"><%= BiddingProposal.human_attribute_name(:traded_value) %> R$</label>
+						<% if @current_user.is_admin? %>
+						<%= bid_pro.input :traded_value, label: false, input_html: {class: 'form-control optional money'} %>
+						<% else %>
+						<%= bid_pro.object.traded_value %>
+						<% end %>
+					</div>									
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#"><%= BiddingProposal.human_attribute_name(:unitary_value) %> R$</label>
+						<% if @current_user.is_admin? %>
+						<%= bid_pro.input :unitary_value, label: false, input_html: {class: 'form-control optional money'} %>
+						<% else %>
+						<%= bid_pro.object.unitary_value %>
+						<% end %>
+					</div>									
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#"><%= BiddingProposal.human_attribute_name(:brs_comission) %> R$</label>
+						<%= bid_pro.input :brs_comission, label: false, input_html: {class: 'form-control optional money'} %>
+					</div>									
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#"><%= BiddingProposal.human_attribute_name(:consultant_comission) %> R$</label>
+						<%= bid_pro.input :consultant_comission, label: false, input_html: {class: 'form-control optional money'} %>
+					</div>									
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#"><%= BiddingProposal.human_attribute_name(:intermediary_comission) %> R$</label>
+						<%= bid_pro.input :intermediary_comission, label: false, input_html: {class: 'form-control optional money'} %>
+					</div>									
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#"><%= BiddingProposal.human_attribute_name(:indication_pessoal) %> R$</label>
+						<%= bid_pro.input :indication_pessoal, label: false, input_html: {class: 'form-control optional money'} %>
+					</div>									
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#"><%= BiddingProposal.human_attribute_name(:indication_value) %> R$</label>
+						<%= bid_pro.input :indication_value, label: false, input_html: {class: 'form-control optional money'} %>
+					</div>									
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#"><%= BiddingProposal.human_attribute_name(:brs_comission_final) %> R$</label>
+						<%= bid_pro.input :brs_comission_final, label: false, input_html: {class: 'form-control optional money'} %>
+					</div>									
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-2">
+					<button type="submit" name="save_2" class="save-btn">Salvar</button>
+				</div> 
+			</div>
+			<!-- Fim número item lote grupo -->
+		</div>
+
+		<% proposals_counter = proposals_counter+1 %> 
+		<% end %>
+
+		<hr>
+
+		<!-- Atas contrato aditivos -->
+		<h2>Anexar Atas / Contrato / Aditivos</h2>
+
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<%= bidding.fields_for :attachments, bidding.object.attachments.select{|item| item[:attachment_type] == 14 && item[:id] == nil}, defaults: { input_html: { class: 'form-control' } } do |cs| %>
+					<%= cs.input :attachment, as: :file, label: false %>
+					<%= cs.input :attachment_type, :as => :hidden, input_html: { value: 14} %>
+					<% end %>
+				</div>
+			</div>
+			<% if f.object.persisted? %>
+			<div class="col-xs-2 view-div">
+				<a class="popup-modal" href="#modal_show_files_14_<%=bidding.object.id%>">Visualizar todos</a>
+				<%= render 'financials/modal/show_files_financial', object: bidding.object, type: 14 %>
+			</div>
+			<% end %>
+		</div>
+
+		<hr>
+
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:contract_number) %></label>
+					<%= bidding.input :contract_number, label: false %>
+				</div>			
+			</div>
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:contract_value) %> R$</label>
+					<%= bidding.input :contract_value, label: false, input_html: {class: 'form-control optional money'} %>
+				</div>			
+			</div>
+
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:initial_date) %></label>
+					<%= bidding.text_field :initial_date, label: false, class: "form-control datepicker", :value => bidding.object.initial_date != nil ? I18n.l(bidding.object.initial_date, format: :default) : nil%>
+				</div>			
+			</div>	
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:final_date) %></label>
+					<%= bidding.text_field :final_date, label: false, class: "form-control datepicker", :value => bidding.object.final_date != nil ? I18n.l(bidding.object.final_date, format: :default) : nil%>
+				</div>			
+			</div>
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:percent) %> R$</label>
+					<%= bidding.input :percent, label: false, input_html: {class: 'form-control optional percent'} %>
+				</div>				
+			</div>
+		</div>
+		<!-- Fim Atas contrato aditivos -->
+
+		<hr>
+
+		<!-- Empenhos -->
+		<h2>Empenhos</h2>
+
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<%= bidding.fields_for :attachments, bidding.object.attachments.select{|item| item[:attachment_type] == 15 && item[:id] == nil}, defaults: { input_html: { class: 'form-control' } } do |cs| %>
+					<%= cs.input :attachment, as: :file, label: false %>
+					<%= cs.input :attachment_type, :as => :hidden, input_html: { value: 15} %>
+					<% end %>
+				</div>
+			</div>
+			<% if f.object.persisted? %>
+			<div class="col-xs-2 view-div">
+				<a class="popup-modal" href="#modal_show_files_15_<%=bidding.object.id%>">Visualizar todos</a>
+				<%= render 'financials/modal/show_files_financial', object: bidding.object, type: 15 %>
+			</div>
+			<% end %>
+		</div>
+
+		<hr>
+
+		<% efforts_counter = 0 %>
+		<%= bidding.fields_for :efforts, defaults: { input_html: { class: 'form-control' } } do |cs| %>
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= Effort.human_attribute_name(:number) %></label>
+					<%= cs.input :number, label: false %>
+				</div>			
+			</div>
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= Effort.human_attribute_name(:value) %> R$</label>
+					<%= cs.input :value, label: false, input_html: {class: 'form-control optional money'} %>
+				</div>			
+			</div>
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= Effort.human_attribute_name(:signature_date) %></label>
+					<%= cs.text_field :signature_date, label: false, class: "form-control datepicker", :value => cs.object.signature_date != nil ? I18n.l(cs.object.signature_date, format: :default) : nil%>
+				</div>			
+			</div>	
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= Effort.human_attribute_name(:initial_date) %></label>
+					<%= cs.text_field :initial_date, label: false, class: "form-control datepicker", :value => cs.object.initial_date != nil ? I18n.l(cs.object.initial_date, format: :default) : nil%>
+				</div>			
+			</div>	
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= Effort.human_attribute_name(:final_date) %></label>
+					<%= cs.text_field :final_date, label: false, class: "form-control datepicker", :value => cs.object.final_date != nil ? I18n.l(cs.object.final_date, format: :default) : nil%>
+				</div>			
+			</div>	
+			<div class="col-xs-2">
+				<% if cs.object.id == nil %>
+				<div class="form-group">
+					<button type="submit" name="save_2" class="save-btn">Adicionar outro</button>
+				</div>
+				<% else %>
+				<div class="remove-div-responsible_client_contact">
+					<%= cs.check_box :_destroy %>
+					<%= cs.label :_destroy, 'Remover' %>
+				</div>			
+				<% end %>
+			</div>
+		</div>
+		<% efforts_counter = efforts_counter + 1 %>
+		<% end %>
+		<!-- Fim empenhos -->
+
+		<hr>
+
+		<div class="row">
+			<div class="col-xs-4">
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:residual_value_contract) %></label>
+					<%= bidding.input :residual_value_contract, label: false, input_html: {class: 'form-control optional money'} %>
+				</div>			
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:read_bidding_read_delivery) %></label>
+
+					<% if @current_user.is_admin? %>
+					<%= bidding.association :read_bidding_read_delivery, collection: BiddingReadDelivery.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+					<% else %>
+					<% if bidding.object.read_bidding_read_delivery %>
+					<%= bidding.object.read_bidding_read_delivery.name %>
+					<% else %>
+					[Não informado]
+					<% end %>
+					<% end %>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:read_bidding_read_delivery_deadline) %></label>
+					<% if @current_user.is_admin? %>
+					<%= bidding.input :read_bidding_read_delivery_deadline, label: false %>
+					<% else %>
+					<%= bidding.object.read_bidding_read_delivery_deadline %>
+					<% end %>
+				</div>										
+			</div>
+		</div>
+
+		<hr>
+
+		<!-- Endereço de entrega -->
+		<h2>Endereço de entrega</h2>
+
+		<%= bidding.fields_for :address, defaults: { input_html: { class: 'form-control' } } do |address| %>
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label>CEP</label>
+					<%= address.input :zipcode, label: false, input_html: { class: 'string optional form-control cep change_cep_financial_bidding' } %>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label>Logradouro</label>
+					<%= address.input :address, label: false %>
+				</div>
+			</div>
+			<div class="col-xs-1">
+				<div class="form-group">
+					<label>Número</label>
+					<%= address.input :number, label: false %>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label>Complemento</label>
+					<%= address.input :complement, label: false %>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label>Bairro</label>
+					<%= address.input :district, label: false %>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label>Estado</label>
+					<%= address.association :state, collection: State.all.order(:name), label_method: :acronym, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen change_state_financial_bidding' } %>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label>Cidade</label>
+					<%= address.association :city, collection: City.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+				</div>
+			</div>
+		</div>
+		<% end %>
+		<!-- Fim endereço de entrega -->
+
+		<hr>
+
+		<!-- Nota fiscal -->
+		<h2>Nota fiscal</h2>
+
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<%= bidding.fields_for :attachments, bidding.object.attachments.select{|item| item[:attachment_type] == 16 && item[:id] == nil}, defaults: { input_html: { class: 'form-control' } } do |cs| %>
+					<%= cs.input :attachment, as: :file, label: false %>
+					<%= cs.input :attachment_type, :as => :hidden, input_html: { value: 16} %>
+					<% end %>
+				</div>
+			</div>
+			<% if f.object.persisted? %>
+			<div class="col-xs-2 view-div">
+				<a class="popup-modal" href="#modal_show_files_16_<%=bidding.object.id%>">Visualizar todos</a>
+				<%= render 'financials/modal/show_files_financial', object: bidding.object, type: 16 %>
+			</div>
+			<% end %>
+		</div>
+
+		<hr>
+
+		<% financial_invoices_counter = 0 %>
+		<%= bidding.fields_for :financial_invoices, defaults: { input_html: { class: 'form-control' } } do |cs| %>
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= FinancialInvoice.human_attribute_name(:emission_date) %></label>
+					<%= cs.text_field :emission_date, label: false, class: "form-control datepicker", :value => cs.object.emission_date != nil ? I18n.l(cs.object.emission_date, format: :default) : nil%>
+				</div>			
+			</div>
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= FinancialInvoice.human_attribute_name(:certify_date) %></label>
+					<%= cs.text_field :certify_date, label: false, class: "form-control datepicker", :value => cs.object.certify_date != nil ? I18n.l(cs.object.certify_date, format: :default) : nil%>
+				</div>			
+			</div>
+			<div class="col-xs-4">
+				<div class="form-group">
+					<label for="#"><%= FinancialInvoice.human_attribute_name(:due_date_payment) %></label>
+					<%= cs.text_field :due_date_payment, label: false, class: "form-control datepicker", :value => cs.object.due_date_payment != nil ? I18n.l(cs.object.due_date_payment, format: :default) : nil%>
+				</div>			
+			</div>	
+		</div>
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= FinancialInvoice.human_attribute_name(:total_value) %> R$</label>
+					<%= cs.input :total_value, label: false, input_html: {class: 'form-control optional money'} %>
+				</div>			
+			</div>
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= FinancialInvoice.human_attribute_name(:organ_value) %> R$</label>
+					<%= cs.input :organ_value, label: false, input_html: {class: 'form-control optional money'} %>
+				</div>			
+			</div>	
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= FinancialInvoice.human_attribute_name(:received_value) %> R$</label>
+					<%= cs.input :received_value, label: false, input_html: {class: 'form-control optional money'} %>
+				</div>			
+			</div>		
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= FinancialInvoice.human_attribute_name(:residual_value) %> R$</label>
+					<%= cs.input :residual_value, label: false, input_html: {class: 'form-control optional money'} %>
+				</div>			
+			</div>	
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= FinancialInvoice.human_attribute_name(:payment_date_residual) %></label>
+					<%= cs.text_field :payment_date_residual, label: false, class: "form-control datepicker", :value => cs.object.payment_date_residual != nil ? I18n.l(cs.object.payment_date_residual, format: :default) : nil%>
+				</div>			
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= FinancialInvoice.human_attribute_name(:liquidation_date) %></label>
+					<%= cs.text_field :liquidation_date, label: false, class: "form-control datepicker", :value => cs.object.liquidation_date != nil ? I18n.l(cs.object.liquidation_date, format: :default) : nil%>
+				</div>			
+			</div>
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#"><%= FinancialInvoice.human_attribute_name(:payment_partner_date) %></label>
+					<%= cs.text_field :payment_partner_date, label: false, class: "form-control datepicker", :value => cs.object.payment_partner_date != nil ? I18n.l(cs.object.payment_partner_date, format: :default) : nil%>
+				</div>			
+			</div>
+			<div class="col-xs-2">
+				<% if cs.object.id == nil %>
+				<div class="form-group">
+					<button type="submit" name="save_2" class="save-btn">Adicionar outra</button>
+				</div>
+				<% else %>
+				<div class="remove-div-responsible_client_contact">
+					<%= cs.check_box :_destroy %>
+					<%= cs.label :_destroy, 'Remover' %>
+				</div>			
+				<% end %>
+			</div>
+		</div>
+
+		<br>
+
+		<% financial_invoices_counter = financial_invoices_counter + 1 %>
+		<% end %>
+		<!-- Fim nota fiscal -->
+
+		<hr>
+
+		<!-- Comprovante de pagamento -->
+		<h2>Comprovante de pagamento do orgão</h2>
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<%= bidding.fields_for :attachments, bidding.object.attachments.select{|item| item[:attachment_type] == 17 && item[:id] == nil}, defaults: { input_html: { class: 'form-control' } } do |cs| %>
+					<%= cs.input :attachment, as: :file, label: false %>
+					<%= cs.input :attachment_type, :as => :hidden, input_html: { value: 17} %>
+					<% end %>
+				</div>
+			</div>
+			<% if f.object.persisted? %>
+			<div class="col-xs-2 view-div">
+				<a class="popup-modal" href="#modal_show_files_17_<%=bidding.object.id%>">Visualizar todos</a>
+				<%= render 'financials/modal/show_files_financial', object: bidding.object, type: 17 %>
+			</div>
+			<% end %>
+		</div>
+		<!-- Fim comprovante de pagamento -->
+
+		<hr>
+
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:brs_comission) %></label>
+					<%= bidding.input :brs_comission, label: false, input_html: {class: 'form-control optional money'} %>
+				</div>			
+			</div>
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:date_payment_comission) %></label>
+					<%= bidding.text_field :date_payment_comission, label: false, class: "form-control datepicker", :value => bidding.object.date_payment_comission != nil ? I18n.l(bidding.object.date_payment_comission, format: :default) : nil%>
+				</div>			
+			</div>
+		</div>
+
+		<hr>
+
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="#"><%= Bidding.human_attribute_name(:comission_received) %></label>
+					<%= bidding.input :comission_received, label: false, input_html: {class: 'form-control optional money'} %>
+				</div>			
+			</div>
+		</div>
+	</div>
+
+	<% process_counter = process_counter+1 %> 
+	<% end %>
+	<% end %>
+
+	<br>
+
+	<hr class="fix-line">
+
+	<br><br>
+
+	<div class="content step2-obs">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="title slide_historic_observations show_content">
+					<span>Visualizar Histórico de observações (<%=(f.object.observations.select{|item| item[:observation_type] == 2}.length-1)%>) <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Histórico de Observações -->
+	<%= f.fields_for :observations, f.object.observations.select{|item| item[:observation_type] == 2}, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+	<% if observation.object.persisted? %>
+	<% if observation.object.id == f.object.get_id_last_observation %>
+	<div>
+		<label for="#">Última resposta:</label>
+		<br>
+		<% else %>
+		<div class="row_with_observation" style="margin-top: 22px;">
+			<% end %>
+			<div class="chat-div">
+				<span><b><%= observation.object.user.name %></b></span>
+				<span>disse em</span>
+				<span><%= I18n.l(observation.object.created_at.to_datetime, format: :full) %></span>
+				<% if observation.object.user_id == @current_user.id %>
+				<div class="row">
+					<div class="col-xs-11">
+						<%= observation.input :observation, label: false %>
+						<%= observation.input :observation_type, :as => :hidden, input_html: { value: 2} %>
+					</div>
+					<div class="col-xs-1 delete-obs">
+						<a title="Excluir" data-confirm="Tem certeza que deseja excluir essa observação?" rel="nofollow" data-method="delete" href="<%= delete_observation_financial_path(observation.object) %>">Excluir
+						</a>
+					</div>
+				</div>
+				<% else %>
+				<p><%= observation.object.observation %></p>
+				<% end %>
+			</div>
+
+			<hr style="margin-top: 36px;">
+		</div>
+		<% end %>
+		<% end %>
+		<!-- Fim histórico de observações -->
+
+		<!-- Nova observação -->
+		<%= f.fields_for :observations, f.object.observations.select{|item| item[:observation_type] == 2 && item[:id] == nil }, defaults: { input_html: { class: 'form-control' } } do |observation| %>
+		<% if !observation.object.persisted?%>
+		<div class="row">
+			<div class="col-xs-12">
+				<label for="#"><%= Observation.human_attribute_name(:new_answer)%>:</label>
+				<%= observation.association :user, :as => :hidden, input_html: { value: @current_user.id} %>
+				<%= observation.input :observation, label: false %>
+				<%= observation.input :observation_type, :as => :hidden, input_html: { value: 2} %>
+			</div>
+		</div>
+		<% end %>
+		<% end %>
+		<!-- Fim nova observação -->
+
+		<button type="submit" name="save_2" class="save-btn" style="margin-top: 33px">Salvar</button>
+		
+
+	</div>

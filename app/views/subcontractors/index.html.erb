@@ -1,0 +1,142 @@
+<div class="container" id="subcontractors">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Terceiros</h1>
+			<a class="pull-right new-btn" href="<%= new_subcontractor_path %>">Novo</a>
+		</div>
+	</div>
+
+	<!-- Filter -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#">Tipo</label>
+						<select class="form-control chosen">
+							<option>Selecione</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#">Nome fantasia</label>
+						<select class="form-control chosen">
+							<option>Selecione</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#">Estado</label>
+						<select class="form-control chosen">
+							<option>Selecione</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#">Cidade</label>
+						<select class="form-control chosen">
+							<option>Selecione</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<button class="filter-btn" type="submit">Filtrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<a href="#" class="pull-right" data-toggle="tooltip" title="Imprimir">
+				<img src="<%= image_path('print-icon.svg') %>">
+			</a>
+		</div>
+	</div>
+	
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12 table-actions">
+			<table class="table datagrid">
+				<thead>
+					<tr>
+						<th>
+							Tipo
+						</th>
+						<th>
+							Nome fantasia
+						</th>
+						<th>
+							Razāo Social
+						</th>
+						<th>
+							Estado
+						</th>
+						<th>
+							Cidade
+						</th>
+						<th>
+							Telefone
+						</th>
+						<th>
+							Email
+						</th>
+						<th>
+							Ações
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							Lorem Ipsum
+						</td>
+						<td>
+							Lorem Ipsum
+						</td>
+						<td>
+							Lorem Ipsum
+						</td>
+						<td>
+							Lorem Ipsum
+						</td>
+						<td>
+							Lorem Ipsum
+						</td>
+						<td>
+							Lorem Ipsum
+						</td>
+						<td>
+							Lorem Ipsum
+						</td>
+						<td class="actions">
+							<div class="edit-delete-">
+								<a href="#">Alterar</a>
+								<a href="#">Excluir</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<!-- Pagination -->
+	<div class="row">
+		<div class="col-xs-12 center">
+			<ul class="pagination">
+			  <li><a href="#">1</a></li>
+			  <li class="active"><a href="#">2</a></li>
+			  <li><a href="#">3</a></li>
+			  <li><a href="#">4</a></li>
+			  <li><a href="#">5</a></li>
+			</ul>
+		</div>
+	</div>
+
+</div>

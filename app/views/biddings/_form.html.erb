@@ -1,0 +1,47 @@
+<%= simple_form_for @bidding, defaults: { input_html: {class: 'form-control'}} do |f| %>
+<div class="container" id="bidding_new">
+	<div class="row">
+		<div class="col-xs-12">
+			
+			<div class="panel">
+
+				<div class="panel-heading">
+					<div class="nav nav-tabs">
+						<li class="<%= 'active' if @active == 1 %>">
+							<a href="javascript:void(0)">Captura</a>
+						</li>
+						<li class="<%= 'active' if @active == 2 %>">
+							<a href="javascript:void(0)">Leitura</a>
+						</li>
+						<li class="<%= 'active' if @active == 3 %>">
+							<a href="javascript:void(0)">Participação</a>
+						</li>
+					</div>
+				</div>
+
+				<div class="panel-body">
+					<div class="tab-content">
+						<!-- Captura -->
+						<div class="tab-pane <%= 'active' if @active == 1 %>">
+							<%= render 'biddings/steps/capture_step', f: f %>
+						</div>
+						
+						<!-- Leitura -->
+						<div class="tab-pane <%= 'active' if @active == 2 %>">
+							<%= render 'biddings/steps/read_step', f: f %>
+						</div>
+						
+						<!-- Participação -->
+						<div class="tab-pane <%= 'active' if @active == 3 %>">
+							<%= render 'biddings/steps/participation_step', f: f %>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+</div>
+<% end %>

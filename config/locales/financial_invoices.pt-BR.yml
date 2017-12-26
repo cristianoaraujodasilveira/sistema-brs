@@ -1,0 +1,14 @@
+pt-BR:
+  activerecord:
+    attributes:
+      financial_invoice:
+        emission_date: Data de emissão
+        certify_date: Data do atesto
+        due_date_payment: Data vencimento para pagamento
+        total_value: Valor total NF
+        organ_value: Valor glosaso pelo orgão NF
+        received_value: Valor recebido pelo parceiro NF
+        residual_value: Valor residual da licitação
+        payment_date_residual: Data do pagamento do valor residual
+        liquidation_date: Data da liquidação
+        payment_partner_date: Data pagamento do parceiro

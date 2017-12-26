@@ -1,0 +1,432 @@
+<!-- Contato -->
+<div class="tab-pane <%= 'active' if @active == 4 %>">
+	<% client_contacts_counter = 0 %>
+
+	<h2 style="margin-top: 0;">Endereço comercial</h2>
+
+	<% first_comercial = false %>
+
+	<%= f.fields_for :client_contacts, f.object.client_contacts.select{|item| item[:client_contact_type_id] == 1}, defaults: { input_html: { class: 'form-control' } } do |cc| %>
+
+	<%= cc.association :client_contact_type, :as => :hidden, collection: ClientContactType.all.order(:name), selected: 1 %>
+	<% if client_contacts_counter != 0 %>
+	<% end %>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Matriz/Filial:</label>
+				<%= cc.association :client_class, collection: ClientClass.all.order(:id), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+			</div>
+		</div>
+	</div>
+
+	<!-- Primeira linha -->
+	<div class="row">
+
+		<!-- CEP -->
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>CEP*</label>
+				<%= cc.input :zipcode, label: false, input_html: { class: 'string optional form-control cep dynamic_cep_client_contact' } %>
+			</div>
+		</div>
+
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Logradouro*</label>
+				<%= cc.input :address, label: false %>
+			</div>
+		</div>
+
+		<div class="col-xs-1">
+			<div class="form-group">
+				<label>Numero*</label>
+				<%= cc.input :number, label: false %>
+			</div>
+		</div>
+
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Complemento*</label>
+				<%= cc.input :complement, label: false %>
+			</div>
+		</div>
+
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Bairro*</label>
+				<%= cc.input :district, label: false %>
+			</div>
+		</div>
+	</div>
+
+	<!-- Segunda linha -->
+	<div class="row">
+
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Estado*</label>
+				<%= cc.association :state, collection: State.all.order(:name), label_method: :acronym, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen dynamic_state_client_contact'} %>
+			</div>
+		</div>
+
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Cidade*</label>
+				<%= cc.association :city, collection: City.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen'} %>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Título: responsável -->
+	<div class="row">
+		<div class="col-xs-12">
+			<h2>Responsável</h2>
+		</div>
+	</div>
+
+	<!-- Terceira linha -->
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Nome completo do responsável</label>
+				<%= cc.input :responsible_name, label: false %>
+			</div>					
+		</div>
+
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Cargo / Função</label>
+				<%= cc.input :office, label: false %>
+			</div>
+		</div>
+
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Departamento</label>
+				<%= cc.input :department, label: false %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Whatsapp</label>
+				<%= cc.input :whatsapp, label: false, input_html: { class: 'string optional form-control tel' } %>
+			</div>
+		</div>
+
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Skype</label>
+				<%= cc.input :skype, label: false %>
+			</div>
+		</div>
+
+		<!-- Telefone -->
+		<div class="col-xs-4">
+			<div class="form-group">
+				<label style="display: block;">Telefone</label>
+
+				<% first_phone = false %>
+				<% phones_counter_client_contacts = 0 %>
+
+				<div id="group_phones_client_contacts_<%=client_contacts_counter%>" class="inline">
+
+					<%= cc.fields_for :phone_users, defaults: { input_html: { class: 'form-control' } } do |phone| %>
+
+					<%= phone.input :phone, label: false, input_html: {class: 'string form-control custom-tel width-input'} %>
+
+					<% phones_counter_client_contacts += 1 %>
+
+					<% end %>
+
+				</div>
+
+				<a class="add-anchor add_new_phone_dynamic_client_contact" id="add_new_phone_dynamic_<%=client_contacts_counter%>">
+					<div class="add-input">+</div>
+				</a>
+
+				<%= hidden_field_tag "phones_counter_client_contacts_#{client_contacts_counter}", phones_counter_client_contacts %>
+
+			</div>
+		</div>
+
+		<!-- Email -->
+		<div class="col-xs-4">
+			<div class="form-group">
+				<label style="display: block;">Email</label>
+
+				<% emails_counter_client_contacts = 0 %>
+				<% first_email = false %>
+				<div id="group_emails_client_contacts_<%=client_contacts_counter%>" class="inline">
+					<%= cc.fields_for :email_users, defaults: { input_html: { class: 'form-control width-input' } } do |email| %>
+					<%= email.input :email, label: false %>
+					<% if email.object.persisted? %>
+					<td class="text text-center">
+						<span data-toggle="tooltip" title="Remover">
+							<%= email.check_box :_destroy %>
+							<% email.label :_destroy, "Remover" %>
+						</span>
+					</td>
+					<% else %>
+					<% if !first_email %>
+					<% first_email = true %>
+					<% else %>
+					<a data-toggle="tooltip" title="Remover" id="delete_email_dynamic_<%=client_contacts_counter%>_<%=emails_counter_client_contacts%>" class="delete_email_dynamic_specific">x</a>
+					<% end %>
+					<% end %>
+					<% emails_counter_client_contacts += 1 %>
+					<% end %>
+				</div>
+				<a class="add-anchor add_new_email_dynamic_client_contact" id="add_new_email_dynamic_<%=client_contacts_counter%>">
+					<div class="add-input">
+						+
+					</div>
+				</a>
+				<%= hidden_field_tag "emails_counter_client_contacts_#{client_contacts_counter}", emails_counter_client_contacts %>
+			</div>
+		</div>
+
+		<% if !first_comercial %>
+		<% first_comercial = true %>
+		<% else %>
+		<div class="col-xs-12">
+			<div class="remove-div-responsible_client_contact">
+				<%= cc.check_box :_destroy %>
+				<%= cc.label :_destroy, 'Remover' %>
+			</div>
+		</div>
+		<% end %>
+		<% client_contacts_counter += 1 %>
+	</div>
+	<hr>
+	<% end %>
+
+	<div class="add-client">
+		<%= f.submit 'Adicionar novo endereço comercial', :name => "add_contact_comercial" %>
+	</div>
+
+	<hr>
+
+	<h2>Endereço fiscal</h2>
+	<% first_fiscal = false %>
+	<% client_contacts_fiscal = 0 %>
+
+	<%= f.fields_for :client_contacts, f.object.client_contacts.select{|item| item[:client_contact_type_id] == 2}, defaults: { input_html: { class: 'form-control' } } do |cc| %>
+	<%= cc.association :client_contact_type, :as => :hidden, collection: ClientContactType.all.order(:name), selected: 2 %>
+	<% if client_contacts_fiscal != 0 %>
+	<% end %>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label for="#">Matriz/Filial:</label>
+				<%= cc.association :client_class, collection: ClientClass.all.order(:id), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: { class: 'select optional form-control chosen' } %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>CEP*</label>
+				<%= cc.input :zipcode, label: false, input_html: { class: 'string optional form-control cep dynamic_cep_client_contact' } %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Logradouro*</label>
+				<%= cc.input :address, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-1">
+			<div class="form-group">
+				<label>Numero*</label>
+				<%= cc.input :number, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Complemento*</label>
+				<%= cc.input :complement, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Bairro*</label>
+				<%= cc.input :district, label: false %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Estado*</label>
+				<%= cc.association :state, collection: State.all.order(:name), label_method: :acronym, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen dynamic_state_client_contact'} %>
+			</div>					
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Cidade*</label>
+				<%= cc.association :city, collection: City.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen'} %>
+			</div>					
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<h2>Responsável</h2>
+		</div>
+	</div>
+
+	<div class="row">
+
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Nome completo do responsável</label>
+				<%= cc.input :responsible_name, label: false %>
+			</div>					
+		</div>
+
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Cargo / Função</label>
+				<%= cc.input :office, label: false %>
+			</div>
+		</div>
+
+		<div class="col-xs-3">
+			<div class="form-group">
+				<label>Departamento</label>
+				<%= cc.input :department, label: false %>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Whatsapp</label>
+				<%= cc.input :whatsapp, label: false, input_html: { class: 'string optional form-control tel' } %>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<div class="form-group">
+				<label>Skype</label>
+				<%= cc.input :skype, label: false %>
+			</div>
+		</div>
+		<div class="col-xs-4">
+			<div class="form-group">
+				<label class="label-fix">Telefone</label>
+				<% phones_counter_client_contacts = 0 %>
+				<% first_phone = false %>
+				<div id="group_phones_client_contacts_<%=client_contacts_counter%>" class="inline">
+					<%= cc.fields_for :phone_users, defaults: { input_html: { class: 'form-control width-input' } } do |phone| %>
+					<%= phone.input :phone, label: false, input_html: {class: 'string form-control custom-tel width-input'} %>
+					<% if phone.object.persisted? %>
+					<td class="text text-center">
+						<% if !first_phone %>
+						<span data-toggle="tooltip" title="Remover">
+							<%= phone.check_box :_destroy %>
+							<% phone.label :_destroy, "Remover" %>
+						</span>
+						<% end %>
+					</td>
+					<% else %>
+					<% if !first_phone %>
+					<% first_phone = true %>
+					<% else %>
+					<a data-toggle="tooltip" title="Remover" id="delete_phone_dynamic_<%=client_contacts_counter%>_<%=phones_counter_client_contacts%>" class="delete_phone_dynamic_specific">x</a>
+					<% end %>
+					<% end %>
+					<% phones_counter_client_contacts += 1 %>
+					<% end %>
+				</div>
+				<a class="add-anchor add_new_phone_dynamic_client_contact" id="add_new_phone_dynamic_<%=client_contacts_counter%>">
+					<div class="add-input">
+						+
+					</div>
+				</a>
+				<%= hidden_field_tag "phones_counter_client_contacts_#{client_contacts_counter}", phones_counter_client_contacts %>
+			</div>
+		</div>		
+
+		<div class="col-xs-4">
+			<div class="form-group">
+				<label class="label-fix">Email</label>
+				<% emails_counter_client_contacts = 0 %>
+				<% first_email = false %>
+				<div id="group_emails_client_contacts_<%=client_contacts_counter%>" class="inline">
+					<%= cc.fields_for :email_users, defaults: { input_html: { class: 'form-control width-input' } } do |email| %>
+					<%= email.input :email, label: false %>
+					<% if email.object.persisted? %>
+					<td class="text text-center">
+						<span data-toggle="tooltip" title="Remover">
+							<%= email.check_box :_destroy %>
+							<% email.label :_destroy, "Remover" %>
+						</span>
+					</td>
+					<% else %>
+					<% if !first_email %>
+					<% first_email = true %>
+					<% else %>
+					<a data-toggle="tooltip" title="Remover" id="delete_email_dynamic_<%=client_contacts_counter%>_<%=emails_counter_client_contacts%>" class="delete_email_dynamic_specific">x</a>
+					<% end %>
+					<% end %>
+					<% emails_counter_client_contacts += 1 %>
+					<% end %>
+				</div>
+				<a class="add-anchor add_new_email_dynamic_client_contact" id="add_new_email_dynamic_<%=client_contacts_counter%>">
+					<div class="add-input">
+						+
+					</div>
+				</a>
+				<%= hidden_field_tag "emails_counter_client_contacts_#{client_contacts_counter}", emails_counter_client_contacts %>
+			</div>
+		</div>	
+
+	</div>
+
+	<% if !first_fiscal %>
+	<% first_fiscal = true %>
+	<% else %>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="remove-div-responsible_client_contact">
+				<%= cc.check_box :_destroy %>
+				<%= cc.label :_destroy, 'Remover' %>
+			</div>
+		</div>
+	</div>
+	<% end %>
+
+	<% client_contacts_counter += 1 %>
+	<% client_contacts_fiscal += 1 %>
+	<hr>
+	<% end %>
+
+	<div class="add-client">
+		<%= f.submit 'Adicionar novo endereço fiscal', :name => "add_contact_fiscal" %>
+	</div>
+
+	<!-- Salvar + remover dados -->
+	<div class="row">
+		<div class="col-xs-12">
+			<%= f.submit 'Salvar', :name => "save_4", class: "save-btn" %>
+			<% if !f.object.persisted? %>
+			<div class="remove-data">
+				<%= f.submit 'Remover marcados', :name => "remove_data_4" %>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+<!-- end -->

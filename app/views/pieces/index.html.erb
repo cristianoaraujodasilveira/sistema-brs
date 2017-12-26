@@ -1,0 +1,41 @@
+<div class="container" id="pieces">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Jurídico > <a href="<%= pieces_path %>">Peças</a></h1>
+			<a class="pull-right new-btn" href="<%= new_piece_path %>">Novo</a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_form_for @grid, :method => :get, :url => pieces_path %>
+		</div>
+	</div>
+
+	<div id="chart_pieces" hidden></div>
+	
+	<div class="row">
+		<div class="col-xs-12">
+			<a id="open_piece_chart" href="javascript:void(0)" data-toggle="tooltip" title="Gráfico" class="pull-right">
+				<img src="<%= image_path('graph-svg.svg') %>">
+			</a>
+		</div>
+	</div>
+
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_table @grid, html: {class: 'table datagrid pieces_grid'} %>
+		</div>
+	</div>
+	
+	<!-- Pagination -->
+	<div class="row">
+		<div class="col-xs-12 center">
+			<%= paginate(@grid.assets) %>
+		</div>
+	</div>
+
+</div>

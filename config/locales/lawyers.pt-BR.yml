@@ -1,0 +1,30 @@
+pt-BR:
+ activerecord:
+  models:
+   lawyer:
+    one: Advogado
+    other: Advogados
+  attributes:
+   lawyer:
+    lawyer_type: Tipo
+    lawyer_type_id: Tipo
+    name: Nome completo
+    cnpj: CNPJ
+    cpf: CPF
+    oab: OAB
+    office: Escritório
+    created_date: Data de cadastro
+    phone: Telefone
+    email: Email
+    municipal_registration: Inscrição municipal
+    honorary_form: Forma de honorário
+    honorary_form_id: Forma de honorário
+    honorary_value: Valor do honorário
+    state: Estado
+    state_id: Estado
+    city: Cidade
+    city_id: Cidade
+    actions: Ações
+ lawyers:
+  new: Novo
+  edit: Alterar

@@ -1,0 +1,36 @@
+<div class="container" id="class_entities">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Comercial > <a href="<%= entity_classes_path %>">Entidades de classes</a></h1>
+			<a class="pull-right new-btn" href="<%= new_entity_class_path %>">Novo</a>
+		</div>
+	</div>
+
+	<!-- Filter -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="col-xs-12">
+					<%= datagrid_form_for @grid_entity_classes, :method => :get, :url => entity_classes_path %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_table @grid_entity_classes, html: {class: 'table datagrid'} %>
+		</div>
+	</div>
+	
+	<!-- Pagination -->
+	<div class="row">
+		<div class="col-xs-12 center">
+			<%= paginate(@grid_entity_classes.assets) %>
+		</div>
+	</div>
+
+</div>

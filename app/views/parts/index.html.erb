@@ -1,0 +1,164 @@
+<div class="container" id="parts">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Jurídico > Peças</h1>
+			<a class="pull-right new-btn" href="<%= new_part_path %>">Novo</a>
+		</div>
+	</div>
+
+	<!-- Filter -->
+	<div class="row">
+		<div class="col-xs-12 filter-div">
+			<div class="row">
+				<div class="col-xs-1 new-width">
+					<div class="form-group">
+						<label for="#">Prazo</label>
+						<input type="text" class="form-control">
+					</div>
+				</div>
+				<div class="col-xs-2 new-width">
+					<div class="form-group">
+						<label for="#">Datas</label>
+						<input type="text" class="form-control datepicker">
+					</div>
+				</div>
+				<div class="col-xs-2 new-width">
+					<div class="form-group">
+						<label for="#"><br></label>
+						<input type="text" class="form-control datepicker">
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#">Advogado</label>
+						<select class="form-control chosen">
+							<option>Selecione</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#">Cliente</label>
+						<select class="form-control chosen">
+							<option>Selecione</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#">Orgāo</label>
+						<select class="form-control chosen">
+							<option>Selecione</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="#">Situaçāo</label>
+						<select class="form-control chosen">
+							<option>Selecione</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-1">
+					<button class="filter-btn" type="submit">Filtrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12 table-actions">
+			<table class="table datagrid">
+				<thead>
+					<tr>
+						<th>
+							Prazo final
+						</th>
+						<th>
+							Advogado
+						</th>
+						<th>
+							Cliente
+						</th>
+						<th>
+							Órgão
+						</th>
+						<th>
+							Modalidade
+						</th>
+						<th>
+							N.º
+						</th>
+						<th>
+							Processo
+						</th>
+						<th>
+							Situação
+						</th>
+						<th>
+							Ações
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							1010/2017
+						</td>
+						<td>
+							Marcos Costa
+						</td>
+						<td>
+							PneuPam
+						</td>
+						<td>
+							UFMG
+						</td>
+						<td>
+							Concurso
+						</td>
+						<td>
+							123/2017
+						</td>
+						<td>
+							321123/2017
+						</td>
+						<td>
+							<!-- Modal trigger -->
+							<a class="popup-modal" href="#test-modal">Em andamento</a>
+							<!-- /modal -->
+						</td>
+						<td class="actions">
+							<div class="edit-delete-">
+								<a href="#">Alterar</a>
+								<a href="#">Excluir</a>
+								<a href="#">Imprimir</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<!-- Modal content -->
+	<%= render 'modal' %>
+	
+	<!-- Pagination -->
+	<div class="row">
+		<div class="col-xs-12 center">
+			<ul class="pagination">
+			  <li><a href="#">1</a></li>
+			  <li class="active"><a href="#">2</a></li>
+			  <li><a href="#">3</a></li>
+			  <li><a href="#">4</a></li>
+			  <li><a href="#">5</a></li>
+			</ul>
+		</div>
+	</div>
+
+</div>

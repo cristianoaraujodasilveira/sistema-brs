@@ -1,0 +1,55 @@
+pt-BR:
+  activerecord:
+    attributes:
+      bidding_proposal:
+        bidding: 'Upload de edital'
+        bidding_id: 'Responsável pela Captura'
+        price_offer: 'Proposta de preço'
+        price_offer_id: 'Proposta de preço'
+        another_price_offer: 'Outra proposta de preço'
+        registration_form: 'Forma de cadastramento'
+        registration_form_id: 'Forma de cadastramento'
+        technical_offer: 'Proposta Técnica'
+        technical_offer_id: 'Proposta Técnica'
+        judgment_form: 'Forma de julgamento'
+        judgment_form_id: 'Forma de julgamento'
+        quoted_value: 'Valor cotado'
+        discount_percent: 'Percentual de desconto'
+        item_number: 'Número do Item / Lote / Grupo'
+        description: 'Descrição'
+        quantity: 'Quantidade'
+        unitary_value: 'Valor unitário'
+        total_value: 'Valor total'
+        global_value: 'Valor global'
+        partner_rank_text: 'Classificação do parceiro'
+        partner_rank: 'Classificação do parceiro'
+        partner_rank_id: 'Classificação do parceiro'
+        participation_result: 'Resultado'
+        participation_result_id: 'Resultado'
+        competition_status: 'Status do certame'
+        competition_status_id: 'Status do certame'
+        auctioned_value: 'Valor arrematado'
+        unit: 'Unidade'
+        unit_id: 'Unidade'
+        traded_value: 'Valor negociado'
+        bidder_name: 'Nome do representante'
+        representative_name: 'Nome do arrematante'
+        cnpj: 'CNPJ'
+        past_due: 'Valor vencido'
+        bidder_status: 'Status do arrematante'
+        bidder_status_id: 'Status do arrematante'
+        another_bidder_status: 'Outro status do arrematante'
+        provenance: 'Procedência'
+        provenance_id: 'Procedência'
+        country: 'País'
+        country_id: 'País'
+        site: 'Site'
+        phone: 'Telefone'
+        email: 'Email'
+        actions: Ações
+        brs_comission: Comissão BRS
+        consultant_comission: Comissão agente comercial
+        intermediary_comission: Comissão intermediador
+        indication_pessoal: Indicação pessoal
+        indication_value: Valor da indicação
+        brs_comission_final: Comissão final

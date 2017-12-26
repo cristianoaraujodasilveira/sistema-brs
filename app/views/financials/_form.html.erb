@@ -1,0 +1,42 @@
+<%= simple_form_for @financial, defaults: { input_html: {class: 'form-control'}} do |f| %>
+
+<div class="panel">
+
+	<!-- Abas -->
+	<div class="panel-heading">
+		<div class="nav nav-tabs">
+			<li class="<%= 'active' if @active == 1 %>" id="financial_step_1">
+				<a id="show_div_step_1_financial" class="change_div_financial" href="#">Mensalidades</a>
+			</li>
+			<li class="<%= 'active' if @active == 2 %>" id="financial_step_2">
+				<a id="show_div_step_2_financial" class="change_div_financial" href="#">Processos</a>
+			</li>
+			<li class="<%= 'active' if @active == 3 %>" id="financial_step_3">
+				<a id="show_div_step_3_financial" class="change_div_financial" href="#">Terceiros</a>
+			</li>
+			<li class="<%= 'active' if @active == 4 %>" id="financial_step_4">
+				<a id="show_div_step_4_financial" class="change_div_financial" href="#">Fechamento</a>
+			</li>
+		</div>     
+	</div>
+
+	<!-- Conteudo Panel -->
+	<div class="panel-body">
+		<div class="tab-content">
+			<!-- Mensalidades -->
+			<%= render 'financials/steps/step_1', :@active => @active, :f => f %>
+			<!-- Fim mensalidades -->
+			<!-- Processos -->
+			<%= render 'financials/steps/step_2', :@active => @active, :f => f %>
+			<!-- Fim processos -->
+			<!-- Terceiros -->
+			<%= render 'financials/steps/step_3', :@active => @active, :f => f %>
+			<!-- Fim terceiros -->
+			<!-- Fechamento -->
+			<%= render 'financials/steps/step_4', :@active => @active, :f => f %>
+			<!-- Fim fechamento -->
+		</div>
+	</div>
+	
+</div>
+<% end %>

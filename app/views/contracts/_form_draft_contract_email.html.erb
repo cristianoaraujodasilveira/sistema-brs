@@ -1,0 +1,39 @@
+<%= simple_form_for @contract, defaults: { input_html: {class: 'form-control'}} do |f| %>
+
+<div class="container" id="minuta">
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1>Comercial - Contrato</h1>
+			<label><a href="<%= draft_contract_edit_path @contract%>">Minuta de contrato</a> - Enviar email</label>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<!-- Popup Content -->
+			<fieldset style="border:0;">
+				<div class="form-group">
+					<%= f.input :subject, label: false, :placeholder => 'Assunto' %>
+				</div>
+				<div class="form-group">
+					<%= f.input :email, label: false, :placeholder => 'Email' %>
+				</div>
+				<div class="form-group">
+					<%= f.input :cc, label: false, :placeholder => 'CC' %>
+				</div>
+				<div class="form-group">
+					<%= f.input :cco, label: false, :placeholder => 'CCo' %>
+				</div>
+				<div class="form-group">
+					<%= f.input :message, label: false, input_html: { class: 'tinymce' } %>
+				</div>
+				<div>
+					<%= f.submit 'Enviar', :name => "send_email_contract", class: "save-btn" %>
+					<a href="<%=draft_contract_download_path @contract%>"><%=@filename%></a>
+				</div>
+			</fieldset>
+		</div>
+	</div>
+	<br><br>
+</div>
+<% end %>

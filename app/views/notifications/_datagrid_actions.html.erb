@@ -1,0 +1,11 @@
+<% if object.unread?(object.receiver) %>
+<label id="label_unread_no_<%=object.id%>">Não</label> 
+<% if object.receiver_id == @current_user.id %>
+- <a id="unread_notification_<%=object.id%>" class="mark_as_read">Marcar como lida</a>
+<% end %>
+<% else %>
+<label id="label_unread_yes_<%=object.id%>">Sim</label> 
+<% if object.receiver_id == @current_user.id %>
+- <a id="read_notification_<%=object.id%>" class="mark_as_unread">Marcar como não lida</a>
+<% end %>
+<% end %>

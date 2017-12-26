@@ -1,0 +1,49 @@
+<div class="container" id="clients">
+	
+	<!-- Head -->
+	<div class="row">
+		<div class="col-xs-12 margin-head">
+			<h1 class="inline">Comercial > <a href="<%= contracts_path %>">Contratos</a></h1>
+			<a class="pull-right new-btn" href="<%= new_contract_path %>">Novo</a>
+		</div>
+	</div>
+
+	<!-- Filter -->
+	<div class="row">
+		<div class="col-xs-12">
+			<%= datagrid_form_for @grid_contracts, :method => :get, :url => contracts_path %>
+		</div>
+	</div>
+	
+	<div class="row" id="div_chart_contract" hidden>
+		<div class="col-xs-12" id="graph">
+			<div id="chart_contracts"></div>
+		</div>
+	</div>
+	
+	<!-- Open chart -->
+	<div class="row" style="margin-top: 25px;">
+		<div class="col-xs-12">
+			<div class="chart-div">
+				<a id="open_contract_chart" href="javascript:void(0)" class="open-graph">
+					<img data-toggle="tooltip" title="Gráfico" src="<%= image_path('graph-svg.svg') %>">
+				</a>	
+			</div>
+		</div>
+	</div>
+
+	<!-- Table -->
+	<div class="row">
+		<div class="col-xs-12 contracts-div">
+			<%= datagrid_table @grid_contracts, html: {class: 'table datagrid'} %>
+		</div>
+	</div>
+	
+	<!-- Pagination -->
+	<div class="row">
+		<div class="col-xs-12 center">
+			<%= paginate(@grid_contracts.assets) %>
+		</div>
+	</div>
+
+</div>

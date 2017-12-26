@@ -1,0 +1,5 @@
+<% if type == 1 %>
+<a title="Editar" href="<%= edit_client_path(object) %>"><%=object.fantasy_name%></a>
+<% else %>
+<a title="Editar" href="<%= edit_client_path(object) %>"><%=object.social_name%></a>
+<% end %>

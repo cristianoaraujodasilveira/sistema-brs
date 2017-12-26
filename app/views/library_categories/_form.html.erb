@@ -1,0 +1,14 @@
+<%= simple_form_for @library_category, defaults: { input_html: {class: 'form-control'}} do |f| %>
+
+<div class="row">
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label for="#">Nome da categoria</label>
+			<%= f.input :name, label: false %>
+		</div>
+	</div>
+</div>
+
+<button type="submit" class="save-btn">Salvar</button>
+
+<% end %>

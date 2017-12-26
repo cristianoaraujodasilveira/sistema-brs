@@ -1,0 +1,208 @@
+<%= simple_form_for @proposal, defaults: { input_html: {class: 'form-control'}} do |f| %>
+
+<div class="row">
+	<!-- <div class="col-xs-7"> -->
+		<!-- <div class="form-group">
+		<label>Intermediador*</label> -->
+		<%# f.association :users, label_method: :name, value_method: :id, label: false, input_html: {class: 'select optional form-control chosen'} %>
+		<% if @proposal.persisted? %>
+		<%= f.association :user, :as => :hidden, collection: User.where.not(:id => 1).order(:name), input_html: { value: @proposal.user_id } %>
+		<% else %>
+		<%= f.association :user, :as => :hidden, collection: User.where.not(:id => 1).order(:name), input_html: { value: @current_user.id } %>
+		<% end %>
+		<!-- </div>
+	</div> -->
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label>Título da proposta</label>
+			<%= f.association :visits_report, collection: VisitsReport.all.order(:fantasy_name), label_method: lambda { |visits_report| "#{visits_report.proposal_text} / #{visits_report.fantasy_name} / #{visits_report.social_name}" }, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen'} %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label>Nome fantasia*</label>
+			<%= f.input :fantasy_name, label: false, input_html: {class: 'string optional form-control'} %>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label>Razão social*</label>
+			<%= f.input :social_name, label: false, input_html: {class: 'string optional form-control'} %>
+		</div>
+	</div>	
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label>CNPJ*</label>
+			<%= f.input :cnpj, label: false, input_html: {class: 'string optional form-control cnpj'} %>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+<!-- <div class="col-xs-3">
+<div class="form-group">
+<label>Razão Social*</label>
+<% #f.association :client, collection: Client.all.order(:social_name), label_method: :social_name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen', required: true} %>
+</div>
+</div>	 -->
+<div class="col-xs-2">
+	<div class="form-group">
+		<label>Situação</label>
+		<%= f.association :proposal_situation, collection: ProposalSituation.all.order(:name), label_method: :name, value_method: :id, label: false, include_blank: "-- Selecione --", input_html: {class: 'select optional form-control chosen'} %>
+	</div>
+</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<div class="form-group">
+			<label>Observações</label>
+			<%= f.input :observation, label: false %>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<div class="form-group">
+			<label>Notas</label>
+			<%= f.input :notes, label: false %>
+		</div>
+	</div>
+</div>
+
+<!-- Valor + Percentual -->
+<div class="row">
+	<div class="col-xs-12">
+		<div class="row">
+
+			<!-- Valor -->
+			<div class="col-xs-6">
+				<h2>Valor</h2>
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label>Proposto (R$)*</label>
+							<%= f.input :proposed_value, label: false , required: true, as: :string, input_html: {class: 'form-control money'}%>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label>Fechado (R$)</label>
+							<%= f.input :closed_value, label: false , required: true, as: :string, input_html: {class: 'form-control money'}%>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label>Mínimo (R$)*</label>
+							<%= f.input :minimum_value, label: false , required: true, as: :string, input_html: {class: 'form-control money'}%>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Percentual -->
+			<div class="col-xs-6">
+				<h2>Percentual</h2>
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label>Proposto (%)*</label>
+							<%= f.input :proposed_percentage, label: false , required: true, as: :string, input_html: {class: 'form-control percent'}%>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label>Fechado (%)</label>
+							<%= f.input :closed_percentage, label: false , required: true, as: :string, input_html: {class: 'form-control percent'}%>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label>Mínimo (%)*</label>
+							<%= f.input :minimum_percentage, label: false , required: true, as: :string, input_html: {class: 'form-control percent'}%>
+						</div>
+					</div>
+				</div>					
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<h2>Intermediador</h2>
+
+<div class="row">
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label>Comissão (%)</label>
+			<%= f.input :commission_percentage, label: false, as: :string, input_html: {class: 'form-control optional percent'} %>
+		</div>						
+	</div>
+</div>
+
+<h2>Percentual mensal (Desconto por indicação)</h2>
+
+<% monthly_values_counter = 0 %>
+<%= f.fields_for :monthly_values, defaults: { input_html: { class: 'form-control' } } do |mv| %>
+<div class="row">
+	<div class="col-xs-2">
+		<div class="form-group">
+			<label>Comissão (%)</label>
+			<%= mv.input :percentual_discounts, label: false, as: :string, input_html: {class: 'form-control optional percent'} %>
+		</div>							
+	</div>
+	<div class="col-xs-3">
+		<div class="form-group">
+			<label>Observação</label>
+			<%= mv.input :observation, label: false %>
+		</div>							
+	</div>
+	<div class="col-xs-2 remove-row">
+		<%= mv.check_box :_destroy %>
+		<div class="remove-div-sector">
+			<%= mv.label :_destroy, 'Remover' %>
+		</div>
+	</div>
+	<% monthly_values_counter += 1 %>
+</div>
+<% end %>
+<div>
+	<div class="add-mv">
+		<%= f.submit 'Adicionar Valor Mensal', :name => "add_monthly_value" %>
+	</div>
+</div>
+
+<h2>Upload de proposta</h2>
+<%= f.fields_for :upload_proposals, defaults: { input_html: { class: 'form-control' } } do |up| %>
+<div class="row">
+	<div class="col-xs-4 proposals-upload">
+		<% if up.object.persisted? %>
+		<div class="show-upload">
+			<%= link_to up.object.file_file_name, up.object.file.url(:original, false), target: "_blank" %>
+		</div>
+		<% else %>
+		<%= up.input :file, as: :file, label: false %>
+		<% end %>
+	</div>
+	<div class="col-xs-2" style="padding-left: 0;">
+		<div class="remove-div-responsible_client_contact">
+			<%= up.check_box :_destroy %>
+			<%= up.label :_destroy, 'Remover' %>
+		</div>
+	</div>
+</div>
+<% end %>
+<div class="add-pro">
+	<%= f.submit 'Adicionar proposta', :name => "add_upload_proposal" %>
+</div>
+<br>
+<br>
+<button class="save-btn" type="submit">Salvar</button>
+<div class="remove-data">
+	<% if !f.object.persisted? %>
+	<%= f.submit 'Remover marcados', :name => "remove_data" %>
+	<% end %>
+</div>
+
+<% end %>
